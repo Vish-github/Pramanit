@@ -1,0 +1,35 @@
+.landing {
+  min-height: 80vh;
+}
+
+.landingpage {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 50px;
+  flex: 1;
+}
+.landingpage_mainheading {
+  font-family: "Snippet", sans-serif;
+  color: #000080;
+  font-size: 4.5rem;
+}
+
+.landingpage_tagline {
+  font-family: "Snippet", sans-serif;
+  font-size: 46px;
+}
+
+.landingpage_lifeanddeath {
+  width: 20px !important;
+  height: 30px !important;
+}
+
+@media (max-width: 500px) {
+  .landingpage {
+    flex-direction: column-reverse;
+    padding-right: 20px;
+  }
+}

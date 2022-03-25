@@ -1,7 +1,13 @@
+import LandingPage from "../layout/LandingPage";
+import Navbar from "../layout/Navbar";
+
 export default function Home() {
   return (
     <div>
-      <body>Pramanit</body>
+      <body>
+        <Navbar />
+        <LandingPage />
+      </body>
     </div>
   );
 }
