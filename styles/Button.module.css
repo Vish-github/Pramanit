@@ -1,0 +1,14 @@
+.buttoncontainer {
+  background-color: #000080;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin: 20px 10px;
+}
+
+.buttontitle {
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  font-size: 13px;
+}
