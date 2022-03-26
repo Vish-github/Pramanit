@@ -21,5 +21,6 @@
 }
 
 .input {
-  border-radius: 15px;
+  border-radius: 10px;
+  height: 50px;
 }
