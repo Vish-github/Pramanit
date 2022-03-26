@@ -1,0 +1,28 @@
+.header_container {
+  display: flex;
+  flex-direction: row;
+}
+.user_name_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+}
+
+.user_name {
+  font-weight: 500;
+  font-size: 20px;
+  margin-left: 20px;
+}
+
+.userdashboard_options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+@media (max-width: 600px) {
+  .userdashboard_options {
+    flex-direction: column;
+  }
+}
