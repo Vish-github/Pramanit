@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Formik, Form } from "formik";
-import { Grid, Typography } from "@mui/material";
+import {Formik, Form} from "formik";
+import {Grid} from "@mui/material";
 
 import Button from "../Forms/FormUI/ButtonWrapper";
 import InputField from "../../../UI/InputField";
@@ -15,16 +15,16 @@ const INITIAL_FORM_STATE = {
   confirmPassword: "",
 };
 
-const onSubmit = (values, { resetForm }) => {
+const onSubmit = (values, {resetForm}) => {
   console.log(values);
   alert("Check Console for form data Object");
-  resetForm({ values: "" });
+  resetForm({values: ""});
 };
 
 const UserRegistrationForm = () => {
   return (
     <Formik
-      initialValues={{ ...INITIAL_FORM_STATE }}
+      initialValues={{...INITIAL_FORM_STATE}}
       validationSchema={FORM_VALIDATION}
       onSubmit={onSubmit}
     >
@@ -33,9 +33,13 @@ const UserRegistrationForm = () => {
           <InputField title="User Name" name="username" />
           <InputField title="Email" name="email" type="email" />
           <InputField title="Password" name="password" type="password" />
-          <InputField title="Confirm Password" name="confirmPassword" type="password" />
+          <InputField
+            title="Confirm Password"
+            name="confirmPassword"
+            type="password"
+          />
 
-          <Grid item sm={8}>
+          <Grid item sm={8} xs={12}>
             <Button>Sign Up</Button>
           </Grid>
         </Grid>
