@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useFormikContext } from "formik";
 import React from "react";
-import styles from "../../../styles/FormUI.module.css";
+import styles from "../../../../styles/FormUI.module.css";
 
 const ButtonWrapper = ({ children, ...otherProps }) => {
   const { submitForm } = useFormikContext();

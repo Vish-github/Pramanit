@@ -2,8 +2,8 @@ import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Grid, Typography } from "@mui/material";
-import TextField from "../FormUI/TextFieldWrapper";
-import Button from "../FormUI/ButtonWrapper";
+import TextField from "../Forms/FormUI/TextFieldWrapper";
+import Button from "../Forms/FormUI/ButtonWrapper";
 import styles from "../../../styles/FormUI.module.css";
 
 const INITIAL_FORM_STATE = {
@@ -19,12 +19,13 @@ const FORM_VALIDATION = Yup.object().shape({
     .matches(/[a-zA-Z]/, "Password must contain letters."),
 });
 
-const onSubmit = (values) => {
+const onSubmit = (values, { resetForm }) => {
   console.log(values);
   alert("Check Console for form data Object");
+  resetForm({ values: "" });
 };
 
-const LoginForm = () => {
+const MunicipalityLoginForm = () => {
   return (
     <Formik
       initialValues={{ ...INITIAL_FORM_STATE }}
@@ -62,4 +63,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default MunicipalityLoginForm;

@@ -4,7 +4,7 @@ import styles from "../styles/UserLogin.module.css";
 
 import userlogin from "../assets/PRAMANIT/loginuser.png";
 import Button from "../UI/Button";
-import UserLoginForm from "../src/components/UserLoginForm/LoginForm";
+import UserLoginForm from "../src/components/Forms/LoginForm";
 
 function UserLogin() {
   return (
