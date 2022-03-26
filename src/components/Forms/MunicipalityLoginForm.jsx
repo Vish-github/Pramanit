@@ -28,7 +28,7 @@ const MunicipalityLoginForm = () => {
         <Grid container spacing={2} justifyContent="center">
           <InputField name="username" title="Username" />
           <InputField name="password" title="Password" type="password" />
-          <Grid item sm={8}>
+          <Grid item sm={8} xs={12}>
             <Button>Login</Button>
           </Grid>
         </Grid>
