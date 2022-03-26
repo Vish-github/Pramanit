@@ -30,7 +30,7 @@ const LoginForm = () => {
         <Grid container spacing={2} justifyContent="center">
           <InputField title="User Name" name="username" />
           <InputField title="Password" name="password" type="password" />
-          <Grid item sm={8}>
+          <Grid item sm={8} xs={12}>
             <Button>Login</Button>
           </Grid>
         </Grid>

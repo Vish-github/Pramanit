@@ -6,7 +6,7 @@ import styles from "../styles/FormUI.module.css";
 
 function InputField({title = "", name = "", type = ""}) {
   return (
-    <Grid item sm={10} marginBottom={1}>
+    <Grid item sm={10} marginBottom={1} xs={12}>
       <Typography className={styles.label}>{title}</Typography>
       <TextField
         name={name}
