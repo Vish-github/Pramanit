@@ -3,7 +3,7 @@ import FormBackground from "../layout/FormBackground";
 import styles from "../styles/UserLogin.module.css";
 
 import userlogin from "../assets/PRAMANIT/loginuser.png";
-import Button from "../UI/Button";
+
 import UserLoginForm from "../src/components/Forms/LoginForm";
 
 function UserLogin() {
@@ -14,9 +14,6 @@ function UserLogin() {
         <div>
           <UserLoginForm />
         </div>
-        {/* <div>
-          <Button title="Login" />
-        </div> */}
         <div className={styles.bottomText}>
           <p className={styles.message}>
             Do you have an account?{" "}
