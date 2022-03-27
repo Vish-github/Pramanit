@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-import lifeanddeath from "../assets/PRAMANIT/lifeanddeath.png";
-import mainpagedown from "../assets/PRAMANIT/mainpagedown.png";
+import lifeanddeath from "../../assets/PRAMANIT/lifeanddeath.png";
+import mainpagedown from "../../assets/PRAMANIT/mainpagedown.png";
 
-import styles from "../styles/LandingPage.module.css";
+import styles from "../../styles/LandingPage.module.css";
 
 function LandingPage() {
   return (

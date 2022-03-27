@@ -1,0 +1,21 @@
+.municipality_stat_container {
+  box-shadow: 4px 4px 4px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 60px;
+  min-width: 200px;
+  color: white;
+  font-family: Roboto;
+  font-weight: bold;
+  text-align: center;
+  width: 20vw;
+}
+
+.municipality_stat_title {
+  font-size: 30px;
+  font-weight: bolder;
+  margin-bottom: 0px;
+}
+
+.municipality_stat_value {
+  font-size: 40px;
+  margin-top: 10px;
+}

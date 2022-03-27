@@ -1,0 +1,20 @@
+.typeofcertificate_container {
+  background-color: #fff;
+  min-width: 380px;
+  width: 18vw;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 0 10px 10px 0px;
+  color: black;
+  padding: 10px;
+  z-index: 2;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  padding-left: 40px;
+}
+
+.typeofcertificate_container_text {
+  font-size: 25px;
+  font-family: "Roboto", sans-serif;
+  margin-left: 5px;
+}

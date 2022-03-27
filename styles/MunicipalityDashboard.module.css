@@ -1,0 +1,37 @@
+.municipality_dashboard_container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.municipality_search {
+  background-color: rgba(196, 196, 196, 0.2);
+  border-radius: 20px;
+  width: 100%;
+  margin-top: 50px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.searchinput {
+  border: none;
+  background: transparent;
+  margin-left: 5px;
+  font-size: 20px;
+  color: #cccccc;
+  font-family: "Poppins", sans-serif;
+}
+
+.municipality_stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 50px 0px;
+}
+
+.applications_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 100px;
+}
