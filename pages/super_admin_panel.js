@@ -1,3 +1,5 @@
+import {useState} from "react";
+
 import Image from "next/image";
 
 import Header from "../layout/Header";
@@ -5,8 +7,11 @@ import Header from "../layout/Header";
 import styles from "../styles/SuperAdminPanel.module.css";
 import addnewmunicipality from "../assets/PRAMANIT/Addnewmunicipality.png";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter";
+import Modal from "../layout/Modal";
 
 function SuperAdminPanel() {
+  const [open, setOpen] = useState(false);
+
   return (
     <div>
       <Header>
@@ -33,23 +38,30 @@ function SuperAdminPanel() {
           color="rgba(155, 196, 244, 0.27)"
           name="Ponda"
           daysDisplay={false}
+          onclick={() => setOpen(true)}
         />
         <ApplicationOuter
           color="rgba(155, 196, 244, 0.27)"
           name="Ponda"
           daysDisplay={false}
+          onclick={() => setOpen(true)}
         />
         <ApplicationOuter
           color="rgba(155, 196, 244, 0.27)"
           name="Ponda"
           daysDisplay={false}
+          onclick={() => setOpen(true)}
         />
         <ApplicationOuter
           color="rgba(155, 196, 244, 0.27)"
           name="Ponda"
           daysDisplay={false}
+          onclick={() => setOpen(true)}
         />
       </div>
+      <Modal open={open} setOpen={setOpen} municipality_name="Ponda">
+        Display modal
+      </Modal>
     </div>
   );
 }

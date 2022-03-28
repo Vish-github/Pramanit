@@ -1,11 +1,18 @@
 import {Avatar} from "@mui/material";
 import styles from "../../../styles/ApplicationOuter.module.css";
 
-function ApplicationOuter({name = "", days, color, daysDisplay = true}) {
+function ApplicationOuter({
+  name = "",
+  days,
+  color,
+  daysDisplay = true,
+  onclick = () => {},
+}) {
   return (
     <div
       className={styles.application_outer_container}
       style={{backgroundColor: color}}
+      onClick={onclick}
     >
       <Avatar
         style={{margin: "auto", width: 50, height: 50}}
