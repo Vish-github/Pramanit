@@ -1,7 +1,7 @@
 import {Avatar} from "@mui/material";
 import styles from "../../../styles/ApplicationOuter.module.css";
 
-function ApplicationOuter({name = "", days, color}) {
+function ApplicationOuter({name = "", days, color, daysDisplay = true}) {
   return (
     <div
       className={styles.application_outer_container}
@@ -14,7 +14,9 @@ function ApplicationOuter({name = "", days, color}) {
         {name[0]}
       </Avatar>
       <p className={styles.application_outer_name}>{name}</p>
-      <p className={styles.application_outer_noOfDays}>{days} days ago</p>
+      {daysDisplay && (
+        <p className={styles.application_outer_noOfDays}>{days} days ago</p>
+      )}
     </div>
   );
 }
