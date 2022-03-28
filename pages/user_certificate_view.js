@@ -5,13 +5,13 @@ import Header from "../layout/Header";
 import styles from "../styles/UserDashboard.module.css";
 
 import settings from "../assets/svgs/settings.svg";
-import birth from "../assets/PRAMANIT/birth.png";
-import death from "../assets/PRAMANIT/death.png";
+import applycertificate from "../assets/PRAMANIT/applycertificate.png";
+import viewcertificate from "../assets/PRAMANIT/viewcertificate.png";
 
 import Avatar from "@mui/material/Avatar";
 import UserDashboardComponent from "../layout/UserDashboardComponent";
 
-function userdashboard() {
+function user_certificate_view() {
   return (
     <div>
       <Header>
@@ -24,11 +24,17 @@ function userdashboard() {
         </div>
       </Header>
       <div className={styles.userdashboard_options}>
-        <UserDashboardComponent image={birth} title="Birth Certificate" />
-        <UserDashboardComponent image={death} title="Death Certificate" />
+        <UserDashboardComponent
+          image={applycertificate}
+          title="Apply for certificate"
+        />
+        <UserDashboardComponent
+          image={viewcertificate}
+          title="View Certificate"
+        />
       </div>
     </div>
   );
 }
 
-export default userdashboard;
+export default user_certificate_view;
