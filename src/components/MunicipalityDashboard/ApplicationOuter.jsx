@@ -8,8 +8,8 @@ function ApplicationOuter({name = "", days, color}) {
       style={{backgroundColor: color}}
     >
       <Avatar
-        style={{margin: "auto", width: 100, height: 100}}
-        sx={{bgcolor: "#fff", color: "#930D0D", fontSize: 40}}
+        style={{margin: "auto", width: 50, height: 50}}
+        sx={{bgcolor: "#fff", color: "#930D0D", fontSize: 25}}
       >
         {name[0]}
       </Avatar>

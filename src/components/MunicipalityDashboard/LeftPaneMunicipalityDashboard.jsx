@@ -4,6 +4,7 @@ import {Avatar} from "@mui/material";
 
 import styles from "../../../styles/LeftPaneMunicipalityDashboard.module.css";
 import logout from "../../../assets/svgs/logout.svg";
+
 import MunicipalityDetails from "./MunicipalityDetails";
 import TypeOfCertificate from "./TypeOfCertificate";
 

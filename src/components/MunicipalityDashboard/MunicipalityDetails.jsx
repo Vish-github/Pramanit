@@ -10,7 +10,7 @@ function MunicipalityDetails() {
         <p className={styles.municipality_details_heading}>
           Muncipality Details
         </p>
-        <Image src={editicon} alt="Edit" />
+        <Image src={editicon} alt="Edit" width={20} height={20} />
       </div>
       <div className={styles.municipality_address}>
         <p>Address Line 1</p>
