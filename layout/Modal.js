@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 
 import styles from "../styles/Modal.module.css";
 
-import InputField from "../UI/InputField";
+import ViewMunicipalityCredentials from "../src/components/Forms/ViewMunicipalityCredentials";
 
 const style = {
   position: "absolute",
@@ -38,6 +38,7 @@ export default function BasicModal({
           <h6 className={styles.modalHeading}>
             {municipality_name} Municipality Credentials
           </h6>
+          <ViewMunicipalityCredentials />
         </Box>
       </Modal>
     </div>
