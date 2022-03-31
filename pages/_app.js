@@ -7,6 +7,9 @@ function MyApp({ Component, pageProps }) {
       primary: {
         main: "#000080",
       },
+      success: {
+        main: "#38AF0E",
+      },
     },
   });
 

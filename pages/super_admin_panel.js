@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 
 import Image from "next/image";
 
@@ -8,6 +8,7 @@ import styles from "../styles/SuperAdminPanel.module.css";
 import addnewmunicipality from "../assets/PRAMANIT/Addnewmunicipality.png";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter";
 import Modal from "../layout/Modal";
+import AddMunicipalityForm from "../src/components/Forms/AddMunicipalityForm";
 
 function SuperAdminPanel() {
   const [open, setOpen] = useState(false);
@@ -17,7 +18,7 @@ function SuperAdminPanel() {
       <Header>
         <p className={styles.page_title}>Super Admin</p>
       </Header>
-      <h6 className={styles.page_title} style={{paddingLeft: "50px"}}>
+      <h6 className={styles.page_title} style={{ paddingLeft: "50px" }}>
         Add new municipality
       </h6>
       <div className={styles.add_municipality_container}>
@@ -27,9 +28,11 @@ function SuperAdminPanel() {
           height={300}
           alt="Add new municipality"
         />
-        <div>{/* form here */}</div>
+        <div>
+          <AddMunicipalityForm />
+        </div>
       </div>
-      <h6 className={styles.page_title} style={{paddingLeft: "50px"}}>
+      <h6 className={styles.page_title} style={{ paddingLeft: "50px" }}>
         Municipality Credentials:
       </h6>
 
