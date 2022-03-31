@@ -29,7 +29,7 @@ const AddMunicipalityForm = () => {
     >
       <Form>
         <Grid container spacing={2} justifyContent="center" alignSelf="flex-start">
-          <InputField title="User Name" name="username" />
+          <InputField title="Username" name="username" />
           <InputField title="Password" name="password" type="password" />
           <InputField title="Location" name="location" />
           <Grid item sm={8} xs={12}>

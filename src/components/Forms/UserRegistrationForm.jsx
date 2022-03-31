@@ -30,7 +30,7 @@ const UserRegistrationForm = () => {
     >
       <Form>
         <Grid container spacing={2} justifyContent="center" maxWidth="700px">
-          <InputField title="User Name" name="username" />
+          <InputField title="Username" name="username" />
           <InputField title="Email" name="email" type="email" />
           <InputField title="Password" name="password" type="password" />
           <InputField
