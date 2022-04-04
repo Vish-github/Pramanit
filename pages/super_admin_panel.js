@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState} from "react";
 
 import Image from "next/image";
 
@@ -18,7 +18,7 @@ function SuperAdminPanel() {
       <Header>
         <p className={styles.page_title}>Super Admin</p>
       </Header>
-      <h6 className={styles.page_title} style={{ paddingLeft: "50px" }}>
+      <h6 className={styles.page_title} style={{paddingLeft: "50px"}}>
         Add new municipality
       </h6>
       <div className={styles.add_municipality_container}>
@@ -28,11 +28,9 @@ function SuperAdminPanel() {
           height={300}
           alt="Add new municipality"
         />
-        <div>
-          <AddMunicipalityForm />
-        </div>
+        <AddMunicipalityForm />
       </div>
-      <h6 className={styles.page_title} style={{ paddingLeft: "50px" }}>
+      <h6 className={styles.page_title} style={{paddingLeft: "50px"}}>
         Municipality Credentials:
       </h6>
 
