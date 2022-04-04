@@ -3,7 +3,7 @@ import { useField } from "formik";
 import React from "react";
 
 const TextFieldWrapper = ({ name, ...otherProps }) => {
-  const [field, mata] = useField(name);
+  const [field, meta] = useField(name);
 
   const configTextField = {
     ...field,
@@ -12,9 +12,9 @@ const TextFieldWrapper = ({ name, ...otherProps }) => {
     varient: "outlined",
   };
 
-  if (mata && mata.touched && mata.error) {
+  if (meta && meta.touched && meta.error) {
     configTextField.error = true;
-    configTextField.helperText = mata.error;
+    configTextField.helperText = meta.error;
   }
 
   return <TextField {...configTextField} />;
