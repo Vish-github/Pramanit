@@ -1,5 +1,5 @@
-import { Formik, Form } from "formik";
-import { Grid } from "@mui/material";
+import {Formik, Form} from "formik";
+import {Grid} from "@mui/material";
 
 import Button from "../Forms/FormUI/ButtonWrapper";
 import InputField from "../../../UI/InputField";
@@ -24,16 +24,16 @@ const INITIAL_FORM_STATE = {
   grandMotherName: "",
 };
 
-const onSubmit = (values, { resetForm }) => {
+const onSubmit = (values, {resetForm}) => {
   console.log(values);
   alert("Check Console for form data Object");
-  resetForm({ values: "" });
+  resetForm({values: ""});
 };
 
 const ApplyCertificateForm = () => {
   return (
     <Formik
-      initialValues={{ ...INITIAL_FORM_STATE }}
+      initialValues={{...INITIAL_FORM_STATE}}
       validationSchema={FORM_VALIDATION}
       onSubmit={onSubmit}
     >
@@ -71,7 +71,7 @@ const ApplyCertificateForm = () => {
           </InputGroup>
 
           <InputGroup full display="flex" justifyContent="center" width="100%">
-            <InputField title="Parent's Adress" name="address" />
+            <InputField title="Parent's Adress" name="address" smwidth={11} />
           </InputGroup>
 
           <InputGroup>
@@ -87,9 +87,9 @@ const ApplyCertificateForm = () => {
               title="Gender of Child"
               name="gender"
               data={[
-                { value: "male", label: "Male" },
-                { value: "female", label: "Female" },
-                { value: "others", label: "Others" },
+                {value: "male", label: "Male"},
+                {value: "female", label: "Female"},
+                {value: "others", label: "Others"},
               ]}
             />
           </InputGroup>
