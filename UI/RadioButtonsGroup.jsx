@@ -28,17 +28,17 @@ function InputField({ title = "", name = "", data, ...otherProps }) {
     <Grid
       item
       container
-      sm={10}
+      sm={11}
       marginBottom={1}
       xs={12}
       display="flex"
       justifyContent="stretch"
       alignItems="center"
     >
-      <Typography className={styles.label} style={{ marginRight:"100px" }}>
+      <Typography className={styles.label} style={{ marginRight: "100px" }}>
         {title}{" "}
       </Typography>
-      <RadioGroup name={name} {...configRadio} row>
+      <RadioGroup name={name} {...configRadio} row >
         {/* <Grid
           item
           container
