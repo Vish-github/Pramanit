@@ -38,7 +38,7 @@ function InputField({ title = "", name = "", data, ...otherProps }) {
       <Typography className={styles.label} style={{ marginRight: "100px" }}>
         {title}{" "}
       </Typography>
-      <RadioGroup name={name} {...configRadio} row >
+      <RadioGroup name={name} {...configRadio} row>
         {/* <Grid
           item
           container
@@ -50,7 +50,7 @@ function InputField({ title = "", name = "", data, ...otherProps }) {
         {data.map((item) => (
           <FormControlLabel
             value={item.value}
-            control={<Radio />}
+            control={<Radio {...otherProps} />}
             label={item.label}
             key={item.value}
           />

@@ -16,7 +16,7 @@ const ViewMunicipalityCredentials = () => {
       username: "Pondamunicipality",
       password: "password123",
     });
-  });
+  }, []);
 
   return (
     <Formik initialValues={{ ...INITIAL_FORM_STATE }} enableReinitialize>

@@ -11,8 +11,6 @@ const FileUpload = ({ formProps, fileProps }) => {
       display="flex"
       justifyContent="space-around"
       spacing={2}
-      flexWrap="wrap"
-      maxWidth="900px"
       padding={2}
     >
       {fileProps.map((x) => (
@@ -25,6 +23,7 @@ const FileUpload = ({ formProps, fileProps }) => {
             justifyContent: "center",
             alignItems: "center",
           }}
+          key={x.name}
         >
           <Box
             style={{
@@ -53,7 +52,6 @@ const FileUpload = ({ formProps, fileProps }) => {
               onChange={(event) => {
                 formProps.setFieldValue(x.name, event.target.files[0]);
               }}
-              key={x.name}
               accept="application/pdf"
             />
           </Box>
