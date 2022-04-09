@@ -1,10 +1,11 @@
+import Link from "next/link";
+
 import FormBackground from "../layout/FormBackground";
 
 import styles from "../styles/UserLogin.module.css";
 
 import registeruser from "../assets/PRAMANIT/registeruser.png";
 
-import Button from "../UI/Button";
 import UserRegistrationForm from "../src/components/Forms/UserRegistrationForm";
 
 function UserRegister() {
@@ -15,13 +16,12 @@ function UserRegister() {
         <div>
           <UserRegistrationForm />
         </div>
-        {/* <div>
-          <Button title="Register" />
-        </div> */}
         <div className={styles.bottomText}>
           <p className={styles.message}>
             Already have an account?{" "}
-            <span className={styles.boldtext}>Login</span>
+            <Link href="/login">
+              <a className={styles.boldtext}>Login</a>
+            </Link>
           </p>
         </div>
       </div>

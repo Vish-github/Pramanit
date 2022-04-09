@@ -1,3 +1,5 @@
+import {useRouter} from "next/router";
+
 import {Formik, Form} from "formik";
 
 import {Grid} from "@mui/material";
@@ -11,13 +13,16 @@ const INITIAL_FORM_STATE = {
   password: "",
 };
 
-const onSubmit = (values, {resetForm}) => {
-  console.log(values);
-  alert("Check Console for form data Object");
-  resetForm({values: ""});
-};
-
 const MunicipalityLoginForm = () => {
+  const router = useRouter();
+
+  const onSubmit = (values, {resetForm}) => {
+    console.log(values);
+    alert("Check Console for form data Object");
+    resetForm({values: ""});
+    router.push("/municipality_dashboard");
+  };
+
   return (
     <Formik
       initialValues={{...INITIAL_FORM_STATE}}

@@ -24,8 +24,16 @@ function userdashboard() {
         </div>
       </Header>
       <div className={styles.userdashboard_options}>
-        <UserDashboardComponent image={birth} title="Birth Certificate" />
-        <UserDashboardComponent image={death} title="Death Certificate" />
+        <UserDashboardComponent
+          image={birth}
+          title="Birth Certificate"
+          href="/user_certificate_view"
+        />
+        <UserDashboardComponent
+          image={death}
+          title="Death Certificate"
+          href="/user_certificate_view"
+        />
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import {useRouter} from "next/router";
 
 import LeftPaneMunicipalityDashboard from "../src/components/MunicipalityDashboard/LeftPaneMunicipalityDashboard.jsx";
 
@@ -9,6 +10,8 @@ import ViewMoreHeader from "../layout/ViewMoreHeader.jsx";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter.jsx";
 
 function municipality_dashboard() {
+  const router = useRouter();
+
   return (
     <div className={styles.municipality_dashboard_container}>
       <LeftPaneMunicipalityDashboard />
@@ -38,17 +41,20 @@ function municipality_dashboard() {
             color="rgba(155, 197, 244, 0.849)"
             name="Hello World"
             days={5}
+            onclick={() => router.push("/view_certificate")}
           />
 
           <ApplicationOuter
             color="rgba(155, 197, 244, 0.849)"
             name="Hello World"
             days={5}
+            onclick={() => router.push("/view_certificate")}
           />
           <ApplicationOuter
             color="rgba(155, 197, 244, 0.849)"
             name="Hello World"
             days={5}
+            onclick={() => router.push("/view_certificate")}
           />
         </div>
         <ViewMoreHeader title="Completed Applications:" />
@@ -57,17 +63,20 @@ function municipality_dashboard() {
             color="rgba(156, 244, 155, 0.849)"
             name="Hello World"
             days={5}
+            onclick={() => router.push("/view_certificate")}
           />
 
           <ApplicationOuter
             color="rgba(156, 244, 155, 0.849)"
             name="Hello World"
             days={5}
+            onclick={() => router.push("/view_certificate")}
           />
           <ApplicationOuter
             color="rgba(156, 244, 155, 0.849)"
             name="Hello World"
             days={5}
+            onclick={() => router.push("/view_certificate")}
           />
         </div>
         <ViewMoreHeader title="Rejected Applications:" />
@@ -76,16 +85,19 @@ function municipality_dashboard() {
             color="rgba(244, 155, 155, 0.829)"
             name="Hello World"
             days={5}
+            onclick={() => router.push("/view_certificate")}
           />
           <ApplicationOuter
             color="rgba(244, 155, 155, 0.829)"
             name="Hello World"
             days={5}
+            onclick={() => router.push("/view_certificate")}
           />
           <ApplicationOuter
             color="rgba(244, 155, 155, 0.829)"
             name="Hello World"
             days={5}
+            onclick={() => router.push("/view_certificate")}
           />
         </div>
       </div>

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import FormBackground from "../layout/FormBackground";
 
 import styles from "../styles/UserLogin.module.css";
@@ -17,7 +19,9 @@ function UserLogin() {
         <div className={styles.bottomText}>
           <p className={styles.message}>
             Do you have an account?{" "}
-            <span className={styles.boldtext}>Sign Up</span>
+            <Link href="/register">
+              <a className={styles.boldtext}>Sign Up</a>
+            </Link>
           </p>
         </div>
       </div>

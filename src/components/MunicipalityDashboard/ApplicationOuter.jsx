@@ -1,4 +1,5 @@
 import {Avatar} from "@mui/material";
+
 import styles from "../../../styles/ApplicationOuter.module.css";
 
 function ApplicationOuter({

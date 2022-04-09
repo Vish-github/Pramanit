@@ -27,10 +27,12 @@ function user_certificate_view() {
         <UserDashboardComponent
           image={applycertificate}
           title="Apply for certificate"
+          href="/apply_certificate"
         />
         <UserDashboardComponent
           image={viewcertificate}
           title="View Certificate"
+          href="/"
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import {useRouter} from "next/router";
 
 import {Formik, Form} from "formik";
 import {Grid} from "@mui/material";
@@ -15,13 +15,16 @@ const INITIAL_FORM_STATE = {
   confirmPassword: "",
 };
 
-const onSubmit = (values, {resetForm}) => {
-  console.log(values);
-  alert("Check Console for form data Object");
-  resetForm({values: ""});
-};
-
 const UserRegistrationForm = () => {
+  const router = useRouter();
+
+  const onSubmit = (values, {resetForm}) => {
+    console.log(values);
+    alert("Check Console for form data Object");
+    resetForm({values: ""});
+    router.push("/userdashboard");
+  };
+
   return (
     <Formik
       initialValues={{...INITIAL_FORM_STATE}}

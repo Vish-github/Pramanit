@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import styles from "../styles/Navbar.module.css";
 import logo from "../assets/PRAMANIT/logo.png";
@@ -10,10 +11,18 @@ function Navbar() {
         <Image src={logo} width={40} height={40} className={styles.logo} />
       </div>
       <div className={styles.nav}>
-        <a>Help</a>
-        <a>Tech</a>
-        <a>About</a>
-        <a>Apply</a>
+        <Link href="/">
+          <a>Help</a>
+        </Link>
+        <Link href="/">
+          <a>Tech</a>
+        </Link>
+        <Link href="/">
+          <a>About</a>
+        </Link>
+        <Link href="/register">
+          <a>Apply</a>
+        </Link>
       </div>
     </div>
   );
