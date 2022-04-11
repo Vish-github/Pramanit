@@ -1,0 +1,16 @@
+.four04container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.four04container > p {
+  font-size: 20px;
+  color: #000080;
+}
+
+.four04container a {
+  text-decoration: underline;
+}
