@@ -9,6 +9,7 @@ import addnewmunicipality from "../assets/PRAMANIT/Addnewmunicipality.png";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter";
 import Modal from "../layout/Modal";
 import AddMunicipalityForm from "../src/components/Forms/AddMunicipalityForm";
+import MunicipalityCredentials from "../src/components/MunicipalityCredentials";
 
 function SuperAdminPanel() {
   const [open, setOpen] = useState(false);
@@ -60,8 +61,8 @@ function SuperAdminPanel() {
           onclick={() => setOpen(true)}
         />
       </div>
-      <Modal open={open} setOpen={setOpen} municipality_name="Ponda">
-        Display modal
+      <Modal open={open} setOpen={setOpen}>
+        <MunicipalityCredentials municipality_name="Ponda" />
       </Modal>
     </div>
   );
