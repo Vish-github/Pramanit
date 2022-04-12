@@ -52,7 +52,6 @@ const FileUpload = ({ formProps, fileProps }) => {
               name={x.name}
               onChange={(event) => {
                 formProps.setFieldValue(x.name, event.target.files[0]);
-                console.log(formProps);
               }}
               accept="application/pdf"
             />

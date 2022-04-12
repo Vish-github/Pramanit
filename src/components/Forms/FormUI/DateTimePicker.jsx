@@ -1,6 +1,8 @@
 import { TextField } from "@mui/material";
 import { useField } from "formik";
 
+import styles from "../../../../styles/FormUI.module.css";
+
 const DateTimePicker = ({ name, ...otherProps }) => {
   const [field, meta] = useField(name);
 
@@ -20,7 +22,12 @@ const DateTimePicker = ({ name, ...otherProps }) => {
     configDateTimePicker.helperText = meta.error;
   }
 
-  return <TextField {...configDateTimePicker} />;
+  return (
+    <TextField
+      {...configDateTimePicker}
+      InputProps={{ className: styles.input }}
+    />
+  );
 };
 
 export default DateTimePicker;
