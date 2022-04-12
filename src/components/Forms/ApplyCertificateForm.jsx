@@ -32,7 +32,7 @@ const ApplyCertificateForm = () => {
     grandFatherName: "",
     grandMotherName: "",
     fatherIdentityProof: null,
-    mothreIdentityProof: null,
+    motherIdentityProof: null,
     addressProof: null,
     birthProof: null,
   });
@@ -41,7 +41,7 @@ const ApplyCertificateForm = () => {
     let formData = new FormData();
 
     formData.append("fatherIdentityProof", values.fatherIdentityProof);
-    formData.append("motherIdentityProof", values.mothreIdentityProof);
+    formData.append("motherIdentityProof", values.motherIdentityProof);
     formData.append("addressProof", values.addressProof);
     formData.append("birthProof", values.birthProof);
 

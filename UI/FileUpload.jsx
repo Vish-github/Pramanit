@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { Box, display } from "@mui/system";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+import { ErrorMessage } from "formik";
 
 const FileUpload = ({ formProps, fileProps }) => {
   return (
@@ -51,6 +52,7 @@ const FileUpload = ({ formProps, fileProps }) => {
               name={x.name}
               onChange={(event) => {
                 formProps.setFieldValue(x.name, event.target.files[0]);
+                console.log(formProps);
               }}
               accept="application/pdf"
             />
@@ -58,6 +60,10 @@ const FileUpload = ({ formProps, fileProps }) => {
           <Typography color="secondary" marginTop={2}>
             {formProps.values[x.name] && formProps.values[x.name].name}
           </Typography>
+          <ErrorMessage
+            name={x.name}
+            render={(msg) => <Typography color="error">{msg}</Typography>}
+          />
           <Typography color="primary" marginTop={2}>
             {x.title}
           </Typography>
