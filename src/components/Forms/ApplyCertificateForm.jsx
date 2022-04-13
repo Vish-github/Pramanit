@@ -1,7 +1,7 @@
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
-import {Formik, Form} from "formik";
-import {Grid, Typography} from "@mui/material";
+import { Formik, Form } from "formik";
+import { Grid, Typography } from "@mui/material";
 
 import Button from "../Forms/FormUI/ButtonWrapper";
 import InputField from "../../../UI/InputField";
@@ -11,9 +11,22 @@ import DateTime from "../../../UI/DateTime";
 import FileUpload from "../../../UI/FileUpload";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/ApplyCertificateSchema";
-import {useState} from "react";
+import { useState } from "react";
 
 import Axios from "axios";
+
+const currDate = () => {
+  let today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = today.getMonth() + 1; // Months start at 0!
+  let dd = today.getDate();
+
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+
+  today = yyyy + "-" + mm + "-" + dd;
+  return today;
+};
 
 const ApplyCertificateForm = () => {
   const router = useRouter();
@@ -23,7 +36,7 @@ const ApplyCertificateForm = () => {
     childLastName: "",
     fatherName: "",
     motherName: "",
-    dateOfBirth: "2022-04-01",
+    dateOfBirth: currDate(),
     placeOfBirth: "",
     address: "",
     fatherNationality: "",
@@ -32,34 +45,34 @@ const ApplyCertificateForm = () => {
     grandFatherName: "",
     grandMotherName: "",
     fatherIdentityProof: null,
-    mothreIdentityProof: null,
+    motherIdentityProof: null,
     addressProof: null,
     birthProof: null,
   });
 
-  const onSubmit = (values, {resetForm}) => {
+  const onSubmit = (values, { resetForm }) => {
     let formData = new FormData();
 
     formData.append("fatherIdentityProof", values.fatherIdentityProof);
-    formData.append("motherIdentityProof", values.mothreIdentityProof);
+    formData.append("motherIdentityProof", values.motherIdentityProof);
     formData.append("addressProof", values.addressProof);
     formData.append("birthProof", values.birthProof);
 
     const url = "https://v2.convertapi.com/upload";
 
-    Axios.post(url, {values, formData}, {})
+    Axios.post(url, { values, formData }, {})
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
     console.log(values);
     alert("Check Console for form data Object");
-    resetForm({values: ""});
+    resetForm({ values: "" });
     router.push("/user_certificate_view");
   };
 
   return (
     <Formik
-      initialValues={{...INITIAL_FORM_STATE}}
+      initialValues={{ ...INITIAL_FORM_STATE }}
       validationSchema={FORM_VALIDATION}
       onSubmit={onSubmit}
       enableReinitialize
@@ -131,9 +144,9 @@ const ApplyCertificateForm = () => {
                 title="Gender of Child"
                 name="gender"
                 data={[
-                  {value: "male", label: "Male"},
-                  {value: "female", label: "Female"},
-                  {value: "others", label: "Others"},
+                  { value: "male", label: "Male" },
+                  { value: "female", label: "Female" },
+                  { value: "others", label: "Others" },
                 ]}
               />
             </InputGroup>
