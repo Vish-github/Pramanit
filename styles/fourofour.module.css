@@ -8,9 +8,25 @@
 
 .four04container > p {
   font-size: 20px;
-  color: #000080;
 }
 
 .four04container a {
+  color: #000080;
   text-decoration: underline;
+}
+
+.teammembers {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.teammembers button {
+  background-color: #000080;
+  border: none;
+  color: white;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 5px;
 }
