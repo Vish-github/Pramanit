@@ -3,11 +3,11 @@
   border-radius: 15px;
   text-align: center;
   padding: 20px;
-  width: 200px;
   font-family: "Poppins", sans-serif;
-  margin: auto;
+  /* margin: auto; */
   margin-bottom: 20px;
   cursor: pointer;
+  margin-right: 20px;
 }
 
 .application_outer_name {
