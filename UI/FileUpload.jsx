@@ -1,11 +1,11 @@
-import { Button, Grid, Typography } from "@mui/material";
-import React, { useRef, useState } from "react";
+import {Button, Grid, Typography} from "@mui/material";
+import React, {useRef, useState} from "react";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { Box, display } from "@mui/system";
+import {Box, display} from "@mui/system";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import { ErrorMessage } from "formik";
+import {ErrorMessage} from "formik";
 
-const FileUpload = ({ formProps, fileProps }) => {
+const FileUpload = ({formProps, fileProps}) => {
   return (
     <Grid
       container
@@ -26,7 +26,8 @@ const FileUpload = ({ formProps, fileProps }) => {
           }}
           key={x.name}
         >
-          <Box
+          <label
+            htmlFor={x.name}
             style={{
               border: "1px solid #000080",
               padding: "2rem",
@@ -38,24 +39,22 @@ const FileUpload = ({ formProps, fileProps }) => {
               alignItems: "center",
             }}
           >
-            <label htmlFor={x.name}>
-              {formProps.values[x.name] ? (
-                <AttachFileIcon color="primary" />
-              ) : (
-                <AddBoxIcon color="primary" />
-              )}
-            </label>
-            <input
-              id={x.name}
-              type="file"
-              hidden
-              name={x.name}
-              onChange={(event) => {
-                formProps.setFieldValue(x.name, event.target.files[0]);
-              }}
-              accept="application/pdf"
-            />
-          </Box>
+            {formProps.values[x.name] ? (
+              <AttachFileIcon color="primary" />
+            ) : (
+              <AddBoxIcon color="primary" />
+            )}
+          </label>
+          <input
+            id={x.name}
+            type="file"
+            hidden
+            name={x.name}
+            onChange={(event) => {
+              formProps.setFieldValue(x.name, event.target.files[0]);
+            }}
+            accept="application/pdf"
+          />
           <Typography color="secondary" marginTop={2}>
             {formProps.values[x.name] && formProps.values[x.name].name}
           </Typography>
