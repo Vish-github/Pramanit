@@ -1,7 +1,7 @@
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 
-import { Formik, Form } from "formik";
-import { Grid, Typography } from "@mui/material";
+import {Formik, Form} from "formik";
+import {Grid, Typography} from "@mui/material";
 
 import Button from "../Forms/FormUI/ButtonWrapper";
 import InputField from "../../../UI/InputField";
@@ -11,7 +11,7 @@ import DateTime from "../../../UI/DateTime";
 import FileUpload from "../../../UI/FileUpload";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/ApplyCertificateSchema";
-import { useState } from "react";
+import {useState} from "react";
 
 import Axios from "axios";
 
@@ -26,6 +26,30 @@ const currDate = () => {
 
   today = yyyy + "-" + mm + "-" + dd;
   return today;
+};
+
+const uploadPhoto = async (e) => {
+  const file = e.target.files[0];
+  const filename = encodeURIComponent(file.name);
+  const res = await fetch(`/api/upload-url?file=${filename}`);
+  console.log(res);
+  // const {url, fields} = await res.json();
+  // const formData = new FormData();
+
+  // Object.entries({...fields, file}).forEach(([key, value]) => {
+  //   formData.append(key, value);
+  // });
+
+  // const upload = await fetch(url, {
+  //   method: "POST",
+  //   body: formData,
+  // });
+
+  // if (upload.ok) {
+  //   console.log("Uploaded successfully!");
+  // } else {
+  //   console.error("Upload failed.");
+  // }
 };
 
 const ApplyCertificateForm = () => {
@@ -50,7 +74,7 @@ const ApplyCertificateForm = () => {
     birthProof: null,
   });
 
-  const onSubmit = (values, { resetForm }) => {
+  const onSubmit = (values, {resetForm}) => {
     let formData = new FormData();
 
     formData.append("fatherIdentityProof", values.fatherIdentityProof);
@@ -60,19 +84,19 @@ const ApplyCertificateForm = () => {
 
     const url = "https://v2.convertapi.com/upload";
 
-    Axios.post(url, { values, formData }, {})
+    Axios.post(url, {values, formData}, {})
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
     console.log(values);
     alert("Check Console for form data Object");
-    resetForm({ values: "" });
+    resetForm({values: ""});
     router.push("/user_certificate_view");
   };
 
   return (
     <Formik
-      initialValues={{ ...INITIAL_FORM_STATE }}
+      initialValues={{...INITIAL_FORM_STATE}}
       validationSchema={FORM_VALIDATION}
       onSubmit={onSubmit}
       enableReinitialize
@@ -144,9 +168,9 @@ const ApplyCertificateForm = () => {
                 title="Gender of Child"
                 name="gender"
                 data={[
-                  { value: "male", label: "Male" },
-                  { value: "female", label: "Female" },
-                  { value: "others", label: "Others" },
+                  {value: "male", label: "Male"},
+                  {value: "female", label: "Female"},
+                  {value: "others", label: "Others"},
                 ]}
               />
             </InputGroup>
