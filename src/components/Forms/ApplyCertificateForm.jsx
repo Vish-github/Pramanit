@@ -9,9 +9,12 @@ import InputGroup from "./FormUI/InputGroup";
 import RadioButtonsGroup from "../../../UI/RadioButtonsGroup";
 import DateTime from "../../../UI/DateTime";
 import FileUpload from "../../../UI/FileUpload";
+import Select from "../../../UI/SelectField";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/ApplyCertificateSchema";
 import { useState } from "react";
+
+import muncipalityData from "../../../src/data/MuncipalityData.json";
 
 import Axios from "axios";
 
@@ -44,6 +47,7 @@ const ApplyCertificateForm = () => {
     gender: "male",
     grandFatherName: "",
     grandMotherName: "",
+    muncipalityLocation: "",
     fatherIdentityProof: null,
     motherIdentityProof: null,
     addressProof: null,
@@ -134,12 +138,7 @@ const ApplyCertificateForm = () => {
               />
             </InputGroup>
 
-            <InputGroup
-              full
-              display="flex"
-              justifyContent="center"
-              width="100%"
-            >
+            <InputGroup display="flex" justifyContent="center" width="100%">
               <RadioButtonsGroup
                 title="Gender of Child"
                 name="gender"
@@ -148,6 +147,14 @@ const ApplyCertificateForm = () => {
                   { value: "female", label: "Female" },
                   { value: "others", label: "Others" },
                 ]}
+              />
+            </InputGroup>
+
+            <InputGroup >
+              <Select
+                title="Muncipality Location"
+                name="muncipalityLocation"
+                options={muncipalityData}
               />
             </InputGroup>
 

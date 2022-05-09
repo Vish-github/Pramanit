@@ -31,6 +31,9 @@ const FORM_VALIDATION = Yup.object().shape({
   gender: Yup.string().required(),
   grandFatherName: Yup.string().required("grandfather's name is Required."),
   grandMotherName: Yup.string().required("grandmother's name is Required."),
+  muncipalityLocation: Yup.string().required(
+    "Muncipality location is Required."
+  ),
   fatherIdentityProof: Yup.mixed()
     .required("File is required")
     .test(
