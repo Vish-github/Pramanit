@@ -3,6 +3,13 @@
   flex-direction: row;
   align-items: flex-start;
 }
+
+.municipality_display {
+  width: calc(100vw - 320px);
+  padding: 20px 8%;
+  margin-left: 300px;
+}
+
 .municipality_search {
   background-color: rgba(196, 196, 196, 0.2);
   border-radius: 20px;
@@ -27,6 +34,7 @@
   flex-direction: row;
   justify-content: space-between;
   margin: 30px 0px;
+  overflow-x: auto;
 }
 
 .applications_container {
@@ -34,4 +42,12 @@
   flex-direction: row;
   align-items: center;
   margin-bottom: 30px;
+  overflow-x: auto;
+}
+
+@media (max-width: 700px) {
+  .municipality_display {
+    width: 100%;
+    margin: 20px;
+  }
 }

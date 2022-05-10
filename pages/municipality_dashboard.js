@@ -1,5 +1,4 @@
 import Image from "next/image";
-import {useRouter} from "next/router";
 
 import LeftPaneMunicipalityDashboard from "../src/components/MunicipalityDashboard/LeftPaneMunicipalityDashboard.jsx";
 
@@ -17,13 +16,7 @@ function municipality_dashboard() {
   return (
     <div className={styles.municipality_dashboard_container}>
       <LeftPaneMunicipalityDashboard />
-      <div
-        style={{
-          width: "calc(100vw - 320px)",
-          padding: "20px 8%",
-          marginLeft: "300px",
-        }}
-      >
+      <div className={styles.municipality_display}>
         <div className={styles.municipality_search}>
           <Image src={search} alt="Search" width={20} height={20} />
           <input

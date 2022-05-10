@@ -6,6 +6,37 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import {ErrorMessage} from "formik";
 
 const FileUpload = ({formProps, fileProps}) => {
+  const uploadPhoto = async (e) => {
+    const file = e.target.files[0];
+    console.log("File", file);
+
+    const filename = encodeURIComponent(file.name);
+
+    const formData = new FormData();
+    formData.append("upload_preset", "my-uploads");
+    formData.append("file", e.target.files[0]);
+
+    const res = await fetch(`/api/upload-url?file=${formData}`);
+    console.log(res);
+    // const {url, fields} = await res.json();
+    // const formData = new FormData();
+
+    // Object.entries({...fields, file}).forEach(([key, value]) => {
+    //   formData.append(key, value);
+    // });
+
+    // const upload = await fetch(url, {
+    //   method: "POST",
+    //   body: formData,
+    // });
+
+    // if (upload.ok) {
+    //   console.log("Uploaded successfully!");
+    // } else {
+    //   console.error("Upload failed.");
+    // }
+  };
+
   return (
     <Grid
       container
@@ -52,6 +83,7 @@ const FileUpload = ({formProps, fileProps}) => {
             name={x.name}
             onChange={(event) => {
               formProps.setFieldValue(x.name, event.target.files[0]);
+              uploadPhoto(event);
             }}
             accept="application/pdf"
           />
