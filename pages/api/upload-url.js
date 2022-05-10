@@ -25,20 +25,35 @@ const asyncParse = (req) =>
     if (req.method === "POST") {
       const result = await asyncParse(req);
       console.log(result)
-       await fetch(
-    `https://api.cloudinary.com/v1_1/dyuxnrh9a/image/upload -X POST --data 'file=${result.files.file}&timestamp=<TIMESTAMP>&api_key=744456297138184&signature=cV7LRCW6hOH_LPb6Ss5bZPKOFdk`,
-    {
-      method: "POST",
-      body: req.files.file,
+      cloudinary.v2.uploader.upload(result.files.file.filepath,{ pages: true }, (err,result)=>{
+        console.log(result,err)
+        if(result!=undefined){
+          res.status(200).send("Upload performed successfully")
+        }
+        else{
+          res.status(400).send("Upload Failed".err)
+        }
+      });
+    
+  //      await fetch(
+  //   `https://api.cloudinary.com/v1_1/dyuxnrh9a/image/upload/${result.files.file.filepath}`,
+  //   {
+  //     method: "POST",
+  //     body: result.files.file,
+  //   }
+  // ).then((r) =>
+  //   r.json().then((r) => {
+  //     console.log(r)
+  //     console.log("Secure link", r.secure_url);
+  //   })
+  //   .catch(err=>{
+  //     console.log(err)
+  //   })
+  // );
     }
-  ).then((r) =>
-    r.json().then((r) => {
-      console.log("Secure link", r.secure_url);
-    })
-  );
-      // res.status(200).json({ result });
-    }
-  }
+  //     // res.status(200).json({ result });
+  //   }
+  // }
 // export default async function handler(req, res) {
 //   console.log("in backend",req)
   // cloudinary.v2.uploader.upload(
@@ -63,4 +78,4 @@ const asyncParse = (req) =>
   //     console.log("Secure link", r.secure_url);
   //   })
   // );
-// }
+}
