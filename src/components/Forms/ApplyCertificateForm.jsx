@@ -31,7 +31,14 @@ const currDate = () => {
 const uploadPhoto = async (e) => {
   const file = e.target.files[0];
   const filename = encodeURIComponent(file.name);
-  const res = await fetch(`/api/upload-url?file=${filename}`);
+  const formData = new FormData();
+  formData.append("upload_preset", "my-uploads");
+
+  for (const file of fileInput.files) {
+    formData.append("file", file);
+  }
+
+  const res = await fetch(`/api/upload-url?file=${file}`);
   console.log(res);
   // const {url, fields} = await res.json();
   // const formData = new FormData();
@@ -82,7 +89,7 @@ const ApplyCertificateForm = () => {
     formData.append("addressProof", values.addressProof);
     formData.append("birthProof", values.birthProof);
 
-    const url = "https://v2.convertapi.com/upload";
+    const url = "/api/upload-url";
 
     Axios.post(url, {values, formData}, {})
       .then((res) => console.log(res))

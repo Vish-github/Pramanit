@@ -7,10 +7,16 @@ import {ErrorMessage} from "formik";
 
 const FileUpload = ({formProps, fileProps}) => {
   const uploadPhoto = async (e) => {
-    console.log("here");
     const file = e.target.files[0];
+    console.log("File", file);
+
     const filename = encodeURIComponent(file.name);
-    const res = await fetch(`/api/upload-url?file=${filename}`);
+
+    const formData = new FormData();
+    formData.append("upload_preset", "my-uploads");
+    formData.append("file", e.target.files[0]);
+
+    const res = await fetch(`/api/upload-url?file=${formData}`);
     console.log(res);
     // const {url, fields} = await res.json();
     // const formData = new FormData();
