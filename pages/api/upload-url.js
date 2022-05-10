@@ -29,7 +29,7 @@ const asyncParse = (req) =>
     `https://api.cloudinary.com/v1_1/dyuxnrh9a/image/upload -X POST --data 'file=${result.files.file}&timestamp=<TIMESTAMP>&api_key=744456297138184&signature=cV7LRCW6hOH_LPb6Ss5bZPKOFdk`,
     {
       method: "POST",
-      body: req.query.file,
+      body: req.files.file,
     }
   ).then((r) =>
     r.json().then((r) => {
