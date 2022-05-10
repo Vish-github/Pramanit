@@ -1,5 +1,4 @@
 import Image from "next/image";
-import {useRouter} from "next/router";
 
 import LeftPaneMunicipalityDashboard from "../src/components/MunicipalityDashboard/LeftPaneMunicipalityDashboard.jsx";
 
@@ -10,18 +9,14 @@ import ViewMoreHeader from "../layout/ViewMoreHeader.jsx";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter.jsx";
 
 function municipality_dashboard() {
-  const router = useRouter();
+  // const router = useRouter();
+
+  // const callRoute = (name) => router.push(name);
 
   return (
     <div className={styles.municipality_dashboard_container}>
       <LeftPaneMunicipalityDashboard />
-      <div
-        style={{
-          width: "calc(100vw - 320px)",
-          padding: "20px 8%",
-          marginLeft: "300px",
-        }}
-      >
+      <div className={styles.municipality_display}>
         <div className={styles.municipality_search}>
           <Image src={search} alt="Search" width={20} height={20} />
           <input
@@ -41,20 +36,20 @@ function municipality_dashboard() {
             color="rgba(155, 197, 244, 0.849)"
             name="Hello World"
             days={5}
-            onclick={() => router.push("/view_certificate")}
+            // onclick={"/view_certificate"}
           />
 
           <ApplicationOuter
             color="rgba(155, 197, 244, 0.849)"
             name="Hello World"
             days={5}
-            onclick={() => router.push("/view_certificate")}
+            // onclick={"/view_certificate"}
           />
           <ApplicationOuter
             color="rgba(155, 197, 244, 0.849)"
             name="Hello World"
             days={5}
-            onclick={() => router.push("/view_certificate")}
+            // onclick={"/view_certificate"}
           />
         </div>
         <ViewMoreHeader title="Completed Applications:" />
@@ -63,20 +58,20 @@ function municipality_dashboard() {
             color="rgba(156, 244, 155, 0.849)"
             name="Hello World"
             days={5}
-            onclick={() => router.push("/view_certificate")}
+            // onclick={"/view_certificate"}
           />
 
           <ApplicationOuter
             color="rgba(156, 244, 155, 0.849)"
             name="Hello World"
             days={5}
-            onclick={() => router.push("/view_certificate")}
+            // onclick={"/view_certificate"}
           />
           <ApplicationOuter
             color="rgba(156, 244, 155, 0.849)"
             name="Hello World"
             days={5}
-            onclick={() => router.push("/view_certificate")}
+            // onclick={"/view_certificate"}
           />
         </div>
         <ViewMoreHeader title="Rejected Applications:" />
@@ -85,19 +80,19 @@ function municipality_dashboard() {
             color="rgba(244, 155, 155, 0.829)"
             name="Hello World"
             days={5}
-            onclick={() => router.push("/view_certificate")}
+            // onclick={"/view_certificate"}
           />
           <ApplicationOuter
             color="rgba(244, 155, 155, 0.829)"
             name="Hello World"
             days={5}
-            onclick={() => router.push("/view_certificate")}
+            // onclick={"/view_certificate"}
           />
           <ApplicationOuter
             color="rgba(244, 155, 155, 0.829)"
             name="Hello World"
             days={5}
-            onclick={() => router.push("/view_certificate")}
+            // onclick={"/view_certificate"}
           />
         </div>
       </div>

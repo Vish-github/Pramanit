@@ -29,7 +29,7 @@ const ViewCertificateForm = () => {
     grandFatherName: "",
     grandMotherName: "",
     fatherIdentityProof: null,
-    mothreIdentityProof: null,
+    motherIdentityProof: null,
     addressProof: null,
     birthProof: null,
     dateApplied: "",
@@ -62,7 +62,7 @@ const ViewCertificateForm = () => {
       dateApplied: "2022-08-04",
       applierEmail: "xyz@gmail.com",
       fatherIdentityProof: "https://bitcoin.org/bitcoin.pdf",
-      mothreIdentityProof: "https://ethereum.github.io/yellowpaper/paper.pdf",
+      motherIdentityProof: "https://ethereum.github.io/yellowpaper/paper.pdf",
       addressProof: "https://solana.com/solana-whitepaper.pdf",
       birthProof: "https://www.getmonero.org/library/Zero-to-Monero-1-0-0.pdf",
     });
@@ -205,7 +205,7 @@ const ViewCertificateForm = () => {
                     title: "Father's Identity Proof",
                   },
                   {
-                    link: formProps.values.mothreIdentityProof,
+                    link: formProps.values.motherIdentityProof,
                     title: "Mother's Identity Proof",
                   },
                   {

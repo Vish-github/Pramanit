@@ -9,11 +9,58 @@ import InputGroup from "./FormUI/InputGroup";
 import RadioButtonsGroup from "../../../UI/RadioButtonsGroup";
 import DateTime from "../../../UI/DateTime";
 import FileUpload from "../../../UI/FileUpload";
+import Select from "../../../UI/SelectField";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/ApplyCertificateSchema";
 import {useState} from "react";
 
+import muncipalityData from "../../../src/data/MuncipalityData.json";
+
 import Axios from "axios";
+
+const currDate = () => {
+  let today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = today.getMonth() + 1; // Months start at 0!
+  let dd = today.getDate();
+
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+
+  today = yyyy + "-" + mm + "-" + dd;
+  return today;
+};
+
+const uploadPhoto = async (e) => {
+  const file = e.target.files[0];
+  const filename = encodeURIComponent(file.name);
+  const formData = new FormData();
+  formData.append("upload_preset", "my-uploads");
+
+  for (const file of fileInput.files) {
+    formData.append("file", file);
+  }
+
+  const res = await fetch(`/api/upload-url?file=${file}`);
+  console.log(res);
+  // const {url, fields} = await res.json();
+  // const formData = new FormData();
+
+  // Object.entries({...fields, file}).forEach(([key, value]) => {
+  //   formData.append(key, value);
+  // });
+
+  // const upload = await fetch(url, {
+  //   method: "POST",
+  //   body: formData,
+  // });
+
+  // if (upload.ok) {
+  //   console.log("Uploaded successfully!");
+  // } else {
+  //   console.error("Upload failed.");
+  // }
+};
 
 const ApplyCertificateForm = () => {
   const router = useRouter();
@@ -23,7 +70,7 @@ const ApplyCertificateForm = () => {
     childLastName: "",
     fatherName: "",
     motherName: "",
-    dateOfBirth: "2022-04-01",
+    dateOfBirth: currDate(),
     placeOfBirth: "",
     address: "",
     fatherNationality: "",
@@ -31,8 +78,9 @@ const ApplyCertificateForm = () => {
     gender: "male",
     grandFatherName: "",
     grandMotherName: "",
+    muncipalityLocation: "",
     fatherIdentityProof: null,
-    mothreIdentityProof: null,
+    motherIdentityProof: null,
     addressProof: null,
     birthProof: null,
   });
@@ -41,11 +89,11 @@ const ApplyCertificateForm = () => {
     let formData = new FormData();
 
     formData.append("fatherIdentityProof", values.fatherIdentityProof);
-    formData.append("motherIdentityProof", values.mothreIdentityProof);
+    formData.append("motherIdentityProof", values.motherIdentityProof);
     formData.append("addressProof", values.addressProof);
     formData.append("birthProof", values.birthProof);
 
-    const url = "https://v2.convertapi.com/upload";
+    const url = "/api/upload-url";
 
     Axios.post(url, {values, formData}, {})
       .then((res) => console.log(res))
@@ -121,12 +169,7 @@ const ApplyCertificateForm = () => {
               />
             </InputGroup>
 
-            <InputGroup
-              full
-              display="flex"
-              justifyContent="center"
-              width="100%"
-            >
+            <InputGroup display="flex" justifyContent="center" width="100%">
               <RadioButtonsGroup
                 title="Gender of Child"
                 name="gender"
@@ -135,6 +178,14 @@ const ApplyCertificateForm = () => {
                   {value: "female", label: "Female"},
                   {value: "others", label: "Others"},
                 ]}
+              />
+            </InputGroup>
+
+            <InputGroup >
+              <Select
+                title="Muncipality Location"
+                name="muncipalityLocation"
+                options={muncipalityData}
               />
             </InputGroup>
 

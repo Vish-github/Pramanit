@@ -28,7 +28,7 @@ function InputField({ title = "", name = "", data, ...otherProps }) {
     <Grid
       item
       container
-      sm={11}
+      sm={10}
       marginBottom={1}
       xs={12}
       display="flex"
