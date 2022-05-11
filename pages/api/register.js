@@ -3,13 +3,12 @@ const bcrypt = require("bcryptjs");
 
 import connectDB from "../../middleware/mongodb";
 
-let User = require("../../models/User.schema");
-
+import User from '../../models/User.schema'
 // const path = require("path");
 const saltRound = 8;
-
+let {db}= connectDB
 const handler = async (req, res) => {
-  console.log("params", req.body);
+  console.log(req.body);
   if (req.method === "POST") {
     User.findOne({email: req.body.email}, (err, user) => {
       if (err) {
@@ -37,8 +36,8 @@ const handler = async (req, res) => {
             } else {
               console.log("user created");
               let payload = {subject: user.Id};
-              let token = newUser.generateAuthToken();
-              // let token = jwt.sign(payload, process.env.SECRET_KEY);
+              // let token = newUser.generateAuthToken();
+              let token = jwt.sign(payload, process.env.SECRET_KEY);
               res.status(200).send({token, user});
             }
           });

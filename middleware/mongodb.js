@@ -10,8 +10,6 @@ const connectDB = (handler) => async (req, res) => {
     "mongodb+srv://vishwak:kOKmkCIFxpz6zmpO@cluster0.n3xtz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     {
       useUnifiedTopology: true,
-      useFindAndModify: false,
-      useCreateIndex: true,
       useNewUrlParser: true,
     }
   );
