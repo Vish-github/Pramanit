@@ -3,6 +3,8 @@ import {useRouter} from "next/router";
 import {Formik, Form} from "formik";
 import {Grid} from "@mui/material";
 
+import axios from "axios";
+
 import Button from "../Forms/FormUI/ButtonWrapper";
 import InputField from "../../../UI/InputField";
 
@@ -20,9 +22,18 @@ const UserRegistrationForm = () => {
 
   const onSubmit = (values, {resetForm}) => {
     console.log(values);
-    alert("Check Console for form data Object");
-    resetForm({values: ""});
-    router.push("/userdashboard");
+    axios
+      .post(`/api/register`, values)
+      .then((res) => {
+        alert("Success");
+        console.log("Response", res);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
+    // alert("Check Console for form data Object");
+    // resetForm({values: ""});
+    // router.push("/userdashboard");
   };
 
   return (
