@@ -34,6 +34,13 @@ const userSchema = new mongoose.Schema({
   resetToken: {type: String},
 });
 
+userSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign({ _id: this._id }, jwtkey, {
+    expiresIn: "7d",
+  });
+  return token;
+};
+
 global.User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export default global.User;

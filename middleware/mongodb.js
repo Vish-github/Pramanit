@@ -7,7 +7,7 @@ const connectDB = (handler) => async (req, res) => {
   }
   // Use new db connection
   await mongoose.connect(
-    "mongodb+srv://vishwak:kOKmkCIFxpz6zmpO@cluster0.n3xtz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    process.env.MONGO_URI,
     {
       useUnifiedTopology: true,
       useNewUrlParser: true,

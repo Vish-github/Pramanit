@@ -37,7 +37,7 @@ const handler = async (req, res) => {
               console.log("user created");
               let payload = {subject: user.Id};
               // let token = newUser.generateAuthToken();
-              let token = jwt.sign(payload, process.env.SECRET_KEY);
+              let token = jwt.sign(payload, "mysecret");
               res.status(200).send({token, user});
             }
           });

@@ -8,8 +8,10 @@ import InputField from "../../../UI/InputField";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/UserLoginSchema.js";
 
+import axios from "axios";
+
 const INITIAL_FORM_STATE = {
-  username: "",
+  email: "",
   password: "",
 };
 
@@ -20,7 +22,16 @@ const LoginForm = () => {
     console.log(values);
     alert("Check Console for form data Object");
     resetForm({values: ""});
-    router.push("/userdashboard");
+    axios
+      .post(`/api/login`, values)
+      .then((res) => {
+        alert("Success");
+        console.log("Response", res);
+        router.push("/userdashboard");
+      })      
+      .catch((err) => {
+        console.log("Error", err);
+      });
   };
 
   return (
@@ -31,7 +42,7 @@ const LoginForm = () => {
     >
       <Form>
         <Grid container spacing={2} justifyContent="center">
-          <InputField title="Username" name="username" />
+          <InputField title="Email" name="email" />
           <InputField title="Password" name="password" type="password" />
           <Grid item sm={8} xs={12}>
             <Button>Login</Button>
