@@ -13,11 +13,9 @@ const birthApplicationSchema = new mongoose.Schema({
   motherName: {
     type: String,
   },
-
   dateOfBirth: {
     type: Date,
   },
-
   placeOfBirth: {
     type: String,
   },
@@ -52,6 +50,20 @@ const birthApplicationSchema = new mongoose.Schema({
     type: String,
   },
   birthProof: {
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
+  issued: {
+    type: Boolean,
+    default: false,
+  },
+  municipalityLocation: {
+    type: Number,
+  },
+  applicant_id: {
     type: String,
   },
 });
