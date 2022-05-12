@@ -7,9 +7,10 @@ import Button from "../Forms/FormUI/ButtonWrapper";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/MunicipalityLoginSchema.js";
 import InputField from "../../../UI/InputField";
+import axios from "axios";
 
 const INITIAL_FORM_STATE = {
-  username: "",
+  email: "",
   password: "",
 };
 
@@ -17,10 +18,17 @@ const MunicipalityLoginForm = () => {
   const router = useRouter();
 
   const onSubmit = (values, {resetForm}) => {
-    console.log(values);
-    alert("Check Console for form data Object");
-    resetForm({values: ""});
-    router.push("/municipality_dashboard");
+    axios
+      .post("/api/municipality_login", values)
+      .then((res) => {
+        console.log("Response", res);
+        alert("Login Success");
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+      });
+    // resetForm({values: ""});
+    // router.push("/municipality_dashboard");
   };
 
   return (
@@ -31,7 +39,7 @@ const MunicipalityLoginForm = () => {
     >
       <Form>
         <Grid container spacing={2} justifyContent="center">
-          <InputField name="username" title="Username" />
+          <InputField name="email" title="email" />
           <InputField name="password" title="Password" type="password" />
           <Grid item sm={8} xs={12}>
             <Button>Login</Button>
