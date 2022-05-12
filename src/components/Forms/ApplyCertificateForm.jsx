@@ -16,7 +16,7 @@ import {useState} from "react";
 
 import muncipalityData from "../../../src/data/MuncipalityData.json";
 
-import Axios from "axios";
+import axios from "axios";
 
 const currDate = () => {
   let today = new Date();
@@ -43,23 +43,6 @@ const uploadPhoto = async (e) => {
 
   const res = await fetch(`/api/upload-url?file=${file}`);
   console.log(res);
-  // const {url, fields} = await res.json();
-  // const formData = new FormData();
-
-  // Object.entries({...fields, file}).forEach(([key, value]) => {
-  //   formData.append(key, value);
-  // });
-
-  // const upload = await fetch(url, {
-  //   method: "POST",
-  //   body: formData,
-  // });
-
-  // if (upload.ok) {
-  //   console.log("Uploaded successfully!");
-  // } else {
-  //   console.error("Upload failed.");
-  // }
 };
 
 const ApplyCertificateForm = () => {
@@ -86,23 +69,70 @@ const ApplyCertificateForm = () => {
   });
 
   const onSubmit = (values, {resetForm}) => {
+    let newApplication = values;
+
     let formData = new FormData();
+    formData.append("upload_preset", "my-uploads");
+    formData.append("file", values.addressProof);
 
-    formData.append("fatherIdentityProof", values.fatherIdentityProof);
-    formData.append("motherIdentityProof", values.motherIdentityProof);
-    formData.append("addressProof", values.addressProof);
-    formData.append("birthProof", values.birthProof);
+    axios
+      .post(`/api/upload-url`, formData)
+      .then((res) => {
+        console.log("addressProof", res?.data?.url);
+        newApplication.addressProof = res?.data?.url;
+        let formData = new FormData();
+        formData.append("upload_preset", "my-uploads");
+        formData.append("file", values.fatherIdentityProof);
 
-    const url = "/api/upload-url";
-
-    Axios.post(url, {values, formData}, {})
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-
-    console.log(values);
-    alert("Check Console for form data Object");
-    resetForm({values: ""});
-    router.push("/user_certificate_view");
+        axios
+          .post(`/api/upload-url`, formData)
+          .then((res) => {
+            console.log("fatherIdentityProof", res?.data?.url);
+            newApplication.fatherIdentityProof = res?.data?.url;
+            let formData = new FormData();
+            formData.append("upload_preset", "my-uploads");
+            formData.append("file", values.motherIdentityProof);
+            axios
+              .post(`/api/upload-url`, formData)
+              .then((res) => {
+                console.log("motherIdentityProof", res?.data?.url);
+                newApplication.motherIdentityProof = res?.data?.url;
+                let formData = new FormData();
+                formData.append("upload_preset", "my-uploads");
+                formData.append("file", values.birthProof);
+                axios
+                  .post(`/api/upload-url`, formData)
+                  .then((res) => {
+                    console.log("birthProof", res?.data?.url);
+                    newApplication.birthProof = res?.data?.url;
+                    newApplication.applicant_id = "627b869557522419fd1fc8d0";
+                    console.log("newApplication", newApplication);
+                    axios
+                      .post("/api/apply_birth_certificate", newApplication)
+                      .then((res) => {
+                        console.log("response", res);
+                        resetForm({values: ""});
+                        router.push("/user_certificate_view");
+                      })
+                      .catch((err) => {
+                        console.log("Error0:", err);
+                      });
+                  })
+                  .catch((err) => {
+                    console.log("Error4:", err);
+                  });
+              })
+              .catch((err) => {
+                console.log("Error3:", err);
+              });
+          })
+          .catch((err) => {
+            console.log("Error2:", err);
+          });
+      })
+      .catch((err) => {
+        console.log("Error1:", err);
+      });
   };
 
   return (
@@ -181,7 +211,7 @@ const ApplyCertificateForm = () => {
               />
             </InputGroup>
 
-            <InputGroup >
+            <InputGroup>
               <Select
                 title="Muncipality Location"
                 name="muncipalityLocation"

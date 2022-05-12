@@ -4,7 +4,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import {Box, display} from "@mui/system";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import {ErrorMessage} from "formik";
-import axios from 'axios'
+import axios from "axios";
 
 const FileUpload = ({formProps, fileProps}) => {
   const uploadPhoto = async (e) => {
@@ -17,7 +17,7 @@ const FileUpload = ({formProps, fileProps}) => {
     formData.append("upload_preset", "my-uploads");
     formData.append("file", e.target.files[0]);
 
-    const res = await axios.post(`/api/upload-url`,formData);
+    const res = await axios.post(`/api/upload-url`, formData);
     console.log(res);
     // const {url, fields} = await res.json();
     // const formData = new FormData();
@@ -84,7 +84,7 @@ const FileUpload = ({formProps, fileProps}) => {
             name={x.name}
             onChange={(event) => {
               formProps.setFieldValue(x.name, event.target.files[0]);
-              uploadPhoto(event);
+              // uploadPhoto(event);
             }}
             accept="application/pdf"
           />

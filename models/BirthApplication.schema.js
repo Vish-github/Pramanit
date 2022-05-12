@@ -57,11 +57,8 @@ const birthApplicationSchema = new mongoose.Schema({
     default: new Date(),
   },
   issued: {
-    type: Boolean,
-    default: false,
-  },
-  municipalityLocation: {
     type: Number,
+    default: 0,
   },
   applicant_id: {
     type: String,
