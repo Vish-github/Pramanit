@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import LeftPaneMunicipalityDashboard from "../src/components/MunicipalityDashboard/LeftPaneMunicipalityDashboard.jsx";
-
+import axios from 'axios';
 import styles from "../styles/MunicipalityDashboard.module.css";
 import search from "../assets/svgs/search.svg";
 import MunicipalityStat from "../src/components/MunicipalityDashboard/MunicipalityStat.jsx";
@@ -9,6 +9,7 @@ import ViewMoreHeader from "../layout/ViewMoreHeader.jsx";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter.jsx";
 
 function municipality_dashboard() {
+  
   // const router = useRouter();
 
   // const callRoute = (name) => router.push(name);
