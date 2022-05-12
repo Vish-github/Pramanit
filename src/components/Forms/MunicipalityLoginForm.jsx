@@ -27,8 +27,8 @@ const MunicipalityLoginForm = () => {
       .catch((err) => {
         console.log("Error:", err);
       });
-    // resetForm({values: ""});
-    // router.push("/municipality_dashboard");
+    resetForm({values: ""});
+    router.push("/municipality_dashboard");
   };
 
   return (
