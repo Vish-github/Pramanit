@@ -7,6 +7,8 @@ function ApplicationOuter({
   name = "",
   days,
   color,
+  data,
+  id,
   daysDisplay = true,
   onclick = () => {},
 }) {
@@ -15,7 +17,14 @@ function ApplicationOuter({
     <div
       className={styles.application_outer_container}
       style={{ backgroundColor: color }}
-      onClick={() => router.push("/view_certificate")}
+      onClick={() =>
+        router.push({
+          pathname: "/view_certificate",
+          query: {
+            id: id,
+          },
+        })
+      }
     >
       <Avatar
         style={{ margin: "auto", width: 50, height: 50 }}

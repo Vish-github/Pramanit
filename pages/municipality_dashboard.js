@@ -32,9 +32,6 @@ function municipality_dashboard() {
         setCompleted(data.accepted);
         setPending(data.pending);
         setCancelled(data.rejected);
-
-        // console.log(json.slip.advice);
-        // setAdvice(json.slip.advice);
       } catch (error) {
         console.log("error", error);
       }
@@ -93,6 +90,7 @@ function municipality_dashboard() {
                 name={fullName}
                 days={days}
                 key={id}
+                id={id}
                 // onclick={"/view_certificate"}
               />
             );
@@ -122,6 +120,8 @@ function municipality_dashboard() {
                 name={fullName}
                 days={days}
                 key={id}
+                id={id}
+                data={application}
                 // onclick={"/view_certificate"}
               />
             );
@@ -150,6 +150,7 @@ function municipality_dashboard() {
                 name={fullName}
                 days={days}
                 key={id}
+                id={id}
                 // onclick={"/view_certificate"}
               />
             );
