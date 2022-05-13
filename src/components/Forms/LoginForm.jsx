@@ -55,7 +55,7 @@ const LoginForm = ({addUserDetails, removeUserDetails}) => {
 };
 
 const mapStateToProps = (state) => ({
-  counter: state.counterReducer?.counter,
+  token: state.token?.token,
 });
 
 const mapDispatchToProps = (dispatch) => {
