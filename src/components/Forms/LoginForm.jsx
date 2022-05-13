@@ -10,25 +10,26 @@ import FORM_VALIDATION from "../../FormValidationSchemas/UserLoginSchema.js";
 
 import axios from "axios";
 
+import {connect} from "react-redux";
+import {addToken, removeToken} from "../../../redux/actions/token.action";
+
 const INITIAL_FORM_STATE = {
   email: "",
   password: "",
 };
 
-const LoginForm = () => {
+const LoginForm = ({addUserDetails, removeUserDetails}) => {
   const router = useRouter();
 
   const onSubmit = (values, {resetForm}) => {
-    console.log(values);
-    alert("Check Console for form data Object");
-    resetForm({values: ""});
     axios
       .post(`/api/login`, values)
       .then((res) => {
-        alert("Success");
-        console.log("Response", res);
+        addUserDetails(res.data.user);
+        localStorage.setItem("pramanit", JSON.stringify(res.data.user));
+        resetForm({values: ""});
         router.push("/userdashboard");
-      })      
+      })
       .catch((err) => {
         console.log("Error", err);
       });
@@ -53,4 +54,16 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+const mapStateToProps = (state) => ({
+  counter: state.counterReducer?.counter,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addUserDetails: (param) => dispatch(addToken(param)),
+    removeUserDetails: () => dispatch(removeToken()),
+    reset: () => dispatch(reset()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

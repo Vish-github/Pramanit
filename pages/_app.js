@@ -1,7 +1,9 @@
 import "../styles/globals.css";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+import React from "react";
+import Layout from "../layout/ReduxLayout";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({Component, pageProps}) {
   const theme = createTheme({
     palette: {
       primary: {
@@ -15,7 +17,9 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ThemeProvider>
   );
 }

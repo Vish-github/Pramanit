@@ -27,13 +27,11 @@ const UserRegistrationForm = () => {
       .then((res) => {
         alert("Success");
         console.log("Response", res);
-        router.push("/userdashboard");
+        router.push("/login");
       })
       .catch((err) => {
         console.log("Error", err);
       });
-    // alert("Check Console for form data Object");
-    // resetForm({values: ""});
   };
 
   return (

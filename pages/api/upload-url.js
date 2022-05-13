@@ -21,7 +21,6 @@ const asyncParse = (req) =>
   });
 
 export default async function handler(req, res) {
-  console.log("Receiving");
   if (req.method === "POST") {
     const result = await asyncParse(req);
     console.log(result);

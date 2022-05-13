@@ -1,0 +1,2 @@
+export const TOKEN_RECIEVED = "TOKEN_RECIEVED";
+export const TOKEN_EXPIRED = "TOKEN_EXPIRED";

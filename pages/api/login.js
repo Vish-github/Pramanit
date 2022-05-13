@@ -2,13 +2,11 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 import connectDB from "../../middleware/mongodb";
-import User from '../../models/User.schema'
+import User from "../../models/User.schema";
 
 const handler = async (req, res) => {
   console.log("request for login", req.body);
-  console.log("process.env",process.env)
-  await User
-    .findOne({email: req.body.email})
+  await User.findOne({email: req.body.email})
     .then((user, err) => {
       console.log("error: ", err);
       if (err) {
@@ -23,12 +21,12 @@ const handler = async (req, res) => {
               console.log("generating token");
               let payload = {subject: user._id};
               // let token = user.generateAuthToken();
-              const token = jwt.sign({ _id: user._id }, "musecret", {
+              const token = jwt.sign({_id: user._id}, "musecret", {
                 expiresIn: "7d",
               });
               // let token = jwt.sign(payload, "process.env.JWTPRIVATEKEY");
               console.log("login successfully");
-              res.status(200).send({level: user.level, ward: user.ward, token});
+              res.status(200).send({user, token});
             } else {
               res.status(401).send("invalid Password");
             }

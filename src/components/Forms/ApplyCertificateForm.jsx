@@ -18,6 +18,9 @@ import muncipalityData from "../../../src/data/MuncipalityData.json";
 
 import axios from "axios";
 
+import {connect} from "react-redux";
+import {addToken, removeToken} from "../../../redux/actions/token.action";
+
 const currDate = () => {
   let today = new Date();
   const yyyy = today.getFullYear();
@@ -45,7 +48,11 @@ const uploadPhoto = async (e) => {
   console.log(res);
 };
 
-const ApplyCertificateForm = () => {
+const ApplyCertificateForm = ({
+  addUserDetails,
+  removeUserDetails,
+  accesstoken,
+}) => {
   const router = useRouter();
 
   const [INITIAL_FORM_STATE, setINITIAL_FORM_STATE] = useState({
@@ -105,7 +112,7 @@ const ApplyCertificateForm = () => {
                   .then((res) => {
                     console.log("birthProof", res?.data?.url);
                     newApplication.birthProof = res?.data?.url;
-                    newApplication.applicant_id = "627b869557522419fd1fc8d0";
+                    newApplication.applicant_id = accesstoken;
                     console.log("newApplication", newApplication);
                     axios
                       .post("/api/apply_birth_certificate", newApplication)
@@ -269,4 +276,19 @@ const ApplyCertificateForm = () => {
   );
 };
 
-export default ApplyCertificateForm;
+const mapStateToProps = (state) => ({
+  accesstoken: state.token?.token,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addUserDetails: (param) => dispatch(addToken(param)),
+    removeUserDetails: () => dispatch(removeToken()),
+    reset: () => dispatch(reset()),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ApplyCertificateForm);

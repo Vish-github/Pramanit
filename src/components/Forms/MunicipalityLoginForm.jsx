@@ -21,7 +21,7 @@ const MunicipalityLoginForm = () => {
     axios
       .post("/api/municipality_login", values)
       .then((res) => {
-        console.log("Response", res);
+        console.log("Response", res.data);
         alert("Login Success");
       })
       .catch((err) => {
