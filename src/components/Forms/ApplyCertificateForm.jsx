@@ -10,6 +10,7 @@ import RadioButtonsGroup from "../../../UI/RadioButtonsGroup";
 import DateTime from "../../../UI/DateTime";
 import FileUpload from "../../../UI/FileUpload";
 import Select from "../../../UI/SelectField";
+import Loader from "../../../UI/Loader";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/ApplyCertificateSchema";
 import {useState} from "react";
@@ -77,9 +78,11 @@ const ApplyCertificateForm = ({
     birthProof: null,
   });
 
+  const [loading, setLoading] = useState(false);
+
   const onSubmit = (values, {resetForm}) => {
     let newApplication = values;
-
+    setLoading(true);
     let formData = new FormData();
     formData.append("upload_preset", "my-uploads");
     formData.append("file", values.addressProof);
@@ -121,6 +124,7 @@ const ApplyCertificateForm = ({
                       .then((res) => {
                         console.log("response", res);
                         resetForm({values: ""});
+                        setLoading(false);
                         openSnackbarmessage("Applied!");
                         router.push("/userdashboard");
                       })
@@ -268,8 +272,17 @@ const ApplyCertificateForm = ({
                 ]}
               />
             </Grid>
-
-            <Grid item sm={3} xs={10}>
+            <Grid
+              item
+              sm={3}
+              xs={10}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              {loading && <Loader />}
               <Button>Apply</Button>
             </Grid>
           </Grid>
