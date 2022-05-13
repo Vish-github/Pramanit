@@ -20,6 +20,7 @@ import axios from "axios";
 
 import {connect} from "react-redux";
 import {addToken, removeToken} from "../../../redux/actions/token.action";
+import {openSnackbar} from "../../../redux/actions/snackbar.action";
 
 const currDate = () => {
   let today = new Date();
@@ -52,6 +53,7 @@ const ApplyCertificateForm = ({
   addUserDetails,
   removeUserDetails,
   accesstoken,
+  openSnackbarmessage,
 }) => {
   const router = useRouter();
 
@@ -119,7 +121,8 @@ const ApplyCertificateForm = ({
                       .then((res) => {
                         console.log("response", res);
                         resetForm({values: ""});
-                        router.push("/user_certificate_view");
+                        openSnackbarmessage("Applied!");
+                        router.push("/userdashboard");
                       })
                       .catch((err) => {
                         console.log("Error0:", err);
@@ -284,6 +287,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addUserDetails: (param) => dispatch(addToken(param)),
     removeUserDetails: () => dispatch(removeToken()),
+    openSnackbarmessage: (param) => dispatch(openSnackbar(param)),
     reset: () => dispatch(reset()),
   };
 };
