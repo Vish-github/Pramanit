@@ -1,11 +1,10 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
 import {connect} from "react-redux";
-import {openSnackbar, closeSnackbar} from "../redux/actions/token.action";
+import {openSnackbar, closeSnackbar} from "../redux/actions/snackbar.action";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
