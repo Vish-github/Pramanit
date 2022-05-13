@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     console.log(result);
     cloudinary.v2.uploader.upload(
       result.files.file.filepath,
-      {pages: true},
+      {resource_type :"image"},
       (err, result) => {
         console.log(result, err);
         if (result != undefined) {

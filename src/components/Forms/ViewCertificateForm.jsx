@@ -1,5 +1,6 @@
 import { Formik, Form } from "formik";
 import { Grid, Typography } from "@mui/material";
+import moment from "moment";
 
 import Button from "./FormUI/ButtonWrapper";
 import InputField from "../../../UI/InputField";
@@ -7,14 +8,21 @@ import InputGroup from "./FormUI/InputGroup";
 import RadioButtonsGroup from "../../../UI/RadioButtonsGroup";
 import DateTime from "../../../UI/DateTime";
 import FileUpload from "../../../UI/FileUpload";
+import Select from "../../../UI/SelectField";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/ApplyCertificateSchema";
 import { useEffect, useState } from "react";
 
+import muncipalityData from "../../../src/data/MuncipalityData.json";
+
 import Axios from "axios";
+import { useRouter } from "next/router";
+
 import ViewFiles from "../ViewFiles";
 
 const ViewCertificateForm = () => {
+  const router = useRouter();
+
   const [INITIAL_FORM_STATE, setINITIAL_FORM_STATE] = useState({
     childFirstName: "",
     childLastName: "",
@@ -28,6 +36,7 @@ const ViewCertificateForm = () => {
     gender: "male",
     grandFatherName: "",
     grandMotherName: "",
+    muncipalityLocation: "",
     fatherIdentityProof: null,
     motherIdentityProof: null,
     addressProof: null,
@@ -36,6 +45,48 @@ const ViewCertificateForm = () => {
     applierEmail: "",
   });
 
+  useEffect(() => {
+    const { id: ID } = router.query;
+    const url = `/api/Indivisual_certificate/applicant_id?id=${ID}`;
+    console.log(ID);
+
+    const fetchData = async () => {
+      try {
+        const response = await Axios.get(url);
+        const data = response.data.allData.data;
+        const email = response.data.allData.email;
+
+        const details = {
+          childFirstName: data.childFirstName,
+          childLastName: data.childLastName,
+          fatherName: data.fatherName,
+          motherName: data.motherName,
+          dateOfBirth: moment(data.dateOfBirth).format("YYYY-MM-DD"),
+          placeOfBirth: data.placeOfBirth,
+          address: data.address,
+          fatherNationality: data.fatherNationality,
+          motherNationality: data.motherNationality,
+          gender: data.gender,
+          grandFatherName: data.grandFatherName,
+          grandMotherName: data.grandMotherName,
+          muncipalityLocation: data.muncipalityLocation,
+          fatherIdentityProof: data.fatherIdentityProof.replace(".pdf", ".jpg"),
+          motherIdentityProof: data.motherIdentityProof.replace(".pdf", ".jpg"),
+          addressProof: data.addressProof.replace(".pdf", ".jpg"),
+          birthProof: data.birthProof.replace(".pdf", ".jpg"),
+          dateApplied: moment(data.createdAt).format("YYYY-MM-DD"),
+          applierEmail: email,
+        };
+
+        setINITIAL_FORM_STATE(details);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const [isDisabled, setisDisabled] = useState(true);
 
   const onSubmit = (values, { resetForm }) => {
@@ -43,30 +94,6 @@ const ViewCertificateForm = () => {
     alert("Check Console for form data Object");
     // resetForm({ values: "" });
   };
-
-  useEffect(() => {
-    setINITIAL_FORM_STATE({
-      ...INITIAL_FORM_STATE,
-      childFirstName: "Eren",
-      childLastName: "Yeager",
-      fatherName: "Grisha Yeager",
-      motherName: "Carla Yeager",
-      dateOfBirth: "2012-04-15",
-      placeOfBirth: "Wall Maria",
-      address: "Shinganshina District",
-      fatherNationality: "Eldian",
-      motherNationality: "Eldian",
-      gender: "male",
-      grandFatherName: "xyz Yeager",
-      grandMotherName: "abc Yeager",
-      dateApplied: "2022-08-04",
-      applierEmail: "xyz@gmail.com",
-      fatherIdentityProof: "https://bitcoin.org/bitcoin.pdf",
-      motherIdentityProof: "https://ethereum.github.io/yellowpaper/paper.pdf",
-      addressProof: "https://solana.com/solana-whitepaper.pdf",
-      birthProof: "https://www.getmonero.org/library/Zero-to-Monero-1-0-0.pdf",
-    });
-  }, []);
 
   return (
     <Formik
@@ -163,21 +190,25 @@ const ViewCertificateForm = () => {
               />
             </InputGroup>
 
-            <InputGroup
-              full
-              display="flex"
-              justifyContent="center"
-              width="100%"
-            >
+            <InputGroup display="flex" justifyContent="center" width="100%">
               <RadioButtonsGroup
-                disabled={isDisabled}
                 title="Gender of Child"
                 name="gender"
+                disabled={isDisabled}
                 data={[
                   { value: "male", label: "Male" },
                   { value: "female", label: "Female" },
                   { value: "others", label: "Others" },
                 ]}
+              />
+            </InputGroup>
+
+            <InputGroup>
+              <Select
+                title="Muncipality Location"
+                name="muncipalityLocation"
+                options={muncipalityData}
+                disabled={isDisabled}
               />
             </InputGroup>
 
