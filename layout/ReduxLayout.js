@@ -1,5 +1,5 @@
 import React from "react";
-import {withRedux} from "../lib/with-redux-store";
+import {withRedux} from "../middleware/with-redux-store";
 
 function Layout({children}) {
   return <div>{children}</div>;

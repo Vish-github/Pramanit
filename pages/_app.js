@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import React from "react";
 import Layout from "../layout/ReduxLayout";
-import Snackbar from "../layout/Snackbar";
+import Snackbar from "../UI/Snackbar";
 
 function MyApp({Component, pageProps}) {
   const theme = createTheme({
