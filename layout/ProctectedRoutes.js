@@ -8,9 +8,11 @@ function Layout({children, accesstoken, addUserDetails}) {
   const router = useRouter();
   useEffect(() => {
     if (
-      router.pathname != "/" ||
-      router.pathname != "/login" ||
-      router.pathname != "register"
+      router.pathname != "/" &&
+      router.pathname != "/login" &&
+      router.pathname != "/register" &&
+      router.pathname != "/municipality_login" &&
+      router.pathname != "/municipality_dashboard"
     )
       if (!accesstoken) {
         if (!localStorage.getItem("pramanit")) {
