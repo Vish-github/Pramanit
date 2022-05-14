@@ -1,8 +1,9 @@
 import "../styles/globals.css";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-import React from "react";
-import Layout from "../layout/ReduxLayout";
+import React, {useEffect} from "react";
+import ReduxLayout from "../layout/ReduxLayout";
 import Snackbar from "../UI/Snackbar";
+import ProtectedLayout from "../layout/ProctectedRoutes";
 
 function MyApp({Component, pageProps}) {
   const theme = createTheme({
@@ -18,10 +19,12 @@ function MyApp({Component, pageProps}) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Layout>
+      <ReduxLayout>
         <Snackbar />
-        <Component {...pageProps} />
-      </Layout>
+        <ProtectedLayout>
+          <Component {...pageProps} />
+        </ProtectedLayout>
+      </ReduxLayout>
     </ThemeProvider>
   );
 }

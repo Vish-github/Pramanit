@@ -8,13 +8,16 @@ import settings from "../assets/svgs/settings.svg";
 import Image from "next/image";
 import {useRouter} from "next/router";
 
+import {connect} from "react-redux";
+import {removeToken} from "../redux/actions/token.action";
+
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
   },
 }));
 
-export default function SimplePopover() {
+function SimplePopover({removeUserDetails}) {
   const classes = useStyles();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -29,6 +32,12 @@ export default function SimplePopover() {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
+  const logout = () => {
+    localStorage.removeItem("pramanit");
+    removeUserDetails();
+    router.push("/login");
+  };
 
   return (
     <>
@@ -53,13 +62,22 @@ export default function SimplePopover() {
           horizontal: "center",
         }}
       >
-        <Typography
-          className={classes.typography}
-          onClick={() => router.push("/login")}
-        >
+        <Typography className={classes.typography} onClick={logout}>
           Logout
         </Typography>
       </Popover>
     </>
   );
 }
+
+const mapStateToProps = (state) => ({
+  accesstoken: state.token?.token,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removeUserDetails: () => dispatch(removeToken()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SimplePopover);
