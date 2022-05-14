@@ -86,7 +86,6 @@ const ApplyCertificateForm = ({
     let formData = new FormData();
     formData.append("upload_preset", "my-uploads");
     formData.append("file", values.addressProof);
-
     axios
       .post(`/api/upload-url`, formData)
       .then((res) => {
@@ -117,7 +116,7 @@ const ApplyCertificateForm = ({
                   .then((res) => {
                     console.log("birthProof", res?.data?.url);
                     newApplication.birthProof = res?.data?.url;
-                    newApplication.applicant_id = accesstoken;
+                    newApplication.applicant_id = accesstoken._id;
                     console.log("newApplication", newApplication);
                     axios
                       .post("/api/apply_birth_certificate", newApplication)
