@@ -81,8 +81,10 @@ function municipality_dashboard() {
           {pending.map((application) => {
             const fullName = `${application.childFirstName} ${application.childLastName}`;
             const id = application.applicant_id;
-            const date = moment(application.createdAt).format("YYYY-MM-DD");
-            const days = moment(date, "YYYY-MM-DD").fromNow();
+            const date = moment(application.createdAt).format(
+              "MMMM Do YYYY, h:mm:ss a"
+            );
+            const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
 
             return (
               <ApplicationOuter
