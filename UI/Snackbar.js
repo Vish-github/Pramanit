@@ -4,7 +4,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
 import {connect} from "react-redux";
-import {openSnackbar, closeSnackbar} from "../redux/actions/snackbar.action";
+import {closeSnackbar} from "../redux/actions/snackbar.action";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -13,10 +13,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 function CustomizedSnackbars({
   snackbarmessage,
   closeSnackbarnow,
-  openSnackbarmessage,
   snackbarstate,
 }) {
-  console.log("Snackbar", snackbarmessage);
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -46,7 +44,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    openSnackbarmessage: (param) => dispatch(openSnackbar(param)),
     closeSnackbarnow: () => dispatch(closeSnackbar()),
     reset: () => dispatch(reset()),
   };
