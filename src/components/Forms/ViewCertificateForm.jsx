@@ -1,5 +1,5 @@
-import { Formik, Form } from "formik";
-import { Grid, Typography } from "@mui/material";
+import {Formik, Form} from "formik";
+import {Grid, Typography} from "@mui/material";
 import moment from "moment";
 
 import Button from "./FormUI/ButtonWrapper";
@@ -11,18 +11,15 @@ import FileUpload from "../../../UI/FileUpload";
 import Select from "../../../UI/SelectField";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/ApplyCertificateSchema";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 import muncipalityData from "../../../src/data/MuncipalityData.json";
 
 import Axios from "axios";
-import { useRouter } from "next/router";
 
 import ViewFiles from "../ViewFiles";
 
-const ViewCertificateForm = ({ id }) => {
-  const router = useRouter();
-
+const ViewCertificateForm = ({query}) => {
   const [INITIAL_FORM_STATE, setINITIAL_FORM_STATE] = useState({
     childFirstName: "",
     childLastName: "",
@@ -46,7 +43,7 @@ const ViewCertificateForm = ({ id }) => {
   });
 
   useEffect(() => {
-    const url = `/api/Indivisual_certificate/applicant_id?id=${id}`;
+    const url = `/api/Indivisual_certificate/applicant_id?id=${query}`;
 
     const fetchData = async () => {
       try {
@@ -87,7 +84,7 @@ const ViewCertificateForm = ({ id }) => {
 
   const [isDisabled, setisDisabled] = useState(true);
 
-  const onSubmit = (values, { resetForm }) => {
+  const onSubmit = (values, {resetForm}) => {
     console.log(values);
     alert("Check Console for form data Object");
     // resetForm({ values: "" });
@@ -95,7 +92,7 @@ const ViewCertificateForm = ({ id }) => {
 
   return (
     <Formik
-      initialValues={{ ...INITIAL_FORM_STATE }}
+      initialValues={{...INITIAL_FORM_STATE}}
       validationSchema={FORM_VALIDATION}
       onSubmit={onSubmit}
       enableReinitialize
@@ -194,9 +191,9 @@ const ViewCertificateForm = ({ id }) => {
                 name="gender"
                 disabled={isDisabled}
                 data={[
-                  { value: "male", label: "Male" },
-                  { value: "female", label: "Female" },
-                  { value: "others", label: "Others" },
+                  {value: "male", label: "Male"},
+                  {value: "female", label: "Female"},
+                  {value: "others", label: "Others"},
                 ]}
               />
             </InputGroup>

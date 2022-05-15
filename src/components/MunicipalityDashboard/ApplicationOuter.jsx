@@ -1,5 +1,5 @@
-import { Avatar } from "@mui/material";
-import { useRouter } from "next/router";
+import {Avatar} from "@mui/material";
+import {useRouter} from "next/router";
 
 import styles from "../../../styles/ApplicationOuter.module.css";
 
@@ -16,11 +16,12 @@ function ApplicationOuter({
   return (
     <div
       className={styles.application_outer_container}
-      style={{ backgroundColor: color }}
+      style={{backgroundColor: color}}
+      onClick={() => router.push(`/viewapplication/${id}`)}
     >
       <Avatar
-        style={{ margin: "auto", width: 50, height: 50 }}
-        sx={{ bgcolor: "#fff", color: "#930D0D", fontSize: 25 }}
+        style={{margin: "auto", width: 50, height: 50}}
+        sx={{bgcolor: "#fff", color: "#930D0D", fontSize: 25}}
       >
         {name[0]}
       </Avatar>
