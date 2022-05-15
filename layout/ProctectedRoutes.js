@@ -12,6 +12,7 @@ function Layout({children, accesstoken, addUserDetails}) {
       router.pathname != "/login" &&
       router.pathname != "/register" &&
       router.pathname != "/municipality_login" &&
+      router.pathname != "/view_certificate" &&
       router.pathname != "/municipality_dashboard"
     )
       if (!accesstoken) {

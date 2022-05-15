@@ -7,16 +7,12 @@ import search from "../assets/svgs/search.svg";
 import MunicipalityStat from "../src/components/MunicipalityDashboard/MunicipalityStat.jsx";
 import ViewMoreHeader from "../layout/ViewMoreHeader.jsx";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter.jsx";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 import moment from "moment";
 import Link from "next/link";
 
-function municipality_dashboard() {
-  // const router = useRouter();
-
-  // const callRoute = (name) => router.push(name);
-
+function Municipality_dashboard() {
   const [completed, setCompleted] = useState([]);
   const [pending, setPending] = useState([]);
   const [cancelled, setCancelled] = useState([]);
@@ -28,8 +24,6 @@ function municipality_dashboard() {
       try {
         const response = await axios.get(url);
         const data = response.data.allData;
-        console.log(data);
-
         setCompleted(data.accepted);
         setPending(data.pending);
         setCancelled(data.rejected);
@@ -37,7 +31,6 @@ function municipality_dashboard() {
         console.log("error", error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -155,4 +148,4 @@ function municipality_dashboard() {
   );
 }
 
-export default municipality_dashboard;
+export default Municipality_dashboard;
