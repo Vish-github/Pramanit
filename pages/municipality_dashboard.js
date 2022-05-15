@@ -10,6 +10,7 @@ import ApplicationOuter from "../src/components/MunicipalityDashboard/Applicatio
 import { useEffect, useState } from "react";
 
 import moment from "moment";
+import Link from "next/link";
 
 function municipality_dashboard() {
   // const router = useRouter();
@@ -71,13 +72,6 @@ function municipality_dashboard() {
         </div>
         <ViewMoreHeader title="Pending Applications:" />
         <div className={styles.applications_container}>
-          {/* 
-          <ApplicationOuter
-            color="rgba(155, 197, 244, 0.849)"
-            name="Hello World"
-            days={5}
-            // onclick={"/view_certificate"}
-          /> */}
           {pending.map((application) => {
             const fullName = `${application.childFirstName} ${application.childLastName}`;
             const id = application.applicant_id;
@@ -87,74 +81,72 @@ function municipality_dashboard() {
             const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
 
             return (
-              <ApplicationOuter
-                color="rgba(155, 197, 244, 0.849)"
-                name={fullName}
-                days={days}
-                key={id}
-                id={id}
-                // onclick={"/view_certificate"}
-              />
+              <Link href={`/view_certificate/${id}`} key={id}>
+                <a>
+                  <ApplicationOuter
+                    color="rgba(155, 197, 244, 0.849)"
+                    name={fullName}
+                    days={days}
+                    id={id}
+                    // onclick={"/view_certificate"}
+                  />
+                </a>
+              </Link>
             );
           })}
         </div>
         <ViewMoreHeader title="Completed Applications:" />
         <div className={styles.applications_container}>
-          {/* <ApplicationOuter
-            color="rgba(156, 244, 155, 0.849)"
-            name="Hello World"
-            days={5}
-            // onclick={"/view_certificate"}
-          />
-
-          */}
           {completed.map((application) => {
             const fullName = `${application.childFirstName} ${application.childLastName}`;
             const id = application.applicant_id;
-            const date = moment(application.createdAt).format("YYYY-MM-DD");
-            const days = moment(date, "YYYY-MM-DD").fromNow();
+            const date = moment(application.createdAt).format(
+              "MMMM Do YYYY, h:mm:ss a"
+            );
+            const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
 
             console.log(days);
 
             return (
-              <ApplicationOuter
-                color="rgba(156, 244, 155, 0.849)"
-                name={fullName}
-                days={days}
-                key={id}
-                id={id}
-                data={application}
-                // onclick={"/view_certificate"}
-              />
+              <Link href={`/view_certificate/${id}`} key={id}>
+                <a>
+                  <ApplicationOuter
+                    color="rgba(156, 244, 155, 0.849)"
+                    name={fullName}
+                    days={days}
+                    key={id}
+                    id={id}
+                    data={application}
+                  />
+                </a>
+              </Link>
             );
           })}
         </div>
         <ViewMoreHeader title="Rejected Applications:" />
         <div className={styles.applications_container}>
-          {/* <ApplicationOuter
-            color="rgba(244, 155, 155, 0.829)"
-            name="Hello World"
-            days={5}
-            // onclick={"/view_certificate"}
-          />
-           */}
           {cancelled.map((application) => {
             const fullName = `${application.childFirstName} ${application.childLastName}`;
             const id = application.applicant_id;
-            const date = moment(application.createdAt).format("YYYY-MM-DD");
-            const days = moment(date, "YYYY-MM-DD").fromNow();
+            const date = moment(application.createdAt).format(
+              "MMMM Do YYYY, h:mm:ss a"
+            );
+            const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
 
             console.log(days);
 
             return (
-              <ApplicationOuter
-                color="rgba(244, 155, 155, 0.829)"
-                name={fullName}
-                days={days}
-                key={id}
-                id={id}
-                // onclick={"/view_certificate"}
-              />
+              <Link href={`/view_certificate/${id}`} key={id}>
+                <a>
+                  <ApplicationOuter
+                    color="rgba(244, 155, 155, 0.829)"
+                    name={fullName}
+                    days={days}
+                    key={id}
+                    id={id}
+                  />
+                </a>
+              </Link>
             );
           })}
         </div>

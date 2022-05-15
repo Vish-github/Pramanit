@@ -20,7 +20,7 @@ import { useRouter } from "next/router";
 
 import ViewFiles from "../ViewFiles";
 
-const ViewCertificateForm = () => {
+const ViewCertificateForm = ({ id }) => {
   const router = useRouter();
 
   const [INITIAL_FORM_STATE, setINITIAL_FORM_STATE] = useState({
@@ -46,9 +46,7 @@ const ViewCertificateForm = () => {
   });
 
   useEffect(() => {
-    const { id: ID } = router.query;
-    const url = `/api/Indivisual_certificate/applicant_id?id=${ID}`;
-    console.log(ID);
+    const url = `/api/Indivisual_certificate/applicant_id?id=${id}`;
 
     const fetchData = async () => {
       try {
