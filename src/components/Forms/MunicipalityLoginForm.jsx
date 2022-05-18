@@ -7,21 +7,27 @@ import Button from "../Forms/FormUI/ButtonWrapper";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/MunicipalityLoginSchema.js";
 import InputField from "../../../UI/InputField";
+
 import axios from "axios";
 
+import {connect} from "react-redux";
+import {
+  addMunicipalityToken,
+  removeMunicipalityToken,
+} from "../../../redux/actions/token.action";
 const INITIAL_FORM_STATE = {
   email: "",
   password: "",
 };
 
-const MunicipalityLoginForm = () => {
+const MunicipalityLoginForm = ({addUserDetails, removeUserDetails}) => {
   const router = useRouter();
 
   const onSubmit = (values, {resetForm}) => {
     axios
       .post("/api/municipality_login", values)
       .then((res) => {
-        console.log("Response", res);
+        console.log("Response", res.data);
         alert("Login Success");
       })
       .catch((err) => {
@@ -50,4 +56,19 @@ const MunicipalityLoginForm = () => {
   );
 };
 
-export default MunicipalityLoginForm;
+const mapStateToProps = (state) => ({
+  municipality: state.municipality?.municipality,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addUserDetails: (param) => dispatch(addMunicipalityToken(param)),
+    removeUserDetails: () => dispatch(removeMunicipalityToken()),
+    reset: () => dispatch(reset()),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MunicipalityLoginForm);

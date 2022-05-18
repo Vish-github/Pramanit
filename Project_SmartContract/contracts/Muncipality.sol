@@ -5,13 +5,13 @@ pragma solidity >=0.5.8;
 contract Muncipality{
     address public Owner;
     MuncipalityData[] public allMun;
-    UserDara[] public allUser;
+    UserData[] public allUser;
     struct MuncipalityData{
         address muncipalityadrress;
         uint uid;
         uint length;
     }
-    struct UserDara{
+    struct UserData{
         uint uid;
         string BirthHash;
         string DeathHash;
@@ -53,7 +53,7 @@ contract Muncipality{
     }
     function AddUserBirthHash(uint munId,uint uid,string memory _BirthHash) public returns(bool){
         if(CheckPresence(munId)){
-            UserDara memory newUser=UserDara({
+            UserData memory newUser=UserData({
                 uid:uid,
                 BirthHash:_BirthHash,
                 DeathHash:' ',
@@ -70,7 +70,7 @@ contract Muncipality{
     } 
     function AddDeathhash(uint munId,uint uid,string memory _DeathHash) public returns(bool){
         if(CheckPresence(munId)){
-            UserDara memory deadUser=allUser[uid];
+            UserData memory deadUser=allUser[uid];
             deadUser.DeathHash=_DeathHash;
             return true;
         }
@@ -78,11 +78,11 @@ contract Muncipality{
             return false;
         }
     }
-    function getBirthCertificate(uint uid) public returns(UserDara memory){
-        UserDara memory foundUser=allUser[uid];
+    function getBirthCertificate(uint uid) public returns(UserData memory){
+        UserData memory foundUser=allUser[uid];
         return foundUser;
     }
-    function getAllData() public returns(UserDara[] memory){
+    function getAllData() public returns(UserData[] memory){
         return allUser;
     }
 

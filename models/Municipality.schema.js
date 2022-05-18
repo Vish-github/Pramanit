@@ -42,4 +42,4 @@ global.Municipality =
   mongoose.models.Municipality ||
   mongoose.model("Municipality", municipalitySchema);
 
-export default global.municipalitySchema;
+export default global.Municipality;

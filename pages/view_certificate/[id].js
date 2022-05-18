@@ -1,11 +1,16 @@
-import Header from "../layout/Header";
+import Header from "../../layout/Header";
 
-import styles from "../styles/UserDashboard.module.css";
+import styles from "../../styles/UserDashboard.module.css";
 
-import ViewCertificateForm from "../src/components/Forms/ViewCertificateForm";
+import ViewCertificateForm from "../../src/components/Forms/ViewCertificateForm";
 import { Avatar } from "@mui/material";
+import { useRouter } from "next/router";
 
 function ViewCertificate() {
+  const router = useRouter();
+
+  const { id } = router.query;
+
   return (
     <div>
       <Header>
@@ -17,7 +22,7 @@ function ViewCertificate() {
         </div>
       </Header>
 
-      <ViewCertificateForm />
+      <ViewCertificateForm id={id} />
     </div>
   );
 }

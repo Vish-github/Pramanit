@@ -13,11 +13,11 @@ function MunicipalityDetails() {
         <Image src={editicon} alt="Edit" width={20} height={20} />
       </div>
       <div className={styles.municipality_address}>
-        <p>Address Line 1</p>
-        <p>Address Line 2</p>
-        <p>Address Line 3</p>
+        <p>Dr Pissurlekar Road</p>
+        <p>Panaji Santa Inez Road</p>
+        <p>Near Royal Cruise, Panaji</p>
       </div>
-      <p className={styles.municipality_email}>muncipality@gmail.com</p>
+      <p className={styles.municipality_email}>panajimunicipality@gmail.com</p>
     </>
   );
 }

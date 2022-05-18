@@ -11,6 +11,8 @@ import viewcertificate from "../assets/PRAMANIT/viewcertificate.png";
 import Avatar from "@mui/material/Avatar";
 import UserDashboardComponent from "../layout/UserDashboardComponent";
 
+import Popper from "../UI/Popper";
+
 function user_certificate_view() {
   return (
     <div>
@@ -20,7 +22,7 @@ function user_certificate_view() {
             <Avatar sx={{bgcolor: "#fff", color: "#930D0D"}}>H</Avatar>
             <h2 className={styles.user_name}>Hello World</h2>
           </div>
-          <Image src={settings} width={30} height={30} />
+          <Popper />
         </div>
       </Header>
       <div className={styles.userdashboard_options}>

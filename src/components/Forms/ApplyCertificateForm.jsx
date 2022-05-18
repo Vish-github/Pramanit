@@ -10,6 +10,7 @@ import RadioButtonsGroup from "../../../UI/RadioButtonsGroup";
 import DateTime from "../../../UI/DateTime";
 import FileUpload from "../../../UI/FileUpload";
 import Select from "../../../UI/SelectField";
+import Loader from "../../../UI/Loader";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/ApplyCertificateSchema";
 import {useState} from "react";
@@ -17,6 +18,10 @@ import {useState} from "react";
 import muncipalityData from "../../../src/data/MuncipalityData.json";
 
 import axios from "axios";
+
+import {connect} from "react-redux";
+import {addToken, removeToken} from "../../../redux/actions/token.action";
+import {openSnackbar} from "../../../redux/actions/snackbar.action";
 
 const currDate = () => {
   let today = new Date();
@@ -45,7 +50,12 @@ const uploadPhoto = async (e) => {
   console.log(res);
 };
 
-const ApplyCertificateForm = () => {
+const ApplyCertificateForm = ({
+  addUserDetails,
+  removeUserDetails,
+  accesstoken,
+  openSnackbarmessage,
+}) => {
   const router = useRouter();
 
   const [INITIAL_FORM_STATE, setINITIAL_FORM_STATE] = useState({
@@ -68,13 +78,14 @@ const ApplyCertificateForm = () => {
     birthProof: null,
   });
 
+  const [loading, setLoading] = useState(false);
+
   const onSubmit = (values, {resetForm}) => {
     let newApplication = values;
-
+    setLoading(true);
     let formData = new FormData();
     formData.append("upload_preset", "my-uploads");
     formData.append("file", values.addressProof);
-
     axios
       .post(`/api/upload-url`, formData)
       .then((res) => {
@@ -105,14 +116,16 @@ const ApplyCertificateForm = () => {
                   .then((res) => {
                     console.log("birthProof", res?.data?.url);
                     newApplication.birthProof = res?.data?.url;
-                    newApplication.applicant_id = "627b869557522419fd1fc8d0";
+                    newApplication.applicant_id = accesstoken._id;
                     console.log("newApplication", newApplication);
                     axios
                       .post("/api/apply_birth_certificate", newApplication)
                       .then((res) => {
                         console.log("response", res);
                         resetForm({values: ""});
-                        router.push("/user_certificate_view");
+                        setLoading(false);
+                        openSnackbarmessage("Applied!");
+                        router.push("/userdashboard");
                       })
                       .catch((err) => {
                         console.log("Error0:", err);
@@ -258,8 +271,17 @@ const ApplyCertificateForm = () => {
                 ]}
               />
             </Grid>
-
-            <Grid item sm={3} xs={10}>
+            <Grid
+              item
+              sm={3}
+              xs={10}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              {loading && <Loader />}
               <Button>Apply</Button>
             </Grid>
           </Grid>
@@ -269,4 +291,20 @@ const ApplyCertificateForm = () => {
   );
 };
 
-export default ApplyCertificateForm;
+const mapStateToProps = (state) => ({
+  accesstoken: state.token?.token,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addUserDetails: (param) => dispatch(addToken(param)),
+    removeUserDetails: () => dispatch(removeToken()),
+    openSnackbarmessage: (param) => dispatch(openSnackbar(param)),
+    reset: () => dispatch(reset()),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ApplyCertificateForm);
