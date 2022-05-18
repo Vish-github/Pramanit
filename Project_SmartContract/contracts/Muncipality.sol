@@ -3,7 +3,7 @@ pragma experimental ABIEncoderV2;
 pragma solidity >=0.5.8;
  
 contract Muncipality{
-    address public RealOG;
+    address public Owner;
     MuncipalityData[] public allMun;
     UserDara[] public allUser;
     struct MuncipalityData{
@@ -22,10 +22,10 @@ contract Muncipality{
     uint public MuncipalityLength=0;
     uint public UserLength=0;
     constructor() public{
-        RealOG=msg.sender;
+        Owner=msg.sender;
     }
     modifier onlyOwner{
-        require(msg.sender==RealOG);
+        require(msg.sender==Owner);
         _;
     }
     function CheckPresence(uint uid) public returns(bool){
@@ -42,6 +42,7 @@ contract Muncipality{
             length:MuncipalityLength
         });
         allMun.push(NewMuncipality);
+        MuncipalityLength+=1;
         isPresent[uid]=true;
         return true;
 
@@ -59,7 +60,7 @@ contract Muncipality{
                 length:UserLength
             });
             allUser.push(newUser);
-
+            UserLength+=1;
             return true;
 
         }
