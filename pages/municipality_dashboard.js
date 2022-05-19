@@ -7,10 +7,11 @@ import search from "../assets/svgs/search.svg";
 import MunicipalityStat from "../src/components/MunicipalityDashboard/MunicipalityStat.jsx";
 import ViewMoreHeader from "../layout/ViewMoreHeader.jsx";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter.jsx";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 import moment from "moment";
 import Link from "next/link";
+import { Button } from "@mui/material";
 
 function Municipality_dashboard() {
   const [completed, setCompleted] = useState([]);
@@ -34,10 +35,22 @@ function Municipality_dashboard() {
     fetchData();
   }, []);
 
+  const connectToMetamask = () => {
+    alert("Connet to Metamask...");
+  };
+
   return (
     <div className={styles.municipality_dashboard_container}>
       <LeftPaneMunicipalityDashboard />
       <div className={styles.municipality_display}>
+        <Button
+          variant="contained"
+          color="success"
+          style={{ color: "#f4f4f4", fontWeight: "bold" }}
+          onClick={connectToMetamask}
+        >
+          Connect to Metamask
+        </Button>
         <div className={styles.municipality_search}>
           <Image src={search} alt="Search" width={20} height={20} />
           <input
