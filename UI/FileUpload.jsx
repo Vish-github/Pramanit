@@ -1,43 +1,10 @@
-import {Button, Grid, Typography} from "@mui/material";
-import React, {useRef, useState} from "react";
+import {Grid, Typography} from "@mui/material";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import {Box, display} from "@mui/system";
+import {Box} from "@mui/system";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import {ErrorMessage} from "formik";
-import axios from "axios";
 
 const FileUpload = ({formProps, fileProps}) => {
-  const uploadPhoto = async (e) => {
-    const file = e.target.files[0];
-    console.log("File", file);
-
-    const filename = encodeURIComponent(file.name);
-
-    const formData = new FormData();
-    formData.append("upload_preset", "my-uploads");
-    formData.append("file", e.target.files[0]);
-
-    const res = await axios.post(`/api/upload-url`, formData);
-    console.log(res);
-    // const {url, fields} = await res.json();
-    // const formData = new FormData();
-
-    // Object.entries({...fields, file}).forEach(([key, value]) => {
-    //   formData.append(key, value);
-    // });
-
-    // const upload = await fetch(url, {
-    //   method: "POST",
-    //   body: formData,
-    // });
-
-    // if (upload.ok) {
-    //   console.log("Uploaded successfully!");
-    // } else {
-    //   console.error("Upload failed.");
-    // }
-  };
-
   return (
     <Grid
       container
