@@ -38,7 +38,7 @@ const municipalitySchema = new mongoose.Schema({
   municipalityseal: {
     type: String,
   },
-  cheifregistratsign: {
+  cheifregistrarsign: {
     type: String,
   },
 });
