@@ -74,7 +74,7 @@ function Municipality_dashboard() {
             const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
 
             return (
-              <div>
+              <div key={id}>
                 <ApplicationOuter
                   color="rgba(155, 197, 244, 0.849)"
                   name={fullName}
@@ -99,7 +99,7 @@ function Municipality_dashboard() {
             console.log(days);
 
             return (
-              <div>
+              <div key={id}>
                 <ApplicationOuter
                   color="rgba(156, 244, 155, 0.849)"
                   name={fullName}
@@ -125,7 +125,7 @@ function Municipality_dashboard() {
             console.log(days);
 
             return (
-              <div>
+              <div key={id}>
                 <ApplicationOuter
                   color="rgba(244, 155, 155, 0.829)"
                   name={fullName}
