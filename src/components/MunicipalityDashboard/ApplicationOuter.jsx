@@ -17,7 +17,7 @@ function ApplicationOuter({
     <div
       className={styles.application_outer_container}
       style={{backgroundColor: color}}
-      onClick={() => router.push(`/viewapplication/${id}`)}
+      onClick={onclick}
     >
       <Avatar
         style={{margin: "auto", width: 50, height: 50}}

@@ -10,7 +10,6 @@ import ApplicationOuter from "../src/components/MunicipalityDashboard/Applicatio
 import {useEffect, useState} from "react";
 
 import moment from "moment";
-import Link from "next/link";
 
 function Municipality_dashboard() {
   const [completed, setCompleted] = useState([]);
@@ -80,7 +79,7 @@ function Municipality_dashboard() {
                   name={fullName}
                   days={days}
                   id={id}
-                  // onclick={"/view_certificate"}
+                  onclick={() => router.push(`/viewapplication/${id}`)}
                 />
               </div>
             );
@@ -107,6 +106,7 @@ function Municipality_dashboard() {
                   key={id}
                   id={id}
                   data={application}
+                  onclick={() => router.push(`/viewapplication/${id}`)}
                 />{" "}
               </div>
             );
@@ -132,6 +132,7 @@ function Municipality_dashboard() {
                   days={days}
                   key={id}
                   id={id}
+                  onclick={() => router.push(`/viewapplication/${id}`)}
                 />{" "}
               </div>
             );
