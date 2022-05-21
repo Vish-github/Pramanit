@@ -1,5 +1,4 @@
 import {Avatar} from "@mui/material";
-import {useRouter} from "next/router";
 
 import styles from "../../../styles/ApplicationOuter.module.css";
 
@@ -12,7 +11,6 @@ function ApplicationOuter({
   daysDisplay = true,
   onclick = () => {},
 }) {
-  const router = useRouter();
   return (
     <div
       className={styles.application_outer_container}

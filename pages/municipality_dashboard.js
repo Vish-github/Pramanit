@@ -1,4 +1,5 @@
 import Image from "next/image";
+import {useRouter} from "next/router";
 
 import LeftPaneMunicipalityDashboard from "../src/components/MunicipalityDashboard/LeftPaneMunicipalityDashboard.jsx";
 import axios from "axios";
@@ -15,6 +16,8 @@ function Municipality_dashboard() {
   const [completed, setCompleted] = useState([]);
   const [pending, setPending] = useState([]);
   const [cancelled, setCancelled] = useState([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     const url = "/api/get_birth_certificate";

@@ -2,8 +2,6 @@ import {useState} from "react";
 
 import Image from "next/image";
 
-import Box from "@mui/material/Box";
-
 import Header from "../layout/Header";
 
 import styles from "../styles/SuperAdminPanel.module.css";
@@ -13,18 +11,6 @@ import ApplicationOuter from "../src/components/MunicipalityDashboard/Applicatio
 import Modal from "../layout/Modal";
 import AddMunicipalityForm from "../src/components/Forms/AddMunicipalityForm";
 import ViewMunicipalityCredentials from "../src/components/Forms/ViewMunicipalityCredentials";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
 
 function SuperAdminPanel() {
   const [open, setOpen] = useState(false);
@@ -77,12 +63,8 @@ function SuperAdminPanel() {
         />
       </div>
       <Modal open={open} setOpen={setOpen}>
-        <Box sx={style}>
-          <h6 className={styles1.modalHeading}>
-            Ponda Municipality Credentials
-          </h6>
-          <ViewMunicipalityCredentials />
-        </Box>
+        <h6 className={styles1.modalHeading}>Ponda Municipality Credentials</h6>
+        <ViewMunicipalityCredentials />
       </Modal>
     </div>
   );
