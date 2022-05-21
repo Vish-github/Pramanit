@@ -1,28 +1,19 @@
-import {useEffect, useState} from "react";
-import {Formik, Form} from "formik";
+import {useState} from "react";
+
 import {Grid} from "@mui/material";
 
-import InputField from "../../../UI/InputField";
-import InputGroup from "./FormUI/InputGroup";
-import Button from "../Forms/FormUI/ButtonWrapper";
-
-import FORM_VALIDATION from "../../FormValidationSchemas/ApplicationRejectionSchema";
+import Button from "../../../UI/Button";
 
 const ApplicationrejectionForm = () => {
-  const [INITIAL_FORM_STATE, setInitialFormState] = useState({
-    reason: "",
-  });
+  const [reason, setReason] = useState("");
 
-  const onSubmit = (values) => {
-    alert(values);
+  const onSubmit = () => {
+    if (reason.length == 0) {
+      alert("Pls enter reason");
+    } else {
+      alert(reason);
+    }
   };
-
-  useEffect(() => {
-    // Load Form Data from backend
-    setInitialFormState({
-      reason: "",
-    });
-  }, []);
 
   return (
     <div
@@ -32,26 +23,18 @@ const ApplicationrejectionForm = () => {
         borderRadius: "20px",
       }}
     >
-      <Formik
-        initialValues={{...INITIAL_FORM_STATE}}
-        enableReinitialize
-        onSubmit={onSubmit}
-        validationSchema={FORM_VALIDATION}
-      >
-        <Form>
-          <Grid container spacing={2} justifyContent="center" marginTop={2}>
-            <InputGroup
-              full
-              display="flex"
-              justifyContent="center"
-              width="100%"
-            >
-              <InputField title="Reason" name="reason" />
-            </InputGroup>
-            <Button>Submit</Button>
-          </Grid>
-        </Form>
-      </Formik>
+      <Grid container spacing={2} justifyContent="center" marginTop={2}>
+        <textarea
+          name="reason"
+          id=""
+          cols="30"
+          rows="10"
+          placeholder="Enter yor reason"
+          required
+          onChange={(e) => setReason(e.target.value)}
+        ></textarea>
+        <Button title={"Reject"} onClick={onSubmit} />
+      </Grid>
     </div>
   );
 };
