@@ -41,7 +41,7 @@ const FORM_VALIDATION = Yup.object().shape({
       if (typeof value != "object") {
         return true;
       } else {
-        returnvalue && value.size <= FILE_SIZE;
+        return value && value.size <= FILE_SIZE;
       }
     })
     .test("fileType", "Unsupported file type", (value) => {
