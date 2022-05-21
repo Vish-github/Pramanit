@@ -74,17 +74,15 @@ function Municipality_dashboard() {
             const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
 
             return (
-              <Link href={`/view_certificate/${id}`} key={id}>
-                <a>
-                  <ApplicationOuter
-                    color="rgba(155, 197, 244, 0.849)"
-                    name={fullName}
-                    days={days}
-                    id={id}
-                    // onclick={"/view_certificate"}
-                  />
-                </a>
-              </Link>
+              <div>
+                <ApplicationOuter
+                  color="rgba(155, 197, 244, 0.849)"
+                  name={fullName}
+                  days={days}
+                  id={id}
+                  // onclick={"/view_certificate"}
+                />
+              </div>
             );
           })}
         </div>
@@ -101,18 +99,16 @@ function Municipality_dashboard() {
             console.log(days);
 
             return (
-              <Link href={`/view_certificate/${id}`} key={id}>
-                <a>
-                  <ApplicationOuter
-                    color="rgba(156, 244, 155, 0.849)"
-                    name={fullName}
-                    days={days}
-                    key={id}
-                    id={id}
-                    data={application}
-                  />
-                </a>
-              </Link>
+              <div>
+                <ApplicationOuter
+                  color="rgba(156, 244, 155, 0.849)"
+                  name={fullName}
+                  days={days}
+                  key={id}
+                  id={id}
+                  data={application}
+                />{" "}
+              </div>
             );
           })}
         </div>
@@ -129,17 +125,15 @@ function Municipality_dashboard() {
             console.log(days);
 
             return (
-              <Link href={`/view_certificate/${id}`} key={id}>
-                <a>
-                  <ApplicationOuter
-                    color="rgba(244, 155, 155, 0.829)"
-                    name={fullName}
-                    days={days}
-                    key={id}
-                    id={id}
-                  />
-                </a>
-              </Link>
+              <div>
+                <ApplicationOuter
+                  color="rgba(244, 155, 155, 0.829)"
+                  name={fullName}
+                  days={days}
+                  key={id}
+                  id={id}
+                />{" "}
+              </div>
             );
           })}
         </div>

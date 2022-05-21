@@ -13,14 +13,6 @@ function ApplicationOuter({
   onclick = () => {},
 }) {
   const router = useRouter();
-
-  function truncateString(str, n) {
-    if (str.length > n) {
-      return str.substring(0, n) + "...";
-    } else {
-      return str;
-    }
-  }
   return (
     <div
       className={styles.application_outer_container}
@@ -33,9 +25,7 @@ function ApplicationOuter({
       >
         {name[0]}
       </Avatar>
-      <p className={styles.application_outer_name}>
-        {truncateString(name, 12)}
-      </p>
+      <p className={styles.application_outer_name}>{name}</p>
       {daysDisplay && (
         <p className={styles.application_outer_noOfDays}>{days}</p>
       )}
