@@ -16,7 +16,10 @@ function ApplyCertificate() {
       <Header>
         <div className={styles.header_container}>
           <div className={styles.user_name_container}>
-            <ArrowBackIcon onClick={() => router.back()} />
+            <ArrowBackIcon
+              onClick={() => router.back()}
+              style={{cursor: "pointer"}}
+            />
             <h2 className={styles.user_name}>Municipality Details</h2>
           </div>
         </div>
