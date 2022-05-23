@@ -9,6 +9,7 @@ function InputField({
   name = "",
   type = "",
   smwidth = 10,
+  disabled = false,
   ...otherProps
 }) {
   return (
@@ -18,6 +19,7 @@ function InputField({
         name={name}
         InputProps={{className: styles.input}}
         type={type}
+        disabled={disabled}
         {...otherProps}
       />
     </Grid>

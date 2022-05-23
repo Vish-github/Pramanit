@@ -1,4 +1,5 @@
 import Image from "next/image";
+import {useRouter} from "next/router";
 
 import LeftPaneMunicipalityDashboard from "../src/components/MunicipalityDashboard/LeftPaneMunicipalityDashboard.jsx";
 import axios from "axios";
@@ -10,12 +11,13 @@ import ApplicationOuter from "../src/components/MunicipalityDashboard/Applicatio
 import {useEffect, useState} from "react";
 
 import moment from "moment";
-import Link from "next/link";
 
 function Municipality_dashboard() {
   const [completed, setCompleted] = useState([]);
   const [pending, setPending] = useState([]);
   const [cancelled, setCancelled] = useState([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     const url = "/api/get_birth_certificate";
@@ -74,17 +76,15 @@ function Municipality_dashboard() {
             const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
 
             return (
-              <Link href={`/view_certificate/${id}`} key={id}>
-                <a>
-                  <ApplicationOuter
-                    color="rgba(155, 197, 244, 0.849)"
-                    name={fullName}
-                    days={days}
-                    id={id}
-                    // onclick={"/view_certificate"}
-                  />
-                </a>
-              </Link>
+              <div key={id}>
+                <ApplicationOuter
+                  color="rgba(155, 197, 244, 0.849)"
+                  name={fullName}
+                  days={days}
+                  id={id}
+                  onclick={() => router.push(`/viewapplication/${id}`)}
+                />
+              </div>
             );
           })}
         </div>
@@ -101,18 +101,17 @@ function Municipality_dashboard() {
             console.log(days);
 
             return (
-              <Link href={`/view_certificate/${id}`} key={id}>
-                <a>
-                  <ApplicationOuter
-                    color="rgba(156, 244, 155, 0.849)"
-                    name={fullName}
-                    days={days}
-                    key={id}
-                    id={id}
-                    data={application}
-                  />
-                </a>
-              </Link>
+              <div key={id}>
+                <ApplicationOuter
+                  color="rgba(156, 244, 155, 0.849)"
+                  name={fullName}
+                  days={days}
+                  key={id}
+                  id={id}
+                  data={application}
+                  onclick={() => router.push(`/viewapplication/${id}`)}
+                />{" "}
+              </div>
             );
           })}
         </div>
@@ -129,17 +128,16 @@ function Municipality_dashboard() {
             console.log(days);
 
             return (
-              <Link href={`/view_certificate/${id}`} key={id}>
-                <a>
-                  <ApplicationOuter
-                    color="rgba(244, 155, 155, 0.829)"
-                    name={fullName}
-                    days={days}
-                    key={id}
-                    id={id}
-                  />
-                </a>
-              </Link>
+              <div key={id}>
+                <ApplicationOuter
+                  color="rgba(244, 155, 155, 0.829)"
+                  name={fullName}
+                  days={days}
+                  key={id}
+                  id={id}
+                  onclick={() => router.push(`/viewapplication/${id}`)}
+                />{" "}
+              </div>
             );
           })}
         </div>
