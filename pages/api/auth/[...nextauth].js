@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-
+import User from './../../../models/User.schema';
 export default NextAuth({
   session: {
     jwt: true,
@@ -33,7 +33,33 @@ export default NextAuth({
       console.log("session is ",session)
       console.log("user is ",user)
       session.accessToken = token.accessToken;
-      return session;
+      const {name,email}=session.user
+      let username=name
+      const password='GoogleAuth'
+      let birthTransactionId=' '
+      let deathIpfsHash=' '
+      let deathTransactionId=' '
+      let birthIpfsHash=' '
+      let accessToken=' '
+      let resetToken=' ' 
+      const newUser = new User({
+        username,
+        password,
+        email,
+        birthIpfsHash,
+        birthTransactionId,
+        deathIpfsHash,
+        deathTransactionId,
+        accessToken,
+        resetToken
+      });
+      newUser.save()
+      .then(result=>{
+        return session.user;
+      })
+      .catch(err=>{
+        return err
+      })
     },
   },
   // callbacks: {
