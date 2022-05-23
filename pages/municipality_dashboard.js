@@ -1,4 +1,5 @@
 import Image from "next/image";
+import {useRouter} from "next/router";
 
 import LeftPaneMunicipalityDashboard from "../src/components/MunicipalityDashboard/LeftPaneMunicipalityDashboard.jsx";
 import axios from "axios";
@@ -15,6 +16,8 @@ function Municipality_dashboard() {
   const [completed, setCompleted] = useState([]);
   const [pending, setPending] = useState([]);
   const [cancelled, setCancelled] = useState([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     const url = "/api/get_birth_certificate";
@@ -73,13 +76,15 @@ function Municipality_dashboard() {
             const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
 
             return (
-              <ApplicationOuter
-                color="rgba(155, 197, 244, 0.849)"
-                name={fullName}
-                days={days}
-                key={id}
-                id={id}
-              />
+              <div key={id}>
+                <ApplicationOuter
+                  color="rgba(155, 197, 244, 0.849)"
+                  name={fullName}
+                  days={days}
+                  id={id}
+                  onclick={() => router.push(`/viewapplication/${id}`)}
+                />
+              </div>
             );
           })}
         </div>
@@ -88,17 +93,25 @@ function Municipality_dashboard() {
           {completed.map((application) => {
             const fullName = `${application.childFirstName} ${application.childLastName}`;
             const id = application.applicant_id;
-            const date = moment(application.createdAt).format("YYYY-MM-DD");
-            const days = moment(date, "YYYY-MM-DD").fromNow();
+            const date = moment(application.createdAt).format(
+              "MMMM Do YYYY, h:mm:ss a"
+            );
+            const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
+
+            console.log(days);
+
             return (
-              <ApplicationOuter
-                color="rgba(156, 244, 155, 0.849)"
-                name={fullName}
-                days={days}
-                key={id}
-                id={id}
-                data={application}
-              />
+              <div key={id}>
+                <ApplicationOuter
+                  color="rgba(156, 244, 155, 0.849)"
+                  name={fullName}
+                  days={days}
+                  key={id}
+                  id={id}
+                  data={application}
+                  onclick={() => router.push(`/viewapplication/${id}`)}
+                />{" "}
+              </div>
             );
           })}
         </div>
@@ -107,19 +120,24 @@ function Municipality_dashboard() {
           {cancelled.map((application) => {
             const fullName = `${application.childFirstName} ${application.childLastName}`;
             const id = application.applicant_id;
-            const date = moment(application.createdAt).format("YYYY-MM-DD");
-            const days = moment(date, "YYYY-MM-DD").fromNow();
+            const date = moment(application.createdAt).format(
+              "MMMM Do YYYY, h:mm:ss a"
+            );
+            const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
 
             console.log(days);
 
             return (
-              <ApplicationOuter
-                color="rgba(244, 155, 155, 0.829)"
-                name={fullName}
-                days={days}
-                key={id}
-                id={id}
-              />
+              <div key={id}>
+                <ApplicationOuter
+                  color="rgba(244, 155, 155, 0.829)"
+                  name={fullName}
+                  days={days}
+                  key={id}
+                  id={id}
+                  onclick={() => router.push(`/viewapplication/${id}`)}
+                />{" "}
+              </div>
             );
           })}
         </div>

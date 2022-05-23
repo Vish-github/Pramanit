@@ -1,7 +1,10 @@
+import {useState} from "react";
 import {useRouter} from "next/router";
 
 import {Formik, Form} from "formik";
 import {Grid, Typography} from "@mui/material";
+import axios from "axios";
+import {connect} from "react-redux";
 
 import Button from "../Forms/FormUI/ButtonWrapper";
 import InputField from "../../../UI/InputField";
@@ -13,14 +16,9 @@ import Select from "../../../UI/SelectField";
 import Loader from "../../../UI/Loader";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/ApplyCertificateSchema";
-import {useState} from "react";
 
 import muncipalityData from "../../../src/data/MuncipalityData.json";
 
-import axios from "axios";
-
-import {connect} from "react-redux";
-import {addToken, removeToken} from "../../../redux/actions/token.action";
 import {openSnackbar} from "../../../redux/actions/snackbar.action";
 
 const currDate = () => {
@@ -36,26 +34,7 @@ const currDate = () => {
   return today;
 };
 
-const uploadPhoto = async (e) => {
-  const file = e.target.files[0];
-  const filename = encodeURIComponent(file.name);
-  const formData = new FormData();
-  formData.append("upload_preset", "my-uploads");
-
-  for (const file of fileInput.files) {
-    formData.append("file", file);
-  }
-
-  const res = await fetch(`/api/upload-url?file=${file}`);
-  console.log(res);
-};
-
-const ApplyCertificateForm = ({
-  addUserDetails,
-  removeUserDetails,
-  accesstoken,
-  openSnackbarmessage,
-}) => {
+const ApplyCertificateForm = ({accesstoken, openSnackbarmessage}) => {
   const router = useRouter();
 
   const [INITIAL_FORM_STATE, setINITIAL_FORM_STATE] = useState({
@@ -297,8 +276,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addUserDetails: (param) => dispatch(addToken(param)),
-    removeUserDetails: () => dispatch(removeToken()),
     openSnackbarmessage: (param) => dispatch(openSnackbar(param)),
     reset: () => dispatch(reset()),
   };
