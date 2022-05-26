@@ -1,21 +1,21 @@
-require('dotenv').config()
-const WalletHandler=require('@truffle/hdwallet-provider')
-console.log(process.env.PRIVATE_KEY,process.env.INFURA_API_KEY)
+require("dotenv").config();
+const WalletHandler = require("@truffle/hdwallet-provider");
+console.log(process.env.PRIVATE_KEY, process.env.INFURA_API_KEY);
 module.exports = {
-
   networks: {
-    rinkeby:{
+    rinkeby: {
       networkCheckTimeout: 10000,
-      provider:()=>new WalletHandler({
-        privateKeys:['f7c4e680ae9ebc56fb5a315a053385712451a3713c870bf63a5e8da3d057005d'],
-        providerOrUrl:"https://rinkeby.infura.io/v3/7a6e9661a3de47a3ac41a17f4aaf64c6",
-        numberOfAddresses:1
-      }),
-      network_id:4,
-      gas:5500000,
-      confirmations:2,
-      timeoutBlock:2000,
-      skipDryRun:true
+      provider: () =>
+        new WalletHandler({
+          privateKeys: [process.env.PRIVATE_KEY],
+          providerOrUrl: process.env.INFURA_API_KEY,
+          numberOfAddresses: 1,
+        }),
+      network_id: 4,
+      gas: 5500000,
+      confirmations: 2,
+      timeoutBlock: 2000,
+      skipDryRun: true,
     },
     // development:{
     //   host:"127.0.0.1",
@@ -26,7 +26,7 @@ module.exports = {
   solc: {
     optimizer: {
       enabled: true,
-      runs: 200
-    }
-  }
+      runs: 200,
+    },
+  },
 };

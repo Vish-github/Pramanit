@@ -40,6 +40,7 @@
     "react-thunk": "^1.0.0",
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
+    "web3": "^1.7.3",
     "yup": "^0.32.11"
   },
   "devDependencies": {
