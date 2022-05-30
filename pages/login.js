@@ -8,7 +8,8 @@ import userlogin from "../assets/PRAMANIT/loginuser.png";
 import {useRouter} from "next/router";
 import UserLoginForm from "../src/components/Forms/LoginForm";
 import { signIn, signOut, useSession } from "next-auth/react";
-// import BtnLogin from "../src/components/BtnLogin";
+import Button from "../UI/Button";
+
 import React, { useEffect } from "react";
 function UserLogin() {
   const session=useSession()
@@ -28,11 +29,26 @@ function UserLogin() {
           <UserLoginForm />
         </div>
         <div>
-          <button onClick={() => signIn("google",{callbackUrl:"http://localhost:3000/login"})}>Sign in with google</button>
+          {/* <Button
+            className={[btnstyle.Button ]}
+            onClick={() =>
+              signIn("google", {
+                callbackUrl: "http://localhost:3000/userdashboard",
+              })
+            }
+          >
+            Sign in with google
+          </Button> */}
+          <Button
+            title="Sign in with google"
+            onClick={() =>
+              signIn("google", {
+                callbackUrl: "http://localhost:3000/userdashboard",
+              })
+            }
+          ></Button>
           {/* <BtnLogin provider={Providers.Google} /> */}
-          {session.data!=undefined?
-          setToken():<></> 
-        }
+          {session.data != undefined ? setToken() : <></>}
         </div>
         <div className={styles.bottomText}>
           <p className={styles.message}>
