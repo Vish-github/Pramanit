@@ -122,10 +122,19 @@ const ViewCertificateForm = ({query}) => {
         networkData.address
       );
       setContract(contract);
+      // contract.methods
+      //   .AddMuncipality("0x3A8A957FcA0b4d153547A9517b18bc954Cf0cFDe", 1234)
+      //   .call()
+      //   .then((res) => {
+      //     console.log("res", res);
+      //   })
+      //   .catch((err) => {
+      //     console.log("error", err);
+      //   });
       contract.methods
         .AddUserBirthHash(
-          1,
-          1,
+          1234,
+          125,
           "Qmd63gzHfXCsJepsdTLd4cqigFa7SuCAeH6smsVoHovdbE"
         )
         .call()
@@ -135,6 +144,9 @@ const ViewCertificateForm = ({query}) => {
         .catch((err) => {
           console.log("error", err);
         });
+      // const memeHash = await contract.methods.getAData(0).call();
+      // setNewfilehash(memeHash[0]);
+      // console.log("memeHash", memeHash[0]);
       console.log("contact", contract);
     } else {
       window.alert("Smart contract not deployed to detected network.");
