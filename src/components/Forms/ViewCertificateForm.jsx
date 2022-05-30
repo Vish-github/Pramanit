@@ -1,6 +1,7 @@
 import {Formik, Form} from "formik";
 import {Grid, Typography} from "@mui/material";
 import moment from "moment";
+import Web3 from "web3";
 
 import Button from "./FormUI/ButtonWrapper";
 import ButtonMaterial from "@mui/material/Button";
@@ -20,6 +21,7 @@ import Axios from "axios";
 
 import ViewFiles from "../ViewFiles";
 import ApplicationrejectionForm from "./ApplicationrejectionForm";
+import Municipality from "../../../Project_SmartContract/build/contracts/Muncipality.json";
 
 const ViewCertificateForm = ({query}) => {
   const [INITIAL_FORM_STATE, setINITIAL_FORM_STATE] = useState({
@@ -43,6 +45,9 @@ const ViewCertificateForm = ({query}) => {
     dateApplied: "",
     applierEmail: "",
   });
+  const [isDisabled, setisDisabled] = useState(true);
+  const [contract, setContract] = useState(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const url = `/api/Indivisual_certificate/applicant_id?id=${query}`;
@@ -82,18 +87,59 @@ const ViewCertificateForm = ({query}) => {
     };
 
     fetchData();
+    loadWeb3();
+    loadBlockchain();
   }, []);
-
-  const [isDisabled, setisDisabled] = useState(true);
-
-  const [open, setOpen] = useState(false);
 
   const onSubmit = (values, {resetForm}) => {
     console.log(values);
     alert("Check Console for form data Object");
     // resetForm({ values: "" });
   };
+  const loadWeb3 = async () => {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+    } else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider);
+    } else {
+      window.alert(
+        "Non-Ethereum browser detected. You should consider trying MetaMask!"
+      );
+    }
+  };
 
+  const loadBlockchain = async () => {
+    const web3 = window.web3;
+    // Load account
+    const accounts = await web3.eth.getAccounts();
+    // setAccount({account: accounts[0]});
+    const networkId = await web3.eth.net.getId();
+    const networkData = Municipality.networks[networkId];
+    if (networkData) {
+      const contract = new web3.eth.Contract(
+        Municipality.abi,
+        networkData.address
+      );
+      setContract(contract);
+      contract.methods
+        .AddUserBirthHash(
+          1,
+          1,
+          "Qmd63gzHfXCsJepsdTLd4cqigFa7SuCAeH6smsVoHovdbE"
+        )
+        .call()
+        .then((res) => {
+          console.log("res", res);
+        })
+        .catch((err) => {
+          console.log("error", err);
+        });
+      console.log("contact", contract);
+    } else {
+      window.alert("Smart contract not deployed to detected network.");
+    }
+  };
   return (
     <>
       <Formik

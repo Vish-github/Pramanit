@@ -1,3 +1,5 @@
+import {useEffect} from "react";
+
 import Header from "../layout/Header";
 
 import styles from "../styles/UserDashboard.module.css";
