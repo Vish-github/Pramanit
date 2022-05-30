@@ -4,8 +4,9 @@ import React, {useEffect} from "react";
 import ReduxLayout from "../layout/ReduxLayout";
 import Snackbar from "../UI/Snackbar";
 import ProtectedLayout from "../layout/ProctectedRoutes";
+import { SessionProvider } from "next-auth/react";
 
-function MyApp({Component, pageProps}) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const theme = createTheme({
     palette: {
       primary: {
@@ -22,7 +23,9 @@ function MyApp({Component, pageProps}) {
       <ReduxLayout>
         <Snackbar />
         <ProtectedLayout>
-          <Component {...pageProps} />
+          <SessionProvider session={session}>
+            <Component {...pageProps} />
+          </SessionProvider>
         </ProtectedLayout>
       </ReduxLayout>
     </ThemeProvider>
