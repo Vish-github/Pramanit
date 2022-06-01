@@ -42,6 +42,7 @@ contract Muncipality{
             length:MuncipalityLength
         });
         allMun.push(NewMuncipality);
+        MuncipalityLength+=1;
         isPresent[uid]=true;
         return true;
 
@@ -59,7 +60,7 @@ contract Muncipality{
                 length:UserLength
             });
             allUser.push(newUser);
-
+            UserLength+=1;
             return true;
 
         }

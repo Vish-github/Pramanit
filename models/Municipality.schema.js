@@ -29,6 +29,19 @@ const municipalitySchema = new mongoose.Schema({
   },
   accessToken: {type: String},
   resetToken: {type: String},
+  metamaskAddress:{type:String},
+  issuingauthoritysign: {
+    type: String,
+  },
+  issuingauthorityname: {
+    type: String,
+  },
+  municipalityseal: {
+    type: String,
+  },
+  cheifregistrarsign: {
+    type: String,
+  },
 });
 
 municipalitySchema.methods.generateAuthToken = function () {
