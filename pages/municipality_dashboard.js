@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 import LeftPaneMunicipalityDashboard from "../src/components/MunicipalityDashboard/LeftPaneMunicipalityDashboard.jsx";
 import axios from "axios";
@@ -8,9 +8,10 @@ import search from "../assets/svgs/search.svg";
 import MunicipalityStat from "../src/components/MunicipalityDashboard/MunicipalityStat.jsx";
 import ViewMoreHeader from "../layout/ViewMoreHeader.jsx";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter.jsx";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 import moment from "moment";
+import Link from "next/link";
 
 function Municipality_dashboard() {
   const [completed, setCompleted] = useState([]);
@@ -67,7 +68,7 @@ function Municipality_dashboard() {
         </div>
         <ViewMoreHeader title="Pending Applications:" type="Pending" />
         <div className={styles.applications_container}>
-          {pending.slice(0, 6).map((application) => {
+          {pending.slice(0, 5).map((application) => {
             const fullName = `${application.childFirstName} ${application.childLastName}`;
             const id = application.applicant_id;
             const date = moment(application.createdAt).format(
@@ -92,7 +93,7 @@ function Municipality_dashboard() {
         </div>
         <ViewMoreHeader title="Completed Applications:" type="Completed" />
         <div className={styles.applications_container}>
-          {completed.slice(0, 6).map((application) => {
+          {completed.slice(0, 5).map((application) => {
             const fullName = `${application.childFirstName} ${application.childLastName}`;
             const id = application.applicant_id;
             const date = moment(application.createdAt).format(
@@ -120,7 +121,7 @@ function Municipality_dashboard() {
         </div>
         <ViewMoreHeader title="Rejected Applications:" type="Rejected" />
         <div className={styles.applications_container}>
-          {cancelled.slice(0, 6).map((application) => {
+          {cancelled.slice(0, 5).map((application) => {
             const fullName = `${application.childFirstName} ${application.childLastName}`;
             const id = application.applicant_id;
             const date = moment(application.createdAt).format(
