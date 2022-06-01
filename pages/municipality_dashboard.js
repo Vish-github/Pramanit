@@ -76,9 +76,9 @@ function Municipality_dashboard() {
             title="Cancelled"
           />
         </div>
-        <ViewMoreHeader title="Pending Applications:" />
+        <ViewMoreHeader title="Pending Applications:" type="Pending" />
         <div className={styles.applications_container}>
-          {pending.map((application) => {
+          {pending.slice(0, 6).map((application) => {
             const fullName = `${application.childFirstName} ${application.childLastName}`;
             const id = application.applicant_id;
             const date = moment(application.createdAt).format(
@@ -87,23 +87,23 @@ function Municipality_dashboard() {
             const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
 
             return (
-              <Link href={`/view_certificate/${id}`} key={id}>
+              <Link href={`/viewapplication/${id}`} key={id}>
                 <a>
                   <ApplicationOuter
                     color="rgba(155, 197, 244, 0.849)"
                     name={fullName}
                     days={days}
                     id={id}
-                    // onclick={"/view_certificate"}
+                    // onclick={"/viewapplication"}
                   />
                 </a>
               </Link>
             );
           })}
         </div>
-        <ViewMoreHeader title="Completed Applications:" />
+        <ViewMoreHeader title="Completed Applications:" type="Completed" />
         <div className={styles.applications_container}>
-          {completed.map((application) => {
+          {completed.slice(0, 6).map((application) => {
             const fullName = `${application.childFirstName} ${application.childLastName}`;
             const id = application.applicant_id;
             const date = moment(application.createdAt).format(
@@ -114,7 +114,7 @@ function Municipality_dashboard() {
             console.log(days);
 
             return (
-              <Link href={`/view_certificate/${id}`} key={id}>
+              <Link href={`/viewapplication/${id}`} key={id}>
                 <a>
                   <ApplicationOuter
                     color="rgba(156, 244, 155, 0.849)"
@@ -129,9 +129,9 @@ function Municipality_dashboard() {
             );
           })}
         </div>
-        <ViewMoreHeader title="Rejected Applications:" />
+        <ViewMoreHeader title="Rejected Applications:" type="Rejected" />
         <div className={styles.applications_container}>
-          {cancelled.map((application) => {
+          {cancelled.slice(0, 6).map((application) => {
             const fullName = `${application.childFirstName} ${application.childLastName}`;
             const id = application.applicant_id;
             const date = moment(application.createdAt).format(
@@ -142,7 +142,7 @@ function Municipality_dashboard() {
             console.log(days);
 
             return (
-              <Link href={`/view_certificate/${id}`} key={id}>
+              <Link href={`/viewapplication/${id}`} key={id}>
                 <a>
                   <ApplicationOuter
                     color="rgba(244, 155, 155, 0.829)"
