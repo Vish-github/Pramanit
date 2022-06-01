@@ -31,10 +31,7 @@ function UserLogin() {
         <div>
           <UserLoginForm />
         </div>
-        <div>
-          {/* <BtnLogin provider={Providers.Google} /> */}
-          {/* {session.data != undefined ? setToken() : <></>} */}
-        </div>
+        <div></div>
         <div className={styles.bottomText}>
           <p className={styles.message}>
             Do you have an account?{" "}
