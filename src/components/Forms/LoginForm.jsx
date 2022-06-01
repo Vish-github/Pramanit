@@ -18,7 +18,7 @@ const INITIAL_FORM_STATE = {
   password: "",
 };
 
-const LoginForm = ({addUserDetails, removeUserDetails,providers, session}) => {
+const LoginForm = ({addUserDetails}) => {
   const router = useRouter();
 
   const onSubmit = (values, {resetForm}) => {
@@ -37,7 +37,7 @@ const LoginForm = ({addUserDetails, removeUserDetails,providers, session}) => {
 
   return (
     <Formik
-      initialValues={{ ...INITIAL_FORM_STATE }}
+      initialValues={{...INITIAL_FORM_STATE}}
       validationSchema={FORM_VALIDATION}
       onSubmit={onSubmit}
     >
