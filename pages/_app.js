@@ -22,11 +22,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     <ThemeProvider theme={theme}>
       <ReduxLayout>
         <Snackbar />
-        <ProtectedLayout>
           <SessionProvider session={session}>
+        <ProtectedLayout>
             <Component {...pageProps} />
-          </SessionProvider>
         </ProtectedLayout>
+          </SessionProvider>
       </ReduxLayout>
     </ThemeProvider>
   );

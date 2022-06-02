@@ -46,7 +46,12 @@ function UserLogin() {
         <div
           className={styles.googlecontainer}
           onClick={() =>
-            signIn("google", {callbackUrl: "http://localhost:3000/login"})
+            signIn("google", {callbackUrl: "http://localhost:3000/userdashboard"}).then(res=>{
+              console.log("Here in google response")
+              console.log("Gooogle res",res)
+            }).catch(err=>{
+              console.log("Error here in google auth",err)
+            })
           }
         >
           <Image src={google} width={20} height={20} />
