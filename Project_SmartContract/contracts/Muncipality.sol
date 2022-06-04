@@ -77,9 +77,14 @@ contract Muncipality{
             return false;
         }
     }
-    function getBirthCertificate(uint uid) public returns(UserData memory){
-        UserData memory foundUser=allUser[uid];
-        return foundUser;
+    function getBirthCertificate(uint uid) public returns(string memory){
+            for(uint i=0;i<UserLength;i++){
+                if(allUser[i].uid==uid){
+                    return allUser[i].BirthHash;
+                }
+            }
+            return "No user with this id found";
+
     }
     function getAllData() public returns(UserData[] memory){
         return allUser;

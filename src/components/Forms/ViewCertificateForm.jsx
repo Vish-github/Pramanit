@@ -91,26 +91,26 @@ const ViewCertificateForm = ({query}) => {
     const address = "0xE351b03f2D352619F20BcC9d547DD5bd436e4E36";
     const contract = new ethers.Contract(address, Municipality.abi, signer);
 
-    // console.log(
-    //   "hello",
-    //   contract.AddMuncipality("0x5c4b765f9Ff8c5F79De50c4b5726CB2E1F0dCA36", 2)
-    // );
-    // console.log(
-    //   "hello",
-    //   contract.AddUserBirthHash(
-    //     2,
-    //     1,
-    //     "Qmd63gzHfXCsJepsdTLd4cqigFa7SuCAeH6smsVoHovdbE"
-    //   )
-    // );
-    // contract
-    //   .getAllData()
-    //   .then((res) => {
-    //     console.log("res", res);
-    //   })
-    //   .catch((err) => {
-    //     console.log("error", err);
-    //   });
+    console.log(
+      "hello",
+      contract.AddMuncipality("0x5c4b765f9Ff8c5F79De50c4b5726CB2E1F0dCA36", 3)
+    );
+    console.log(
+      "hello",
+      contract.AddUserBirthHash(
+        3,
+        2,
+        "Qmd63gzHfXCsJepsdTLd4cqigFa7SuCAeH6smsVoHovdbE"
+      )
+    );
+    contract
+      .getAllData()
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
   }, []);
 
   const [isDisabled, setisDisabled] = useState(true);

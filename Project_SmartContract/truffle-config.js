@@ -8,7 +8,7 @@ module.exports = {
       networkCheckTimeout: 10000,
       provider:()=>new WalletHandler({
         privateKeys:['f7c4e680ae9ebc56fb5a315a053385712451a3713c870bf63a5e8da3d057005d'],
-        providerOrUrl:"https://rinkeby.infura.io/v3/7a6e9661a3de47a3ac41a17f4aaf64c6",
+        providerOrUrl:"wss://rinkeby.infura.io/ws/v3/b7e67459e49e4367babd70cc44f9a462",
         numberOfAddresses:1
       }),
       network_id:4,
