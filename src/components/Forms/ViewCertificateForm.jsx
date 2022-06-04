@@ -88,12 +88,12 @@ const ViewCertificateForm = ({query}) => {
     fetchData();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     let signer = provider.getSigner(0);
-    const address = "0xE351b03f2D352619F20BcC9d547DD5bd436e4E36";
+    const address = "0x5C70F1Ab26d4b4Bd2eaA76552Ca07cD20E9199db";
     const contract = new ethers.Contract(address, Municipality.abi, signer);
-
+    console.log("contract", contract);
     // console.log(
     //   "hello",
-    //   contract.AddMuncipality("0x5c4b765f9Ff8c5F79De50c4b5726CB2E1F0dCA36", 2)
+    //   contract.AddMuncipality("0xc98d049254984b89920a86ca198Ab6edC32CE645", 2)
     // );
     // console.log(
     //   "hello",
@@ -103,14 +103,14 @@ const ViewCertificateForm = ({query}) => {
     //     "Qmd63gzHfXCsJepsdTLd4cqigFa7SuCAeH6smsVoHovdbE"
     //   )
     // );
-    // contract
-    //   .getAllData()
-    //   .then((res) => {
-    //     console.log("res", res);
-    //   })
-    //   .catch((err) => {
-    //     console.log("error", err);
-    //   });
+    contract
+      .getBirthCertificate(2)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
   }, []);
 
   const [isDisabled, setisDisabled] = useState(true);
