@@ -14,7 +14,8 @@ import {connect} from "react-redux";
 import {
   addMunicipalityToken,
   removeMunicipalityToken,
-} from "../../../redux/actions/token.action";
+} from "../../../redux/actions/municipality.action";
+
 const INITIAL_FORM_STATE = {
   email: "",
   password: "",
