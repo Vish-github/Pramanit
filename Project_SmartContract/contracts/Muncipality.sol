@@ -41,7 +41,9 @@ contract Muncipality{
             uid:uid,
             length:MuncipalityLength
         });
+
         allMun.push(NewMuncipality);
+           MuncipalityLength+=1;
         isPresent[uid]=true;
         return true;
 
@@ -59,7 +61,7 @@ contract Muncipality{
                 length:UserLength
             });
             allUser.push(newUser);
-
+              UserLength+=1;
             return true;
 
         }
@@ -69,7 +71,13 @@ contract Muncipality{
     } 
     function AddDeathhash(uint munId,uint uid,string memory _DeathHash) public returns(bool){
         if(CheckPresence(munId)){
-            UserData memory deadUser=allUser[uid];
+            UserData memory deadUser;
+            for(uint i=0;i<UserLength;i++){
+                if(allUser[i].uid==uid){
+                    // console.log('In here');
+                    deadUser=allUser[i];
+                }
+            }
             deadUser.DeathHash=_DeathHash;
             return true;
         }
@@ -77,11 +85,25 @@ contract Muncipality{
             return false;
         }
     }
-    function getBirthCertificate(uint uid) public returns(UserData memory){
-        UserData memory foundUser=allUser[uid];
-        return foundUser;
+    function getBirthCertificate(uint uid) public view returns(string memory){
+            for(uint i=0;i<UserLength;i++){
+                if(allUser[i].uid==uid){
+                    return allUser[i].BirthHash;
+                }
+            }
+            return "No user with this id found";
+
     }
-    function getAllData() public returns(UserData[] memory){
+          function getDeathCertificate(uint uid) public view returns(string memory){
+            for(uint i=0;i<UserLength;i++){
+                if(allUser[i].uid==uid){
+                    return allUser[i].DeathHash;
+                }
+            }
+            return "No user with this id found";
+
+    }
+    function getAllData() public view returns(UserData[] memory){
         return allUser;
     }
 

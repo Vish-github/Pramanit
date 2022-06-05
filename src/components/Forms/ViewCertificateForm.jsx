@@ -1,5 +1,5 @@
 import {Formik, Form} from "formik";
-import {Grid, Typography} from "@mui/material";
+import {Grid} from "@mui/material";
 import moment from "moment";
 
 import Button from "./FormUI/ButtonWrapper";
@@ -20,6 +20,10 @@ import Axios from "axios";
 
 import ViewFiles from "../ViewFiles";
 import ApplicationrejectionForm from "./ApplicationrejectionForm";
+
+import {ethers} from "ethers";
+
+import Municipality from "../../../Project_SmartContract/build/contracts/Muncipality.json";
 
 const ViewCertificateForm = ({query}) => {
   const [INITIAL_FORM_STATE, setINITIAL_FORM_STATE] = useState({
@@ -43,8 +47,14 @@ const ViewCertificateForm = ({query}) => {
     dateApplied: "",
     applierEmail: "",
   });
+  const [verified, setVerified] = useState({
+    fatherIdentityProof: false,
+    motherIdentityProof: false,
+    addressProof: false,
+    birthProof: false,
+  });
 
-  useEffect(() => {
+  useEffect(async () => {
     const url = `/api/Indivisual_certificate/applicant_id?id=${query}`;
 
     const fetchData = async () => {
@@ -89,9 +99,42 @@ const ViewCertificateForm = ({query}) => {
   const [open, setOpen] = useState(false);
 
   const onSubmit = (values, {resetForm}) => {
-    console.log(values);
-    alert("Check Console for form data Object");
-    // resetForm({ values: "" });
+    if (
+      !(
+        verified.addressProof &&
+        verified.birthProof &&
+        verified.fatherIdentityProof &&
+        verified.motherIdentityProof
+      )
+    ) {
+      alert("Please verify all documents");
+    } else {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      let signer = provider.getSigner(0);
+      const address = "0x89d5945ec274c7561fB4651152dabF155aD03a63";
+      const contract = new ethers.Contract(address, Municipality.abi, signer);
+      // await contract
+      //   .AddUserBirthHash(
+      //     121,
+      //     18,
+      //     "Qmd63gzHfXCsJepsdTLd4cqigFa7SuCAeH6smsVoHovdbE"
+      //   )
+      //   .then((res) => {
+      //     console.log("hello", res);
+      //   })
+      //   .catch((err) => {
+      //     console.log("error", err);
+      //   });
+
+      //  contract
+      //    .getBirthCertificate(16)
+      //    .then((res) => {
+      //      console.log("res", res);
+      //    })
+      //    .catch((err) => {
+      //      console.log("error", err);
+      //    });
+    }
   };
 
   return (
@@ -234,18 +277,42 @@ const ViewCertificateForm = ({query}) => {
                     {
                       link: formProps.values.fatherIdentityProof,
                       title: "Father's Identity Proof",
+                      viewed: verified.fatherIdentityProof,
+                      onClick: () =>
+                        setVerified({
+                          ...verified,
+                          fatherIdentityProof: true,
+                        }),
                     },
                     {
                       link: formProps.values.motherIdentityProof,
                       title: "Mother's Identity Proof",
+                      viewed: verified.motherIdentityProof,
+                      onClick: () =>
+                        setVerified({
+                          ...verified,
+                          motherIdentityProof: true,
+                        }),
                     },
                     {
                       link: formProps.values.addressProof,
                       title: "Address Proof",
+                      viewed: verified.addressProof,
+                      onClick: () =>
+                        setVerified({
+                          ...verified,
+                          addressProof: true,
+                        }),
                     },
                     {
                       link: formProps.values.birthProof,
                       title: "Birth Proof",
+                      viewed: verified.birthProof,
+                      onClick: () =>
+                        setVerified({
+                          ...verified,
+                          birthProof: true,
+                        }),
                     },
                   ]}
                 />
