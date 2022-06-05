@@ -1,11 +1,12 @@
-import { Button, Grid, Modal, Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import React, { Fragment, useState } from "react";
+import {Button, Grid, Modal, Typography} from "@mui/material";
+import React, {Fragment, useState} from "react";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ViewPdf from "./ViewPdf";
 
-const ViewFiles = ({ files }) => {
+import ButtonUi from "../../UI/Button";
+
+const ViewFiles = ({files}) => {
   const [open, setOpen] = useState(false);
   const [currPdf, setCurrPdf] = useState(null);
   const handleOpen = () => setOpen(true);
@@ -55,18 +56,22 @@ const ViewFiles = ({ files }) => {
             <Typography color="primary" marginY={2}>
               {file.title}
             </Typography>
-            <Button
-              variant="contained"
-              color="success"
-              style={{
-                color: "#f4f4f4",
-                fontWeight: "bold",
-                borderRadius: "10px",
-                padding: "0.5rem 3rem",
-              }}
-            >
-              Verify
-            </Button>
+            {file.viewed ? (
+              <Button
+                variant="contained"
+                color="success"
+                style={{
+                  color: "#f4f4f4",
+                  fontWeight: "bold",
+                  borderRadius: "10px",
+                  padding: "0.5rem 3rem",
+                }}
+              >
+                Verified
+              </Button>
+            ) : (
+              <ButtonUi title="Verify" onClick={file.onClick} />
+            )}
           </Grid>
         ))}
       </Grid>
