@@ -9,13 +9,24 @@ import MunicipalityDetails from "./MunicipalityDetails";
 import TypeOfCertificate from "./TypeOfCertificate";
 
 function LeftPaneMunicipalityDashboard() {
+  const connectToMetamask = () => {
+    //logic for connect to metamask here
+  };
+
   return (
     <div className={styles.LeftPaneMunicipalityDashboard_container}>
       <Avatar style={{width: 50, height: 50, margin: "auto"}} />
       <h2 className={styles.municipality_name}> PANAJI MUNCIPALITY</h2>
+
       <TypeOfCertificate active={false} title="Birth Certificates" />
       <TypeOfCertificate active={true} title="Death Certificates" />
       <MunicipalityDetails />
+      <button
+        className={styles.connectToMetamaskBtn}
+        onClick={connectToMetamask}
+      >
+        Connect to Meta Mask
+      </button>
       <div className={styles.municipality_logout}>
         <Image src={logout} alt="Logout" />
         <p>Log out</p>

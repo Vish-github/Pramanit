@@ -1,5 +1,4 @@
-import { Avatar } from "@mui/material";
-import { useRouter } from "next/router";
+import {Avatar} from "@mui/material";
 
 import styles from "../../../styles/ApplicationOuter.module.css";
 
@@ -12,23 +11,15 @@ function ApplicationOuter({
   daysDisplay = true,
   onclick = () => {},
 }) {
-  const router = useRouter();
   return (
     <div
       className={styles.application_outer_container}
-      style={{ backgroundColor: color }}
-      onClick={() =>
-        router.push({
-          pathname: "/view_certificate",
-          query: {
-            id: id,
-          },
-        })
-      }
+      style={{backgroundColor: color}}
+      onClick={onclick}
     >
       <Avatar
-        style={{ margin: "auto", width: 50, height: 50 }}
-        sx={{ bgcolor: "#fff", color: "#930D0D", fontSize: 25 }}
+        style={{margin: "auto", width: 50, height: 50}}
+        sx={{bgcolor: "#fff", color: "#930D0D", fontSize: 25}}
       >
         {name[0]}
       </Avatar>
