@@ -21,6 +21,10 @@ import Axios from "axios";
 import ViewFiles from "../ViewFiles";
 import ApplicationrejectionForm from "./ApplicationrejectionForm";
 
+import {ethers} from "ethers";
+
+import Municipality from "../../../Project_SmartContract/build/contracts/Muncipality.json";
+
 const ViewCertificateForm = ({query}) => {
   const [INITIAL_FORM_STATE, setINITIAL_FORM_STATE] = useState({
     childFirstName: "",
@@ -44,7 +48,7 @@ const ViewCertificateForm = ({query}) => {
     applierEmail: "",
   });
 
-  useEffect(() => {
+  useEffect(async () => {
     const url = `/api/Indivisual_certificate/applicant_id?id=${query}`;
 
     const fetchData = async () => {
@@ -89,9 +93,31 @@ const ViewCertificateForm = ({query}) => {
   const [open, setOpen] = useState(false);
 
   const onSubmit = (values, {resetForm}) => {
-    console.log(values);
-    alert("Check Console for form data Object");
-    // resetForm({ values: "" });
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    let signer = provider.getSigner(0);
+    const address = "0x89d5945ec274c7561fB4651152dabF155aD03a63";
+    const contract = new ethers.Contract(address, Municipality.abi, signer);
+    // await contract
+    //   .AddUserBirthHash(
+    //     121,
+    //     18,
+    //     "Qmd63gzHfXCsJepsdTLd4cqigFa7SuCAeH6smsVoHovdbE"
+    //   )
+    //   .then((res) => {
+    //     console.log("hello", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log("error", err);
+    //   });
+
+    //  contract
+    //    .getBirthCertificate(16)
+    //    .then((res) => {
+    //      console.log("res", res);
+    //    })
+    //    .catch((err) => {
+    //      console.log("error", err);
+    //    });
   };
 
   return (
