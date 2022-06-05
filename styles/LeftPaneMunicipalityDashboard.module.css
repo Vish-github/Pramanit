@@ -30,17 +30,6 @@
   margin-left: 10px;
 }
 
-.connectToMetamaskBtn {
-  background-color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  display: block;
-  margin: auto;
-  margin-top: 50px;
-  text-transform: uppercase;
-}
-
 @media (max-width: 700px) {
   .LeftPaneMunicipalityDashboard_container {
     width: 100%;
