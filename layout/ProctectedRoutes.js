@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {useRouter} from "next/router";
 import {connect} from "react-redux";
 
-import { useSession } from "next-auth/react"
+// import { useSession } from "next-auth/react"
 
 import {addToken} from "../redux/actions/token.action";
 
@@ -16,9 +16,9 @@ function Layout({children, accesstoken, addUserDetails}) {
     )
       if (!accesstoken) {
         if (!localStorage.getItem("pramanit")) {
-          const { data } = useSession()
-          const { accessToken } = data
-          if(!accessToken)
+          // const { data } = useSession()
+          // const { accessToken } = data
+          // if(!accessToken)
           router.push("/login");
         } else {
           addUserDetails(JSON.parse(localStorage.getItem("pramanit")));

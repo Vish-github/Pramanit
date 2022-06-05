@@ -16,7 +16,7 @@ import {signIn} from "next-auth/react";
 import React, {useEffect} from "react";
 function UserLogin() {
   const router = useRouter();
-  const session = useSession();
+  // const session = useSession();
 
   const setToken = () => {
     console.log("in HERE", session);
