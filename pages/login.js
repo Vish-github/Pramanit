@@ -11,7 +11,7 @@ import userlogin from "../assets/PRAMANIT/loginuser.png";
 import {useRouter} from "next/router";
 import UserLoginForm from "../src/components/Forms/LoginForm";
 
-import {signIn, signOut, useSession} from "next-auth/react";
+import {signIn} from "next-auth/react";
 
 import React, {useEffect} from "react";
 function UserLogin() {
@@ -46,7 +46,7 @@ function UserLogin() {
         <div
           className={styles.googlecontainer}
           onClick={() =>
-            signIn("google", {callbackUrl: "http://localhost:3000/login"})
+            signIn("google", {callbackUrl: "http://localhost:3000/userdashboard"})
           }
         >
           <Image src={google} width={20} height={20} />
