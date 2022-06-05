@@ -13,7 +13,7 @@ const client = new Web3Storage({ token:  process.env.WEB3STORAGE_TOKEN})
  async function storeFiles(files){
     console.log(files)
     fs.writeFileSync('some.pdf', files)
-    const file = await getFilesFromPath('./Birth_certificate.pdf')
+    const file = await getFilesFromPath('./some.pdf')
   // const files = new File([blob], 'output.pdf')
     const cid = await client.put(file)
     console.log('stored files with cid:', cid)

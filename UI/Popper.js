@@ -11,6 +11,8 @@ import {useRouter} from "next/router";
 import {connect} from "react-redux";
 import {removeToken} from "../redux/actions/token.action";
 
+import {signOut} from "next-auth/react";
+
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
@@ -65,6 +67,16 @@ function SimplePopover({removeUserDetails}) {
         <Typography className={classes.typography} onClick={logout}>
           Logout
         </Typography>
+        {/* <Typography
+          className={classes.typography}
+          onClick={() =>
+            signOut("google", {
+              callbackUrl: "http://localhost:3000/login",
+            })
+          }
+        >
+          google Logout
+        </Typography> */}
       </Popover>
     </>
   );
