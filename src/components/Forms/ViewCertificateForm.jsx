@@ -88,29 +88,37 @@ const ViewCertificateForm = ({query}) => {
     fetchData();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     let signer = provider.getSigner(0);
-    const address = "0x5C70F1Ab26d4b4Bd2eaA76552Ca07cD20E9199db";
+    const address = "0x02e7b8b54735223Bdc31BAF041cb42e333AC53A8";
     const contract = new ethers.Contract(address, Municipality.abi, signer);
-    console.log("contract", contract);
-    // console.log(
-    //   "hello",
-    //   contract.AddMuncipality("0xc98d049254984b89920a86ca198Ab6edC32CE645", 2)
-    // );
-    // console.log(
-    //   "hello",
-    //   contract.AddUserBirthHash(
-    //     2,
-    //     1,
-    //     "Qmd63gzHfXCsJepsdTLd4cqigFa7SuCAeH6smsVoHovdbE"
-    //   )
-    // );
-    contract
-      .getBirthCertificate(2)
-      .then((res) => {
-        console.log("res", res);
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
+  //   console.log("contract", contract);
+    // await contract
+    // .AddMuncipality("0xc98d049254984b89920a86ca198Ab6edC32CE645", 121)
+    // .then((res) => {
+    //   console.log("hello", res);
+    // })
+    // .catch((err) => {
+    //   console.log("error", err);
+    // });
+  await contract
+    .AddUserBirthHash(121, 17, "Qmd63gzHfXCsJepsdTLd4cqigFa7SuCAeH6smsVoHovdbE")
+    .then((res) => {
+      console.log("hello", res);
+    })
+    .catch((err) => {
+      console.log("error", err);
+    });
+
+  // console.log(
+  //   "hello",
+  // );
+  contract
+    .getBirthCertificate(17)
+    .then((res) => {
+      console.log("res", res);
+    })
+    .catch((err) => {
+      console.log("error", err);
+    });
   }, []);
 
   const [isDisabled, setisDisabled] = useState(true);
