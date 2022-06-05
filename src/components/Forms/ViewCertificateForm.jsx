@@ -95,7 +95,7 @@ const ViewCertificateForm = ({query}) => {
   const onSubmit = (values, {resetForm}) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     let signer = provider.getSigner(0);
-    const address = "0x02e7b8b54735223Bdc31BAF041cb42e333AC53A8";
+    const address = "0x89d5945ec274c7561fB4651152dabF155aD03a63";
     const contract = new ethers.Contract(address, Municipality.abi, signer);
     // await contract
     //   .AddUserBirthHash(

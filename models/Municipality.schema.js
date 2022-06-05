@@ -29,6 +29,7 @@ const municipalitySchema = new mongoose.Schema({
   },
   accessToken: {type: String},
   resetToken: {type: String},
+  metamaskAddress:{type:String},
   issuingauthoritysign: {
     type: String,
   },
