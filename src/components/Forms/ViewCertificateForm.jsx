@@ -1,5 +1,6 @@
 import {Formik, Form} from "formik";
 import {Grid} from "@mui/material";
+import moment from "moment";
 
 import Button from "./FormUI/ButtonWrapper";
 import ButtonMaterial from "@mui/material/Button";
@@ -10,7 +11,6 @@ import DateTime from "../../../UI/DateTime";
 import Select from "../../../UI/SelectField";
 import Modal from "../../../layout/Modal";
 
-import FORM_VALIDATION from "../../FormValidationSchemas/ApplyCertificateSchema";
 import {useState} from "react";
 
 import muncipalityData from "../../../src/data/MuncipalityData.json";
@@ -35,8 +35,7 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
 
   const [open, setOpen] = useState(false);
 
-  const onSubmit = (values) => {
-    console.log("here");
+  const onSubmit = (values, {resetForm}) => {
     if (
       !(
         verified.addressProof &&
@@ -94,8 +93,7 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
   return (
     <>
       <Formik
-        initialValues={INITIAL_FORM_STATE}
-        validationSchema={FORM_VALIDATION}
+        initialValues={{...INITIAL_FORM_STATE}}
         onSubmit={onSubmit}
         enableReinitialize
       >
@@ -298,21 +296,9 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
                   alignItems: "center",
                 }}
               >
-                {/* <Button color="success" style={{marginRight: "50px"}}>
+                <Button color="success" style={{marginRight: "50px"}}>
                   Issue
-                </Button> */}
-                <ButtonMaterial
-                  color="success"
-                  onClick={() => onSubmit(INITIAL_FORM_STATE)}
-                  variant="contained"
-                  style={{
-                    width: "100%",
-                    color: "white",
-                    marginRight: 60,
-                  }}
-                >
-                  Issue
-                </ButtonMaterial>
+                </Button>
                 <ButtonMaterial
                   color="error"
                   onClick={() => setOpen(true)}
