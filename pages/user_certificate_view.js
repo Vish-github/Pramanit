@@ -4,7 +4,6 @@ import Header from "../layout/Header";
 
 import styles from "../styles/UserDashboard.module.css";
 
-import settings from "../assets/svgs/settings.svg";
 import applycertificate from "../assets/PRAMANIT/applycertificate.png";
 import viewcertificate from "../assets/PRAMANIT/viewcertificate.png";
 
@@ -34,7 +33,7 @@ function user_certificate_view() {
         <UserDashboardComponent
           image={viewcertificate}
           title="View Certificate"
-          href="/"
+          href="/user_birth_certificate"
         />
       </div>
     </div>
