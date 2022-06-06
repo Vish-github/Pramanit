@@ -1,5 +1,5 @@
-import {Formik, Form} from "formik";
-import {Grid} from "@mui/material";
+import { Formik, Form } from "formik";
+import { Grid } from "@mui/material";
 import moment from "moment";
 
 import Button from "./FormUI/ButtonWrapper";
@@ -11,8 +11,7 @@ import DateTime from "../../../UI/DateTime";
 import Select from "../../../UI/SelectField";
 import Modal from "../../../layout/Modal";
 
-import FORM_VALIDATION from "../../FormValidationSchemas/ApplyCertificateSchema";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 import muncipalityData from "../../../src/data/MuncipalityData.json";
 
@@ -21,11 +20,11 @@ import Axios from "axios";
 import ViewFiles from "../ViewFiles";
 import ApplicationrejectionForm from "./ApplicationrejectionForm";
 
-import {ethers} from "ethers";
+import { ethers } from "ethers";
 
 import Municipality from "../../../Project_SmartContract/build/contracts/Muncipality.json";
 
-const ViewCertificateForm = ({query}) => {
+const ViewCertificateForm = ({ query }) => {
   const [INITIAL_FORM_STATE, setINITIAL_FORM_STATE] = useState({
     childFirstName: "",
     childLastName: "",
@@ -98,7 +97,7 @@ const ViewCertificateForm = ({query}) => {
 
   const [open, setOpen] = useState(false);
 
-  const onSubmit = (values, {resetForm}) => {
+  const onSubmit = (values, { resetForm }) => {
     if (
       !(
         verified.addressProof &&
@@ -140,8 +139,7 @@ const ViewCertificateForm = ({query}) => {
   return (
     <>
       <Formik
-        initialValues={{...INITIAL_FORM_STATE}}
-        validationSchema={FORM_VALIDATION}
+        initialValues={{ ...INITIAL_FORM_STATE }}
         onSubmit={onSubmit}
         enableReinitialize
       >
@@ -239,9 +237,9 @@ const ViewCertificateForm = ({query}) => {
                   name="gender"
                   disabled={isDisabled}
                   data={[
-                    {value: "male", label: "Male"},
-                    {value: "female", label: "Female"},
-                    {value: "others", label: "Others"},
+                    { value: "male", label: "Male" },
+                    { value: "female", label: "Female" },
+                    { value: "others", label: "Others" },
                   ]}
                 />
               </InputGroup>
@@ -344,7 +342,7 @@ const ViewCertificateForm = ({query}) => {
                   alignItems: "center",
                 }}
               >
-                <Button color="success" style={{marginRight: "50px"}}>
+                <Button color="success" style={{ marginRight: "50px" }}>
                   Issue
                 </Button>
                 <ButtonMaterial
