@@ -19,7 +19,7 @@ import shareicon from "../assets/svgs/share.svg";
 
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
-function user_birth_certificate() {
+function User_birth_certificate() {
   const [open, setOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState(null);
   const [tooltipText, setTooltipText] = useState("Copy Link");
@@ -132,4 +132,4 @@ function user_birth_certificate() {
   );
 }
 
-export default user_birth_certificate;
+export default User_birth_certificate;
