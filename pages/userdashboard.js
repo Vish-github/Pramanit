@@ -29,11 +29,13 @@ function userdashboard() {
           image={birth}
           title="Birth Certificate"
           href="/user_certificate_view"
+          active={true}
         />
         <UserDashboardComponent
           image={death}
           title="Death Certificate"
           href="/user_certificate_view"
+          active={true}
         />
       </div>
     </div>

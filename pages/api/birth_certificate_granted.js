@@ -6,7 +6,7 @@ const handler = async (req, res) => {
   const data = {
     birthIpfsHash: req.body.birthhash,
     birthTransactionId: req.body.birthtransaction,
-    birthissued: 1,
+    birthCertificateStatus: 2,
   };
   await User.findOneAndUpdate({email: req.body.email}, data)
     .then((certificate) => {

@@ -40,14 +40,6 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  birthissued: {
-    type: Number,
-    default: 0,
-  },
-  deathissued: {
-    type: Number,
-    default: 0,
-  },
 });
 
 userSchema.methods.generateAuthToken = function () {
