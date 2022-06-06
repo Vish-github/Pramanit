@@ -1,6 +1,5 @@
 import {Formik, Form} from "formik";
 import {Grid} from "@mui/material";
-import moment from "moment";
 
 import Button from "./FormUI/ButtonWrapper";
 import ButtonMaterial from "@mui/material/Button";
@@ -12,41 +11,19 @@ import Select from "../../../UI/SelectField";
 import Modal from "../../../layout/Modal";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/ApplyCertificateSchema";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 import muncipalityData from "../../../src/data/MuncipalityData.json";
-
-import Axios from "axios";
 
 import ViewFiles from "../ViewFiles";
 import ApplicationrejectionForm from "./ApplicationrejectionForm";
 
 import {ethers} from "ethers";
+import axios from "axios";
 
 import Municipality from "../../../Project_SmartContract/build/contracts/Muncipality.json";
 
-const ViewCertificateForm = ({query}) => {
-  const [INITIAL_FORM_STATE, setINITIAL_FORM_STATE] = useState({
-    childFirstName: "",
-    childLastName: "",
-    fatherName: "",
-    motherName: "",
-    dateOfBirth: "2022-04-15",
-    placeOfBirth: "",
-    address: "",
-    fatherNationality: "",
-    motherNationality: "",
-    gender: "male",
-    grandFatherName: "",
-    grandMotherName: "",
-    muncipalityLocation: "",
-    fatherIdentityProof: null,
-    motherIdentityProof: null,
-    addressProof: null,
-    birthProof: null,
-    dateApplied: "",
-    applierEmail: "",
-  });
+const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
   const [verified, setVerified] = useState({
     fatherIdentityProof: false,
     motherIdentityProof: false,
@@ -54,51 +31,12 @@ const ViewCertificateForm = ({query}) => {
     birthProof: false,
   });
 
-  useEffect(async () => {
-    const url = `/api/Indivisual_certificate/applicant_id?id=${query}`;
-
-    const fetchData = async () => {
-      try {
-        const response = await Axios.get(url);
-        const data = response.data.allData.data;
-        const email = response.data.allData.email;
-
-        const details = {
-          childFirstName: data.childFirstName,
-          childLastName: data.childLastName,
-          fatherName: data.fatherName,
-          motherName: data.motherName,
-          dateOfBirth: moment(data.dateOfBirth).format("YYYY-MM-DD"),
-          placeOfBirth: data.placeOfBirth,
-          address: data.address,
-          fatherNationality: data.fatherNationality,
-          motherNationality: data.motherNationality,
-          gender: data.gender,
-          grandFatherName: data.grandFatherName,
-          grandMotherName: data.grandMotherName,
-          muncipalityLocation: data.muncipalityLocation,
-          fatherIdentityProof: data.fatherIdentityProof.replace(".pdf", ".jpg"),
-          motherIdentityProof: data.motherIdentityProof.replace(".pdf", ".jpg"),
-          addressProof: data.addressProof.replace(".pdf", ".jpg"),
-          birthProof: data.birthProof.replace(".pdf", ".jpg"),
-          dateApplied: moment(data.createdAt).format("YYYY-MM-DD"),
-          applierEmail: email,
-        };
-
-        setINITIAL_FORM_STATE(details);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   const [isDisabled, setisDisabled] = useState(true);
 
   const [open, setOpen] = useState(false);
 
-  const onSubmit = (values, {resetForm}) => {
+  const onSubmit = (values) => {
+    console.log("here");
     if (
       !(
         verified.addressProof &&
@@ -109,38 +47,54 @@ const ViewCertificateForm = ({query}) => {
     ) {
       alert("Please verify all documents");
     } else {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      let signer = provider.getSigner(0);
-      const address = "0x89d5945ec274c7561fB4651152dabF155aD03a63";
-      const contract = new ethers.Contract(address, Municipality.abi, signer);
-      // await contract
-      //   .AddUserBirthHash(
-      //     121,
-      //     18,
-      //     "Qmd63gzHfXCsJepsdTLd4cqigFa7SuCAeH6smsVoHovdbE"
-      //   )
-      //   .then((res) => {
-      //     console.log("hello", res);
-      //   })
-      //   .catch((err) => {
-      //     console.log("error", err);
-      //   });
+      console.log("values", values);
+      axios
+        .post("/api/ipfs_data", values)
+        .then((hash) => {
+          console.log("res", hash);
+          //   const provider = new ethers.providers.Web3Provider(window.ethereum);
+          //   let signer = provider.getSigner(0);
+          //   const address = "0x89d5945ec274c7561fB4651152dabF155aD03a63";
+          //   const contract = new ethers.Contract(address, Municipality.abi, signer);
+          // await contract
+          //   .AddUserBirthHash(
+          //     121,
+          //     18,
+          //  res
+          //   )
+          //   .then((res) => {
+          //     console.log("hello", res);
+          //axios.post("/api/birth_certificate_granted",{
+          // id: INITIAL_FORM_STATE.id, birthhash: hash,
+          //   birthtransaction: resh.data.hash,
+          //     email:INITIAL_FORM_STATE.applierEmail
+          // })
+          //   }).then(res=>{
+          // console.log("res",res)
+          // })
+          //   .catch((err) => {
+          //     console.log("error", err);
+          //   });
 
-      //  contract
-      //    .getBirthCertificate(16)
-      //    .then((res) => {
-      //      console.log("res", res);
-      //    })
-      //    .catch((err) => {
-      //      console.log("error", err);
-      //    });
+          //  contract
+          //    .getBirthCertificate(16)
+          //    .then((res) => {
+          //      console.log("res", res);
+          //    })
+          //    .catch((err) => {
+          //      console.log("error", err);
+          //    });
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
     }
   };
 
   return (
     <>
       <Formik
-        initialValues={{...INITIAL_FORM_STATE}}
+        initialValues={INITIAL_FORM_STATE}
         validationSchema={FORM_VALIDATION}
         onSubmit={onSubmit}
         enableReinitialize
@@ -344,9 +298,21 @@ const ViewCertificateForm = ({query}) => {
                   alignItems: "center",
                 }}
               >
-                <Button color="success" style={{marginRight: "50px"}}>
+                {/* <Button color="success" style={{marginRight: "50px"}}>
                   Issue
-                </Button>
+                </Button> */}
+                <ButtonMaterial
+                  color="success"
+                  onClick={() => onSubmit(INITIAL_FORM_STATE)}
+                  variant="contained"
+                  style={{
+                    width: "100%",
+                    color: "white",
+                    marginRight: 60,
+                  }}
+                >
+                  Issue
+                </ButtonMaterial>
                 <ButtonMaterial
                   color="error"
                   onClick={() => setOpen(true)}
