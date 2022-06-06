@@ -35,6 +35,7 @@ function ViewCertificate() {
     birthProof: null,
     dateApplied: "",
     applierEmail: "",
+    id: "",
   });
 
   useEffect(() => {
@@ -73,6 +74,7 @@ function ViewCertificate() {
             birthProof: data.birthProof.replace(".pdf", ".jpg"),
             dateApplied: moment(data.createdAt).format("YYYY-MM-DD"),
             applierEmail: email,
+            id: data._id,
           };
 
           setINITIAL_FORM_STATE(details);
