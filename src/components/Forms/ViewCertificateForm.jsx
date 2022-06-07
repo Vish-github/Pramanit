@@ -11,7 +11,7 @@ import DateTime from "../../../UI/DateTime";
 import Select from "../../../UI/SelectField";
 import Modal from "../../../layout/Modal";
 
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 import muncipalityData from "../../../src/data/MuncipalityData.json";
 
@@ -35,6 +35,26 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
 
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    let signer = provider.getSigner(0);
+    const address = "0x043f15c48edfBE55c70d3e8A69621363cB77Dde0";
+    const contract = new ethers.Contract(address, Municipality.abi, signer);
+    // contract
+    //   .AddMuncipality("0xc98d049254984b89920a86ca198Ab6edC32CE645", 123)
+    //   .then((res) => {
+    //     console.log("res", res);
+    //   });
+    contract
+      .getBirthCertificate(INITIAL_FORM_STATE.id)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  }, []);
+
   const onSubmit = (values, {resetForm}) => {
     if (
       !(
@@ -50,39 +70,41 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
       axios
         .post("/api/ipfs_data", values)
         .then((hash) => {
-          console.log("res", hash);
-          //   const provider = new ethers.providers.Web3Provider(window.ethereum);
-          //   let signer = provider.getSigner(0);
-          //   const address = "0x89d5945ec274c7561fB4651152dabF155aD03a63";
-          //   const contract = new ethers.Contract(address, Municipality.abi, signer);
-          // await contract
-          //   .AddUserBirthHash(
-          //     121,
-          //     18,
-          //  res
-          //   )
+          console.log("res", hash.data);
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          let signer = provider.getSigner(0);
+          const address = "0x9369bb2835495dD586Ec9a9569b9A6e84FB6D868";
+          const contract = new ethers.Contract(
+            address,
+            Municipality.abi,
+            signer
+          );
+          contract
+            .AddUserBirthHash(123, INITIAL_FORM_STATE.id, hash.data)
+            .then((res) => {
+              console.log("hello", res);
+              axios.post("/api/birth_certificate_granted", {
+                id: INITIAL_FORM_STATE.id,
+                birthhash: hash.data,
+                birthtransaction: res.hash,
+                email: INITIAL_FORM_STATE.applierEmail,
+              });
+            })
+            .then((res) => {
+              console.log("res", res);
+            })
+            .catch((err) => {
+              console.log("error", err);
+            });
+
+          // contract
+          //   .getBirthCertificate(INITIAL_FORM_STATE.id)
           //   .then((res) => {
-          //     console.log("hello", res);
-          //axios.post("/api/birth_certificate_granted",{
-          // id: INITIAL_FORM_STATE.id, birthhash: hash,
-          //   birthtransaction: resh.data.hash,
-          //     email:INITIAL_FORM_STATE.applierEmail
-          // })
-          //   }).then(res=>{
-          // console.log("res",res)
-          // })
+          //     console.log("res", res);
+          //   })
           //   .catch((err) => {
           //     console.log("error", err);
           //   });
-
-          //  contract
-          //    .getBirthCertificate(16)
-          //    .then((res) => {
-          //      console.log("res", res);
-          //    })
-          //    .catch((err) => {
-          //      console.log("error", err);
-          //    });
         })
         .catch((err) => {
           console.log("Error", err);

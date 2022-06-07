@@ -57,14 +57,24 @@
   "ast": {
     "absolutePath": "project:/contracts/Migrations.sol",
     "exportedSymbols": {
-      "Migrations": [32]
+      "Migrations": [
+        32
+      ]
     },
     "id": 33,
     "nodeType": "SourceUnit",
     "nodes": [
       {
         "id": 1,
-        "literals": ["solidity", ">=", "0.4", ".22", "<", "0.9", ".0"],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".22",
+          "<",
+          "0.9",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "33:32:0"
       },
@@ -75,7 +85,9 @@
         "documentation": null,
         "fullyImplemented": true,
         "id": 32,
-        "linearizedBaseContracts": [32],
+        "linearizedBaseContracts": [
+          32
+        ],
         "name": "Migrations",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -111,7 +123,7 @@
                 "name": "msg",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 348,
+                "referencedDeclaration": 378,
                 "src": "117:3:0",
                 "typeDescriptions": {
                   "typeIdentifier": "t_magic_message",
@@ -189,7 +201,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 348,
+                            "referencedDeclaration": 378,
                             "src": "220:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -264,8 +276,11 @@
                       "id": 9,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [351, 352],
-                      "referencedDeclaration": 352,
+                      "overloadedDeclarations": [
+                        381,
+                        382
+                      ],
+                      "referencedDeclaration": 382,
                       "src": "204:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -447,13 +462,23 @@
     "attributes": {
       "absolutePath": "project:/contracts/Migrations.sol",
       "exportedSymbols": {
-        "Migrations": [32]
+        "Migrations": [
+          32
+        ]
       }
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", ">=", "0.4", ".22", "<", "0.9", ".0"]
+          "literals": [
+            "solidity",
+            ">=",
+            "0.4",
+            ".22",
+            "<",
+            "0.9",
+            ".0"
+          ]
         },
         "id": 1,
         "name": "PragmaDirective",
@@ -461,12 +486,18 @@
       },
       {
         "attributes": {
-          "baseContracts": [null],
-          "contractDependencies": [null],
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
           "contractKind": "contract",
           "documentation": null,
           "fullyImplemented": true,
-          "linearizedBaseContracts": [32],
+          "linearizedBaseContracts": [
+            32
+          ],
           "name": "Migrations",
           "scope": 33
         },
@@ -507,8 +538,10 @@
                   {
                     "attributes": {
                       "argumentTypes": null,
-                      "overloadedDeclarations": [null],
-                      "referencedDeclaration": 348,
+                      "overloadedDeclarations": [
+                        null
+                      ],
+                      "referencedDeclaration": 378,
                       "type": "msg",
                       "value": "msg"
                     },
@@ -561,7 +594,9 @@
             "children": [
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 8,
@@ -580,7 +615,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "type": "tuple()",
                           "type_conversion": false
                         },
@@ -597,8 +634,11 @@
                                   "typeString": "literal_string \"This function is restricted to the contract's owner\""
                                 }
                               ],
-                              "overloadedDeclarations": [351, 352],
-                              "referencedDeclaration": 352,
+                              "overloadedDeclarations": [
+                                381,
+                                382
+                              ],
+                              "referencedDeclaration": 382,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
@@ -636,8 +676,10 @@
                                   {
                                     "attributes": {
                                       "argumentTypes": null,
-                                      "overloadedDeclarations": [null],
-                                      "referencedDeclaration": 348,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 378,
                                       "type": "msg",
                                       "value": "msg"
                                     },
@@ -653,7 +695,9 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 5,
                                   "type": "address",
                                   "value": "owner"
@@ -757,7 +801,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 25,
@@ -772,7 +818,9 @@
                   {
                     "attributes": {
                       "argumentTypes": null,
-                      "overloadedDeclarations": [null],
+                      "overloadedDeclarations": [
+                        null
+                      ],
                       "referencedDeclaration": 19,
                       "type": "modifier ()",
                       "value": "restricted"
@@ -804,7 +852,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 7,
                               "type": "uint256",
                               "value": "last_completed_migration"
@@ -816,7 +866,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 21,
                               "type": "uint256",
                               "value": "completed"
@@ -863,8 +915,8 @@
     "4": {
       "events": {},
       "links": {},
-      "address": "0x2350048E09CA4352BbDcbca8EA2eD89e266E2571",
-      "transactionHash": "0x46bfa5bc3beb26c1d8628f04c96e3d39f87ee0d6e5be61a5b95b3a69caa37b5f"
+      "address": "0xCfE931A8d93bef02B2F4f0908Cb7E81807908de9",
+      "transactionHash": "0x5d20b021f6c910f82aa71b8b219c225d20d183a7a1377052cc89c063be172c55"
     },
     "5777": {
       "events": {},
@@ -873,8 +925,8 @@
       "transactionHash": "0x1594c401f1844bad99e5420c278b0d3843c845a2f59727622790df4a5a1fb5ba"
     }
   },
-  "schemaVersion": "3.4.1",
-  "updatedAt": "2022-05-30T14:26:01.735Z",
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2022-06-07T10:30:40.169Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

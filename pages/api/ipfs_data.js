@@ -15,7 +15,6 @@ async function storeFiles(files) {
   return cid;
 }
 const handler = async (req, res) => {
-  console.log(req.body);
   var data = req.body;
   // var data={ id: "627c69e54bfb9d5f540f3f8a",
   // childFirstName: 'Hello ',
