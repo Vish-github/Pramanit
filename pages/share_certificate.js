@@ -6,6 +6,7 @@ import {
   Modal,
   TextField,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
@@ -109,9 +110,15 @@ const Share_certificate = () => {
               style={{ marginLeft: "30px" }}
               variant="contained"
               onClick={generateUrl.bind(null, validity)}
+              disabled={validity <= 0}
             >
               Generate Link
             </Button>
+            {validity <= 0 && (
+              <Typography color="error" mt={2}>
+                * Invalid Validity Hours
+              </Typography>
+            )}
           </Grid>
 
           {linkUrl && displayLink}
