@@ -21,7 +21,8 @@
   width: 100%;
   border-radius: 20px;
 }
-.sharebtn {
+.sharebtn,
+.verifybtn {
   background-color: #000080;
   display: flex;
   flex-direction: row;

@@ -2,11 +2,14 @@ import React from "react";
 
 import {Formik, Form} from "formik";
 import {Grid} from "@mui/material";
+import {ethers} from "ethers";
 
 import Button from "../Forms/FormUI/ButtonWrapper";
 import InputField from "../../../UI/InputField";
 
 import FORM_VALIDATION from "../../FormValidationSchemas/AddMunicipalitySchema";
+
+import muncipalityData from "../../../src/data/MuncipalityData.json";
 
 const INITIAL_FORM_STATE = {
   username: "",
@@ -15,8 +18,15 @@ const INITIAL_FORM_STATE = {
 };
 
 const onSubmit = (values, {resetForm}) => {
-  console.log(values);
-  alert("Check Console for form data Object");
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  let signer = provider.getSigner(0);
+  const address = "0x043f15c48edfBE55c70d3e8A69621363cB77Dde0";
+  const contract = new ethers.Contract(address, Municipality.abi, signer);
+  contract
+    .AddMuncipality("0xc98d049254984b89920a86ca198Ab6edC32CE645", 123)
+    .then((res) => {
+      console.log("res", res);
+    });
   resetForm({values: ""});
 };
 
