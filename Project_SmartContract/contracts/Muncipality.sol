@@ -73,8 +73,7 @@ contract Muncipality{
         if(CheckPresence(munId)){
             UserData memory deadUser;
             for(uint i=0;i<UserLength;i++){
-                if (keccak256(abi.encodePacked(allUser[i].uid)) == keccak256(abi.encodePacked(uid))) {
-                // if(allUser[i].uid==uid){
+                if(keccak256(abi.encodePacked((allUser[i].uid)))==keccak256(abi.encodePacked((uid)))){
                     // console.log('In here');
                     deadUser=allUser[i];
                 }
@@ -88,7 +87,7 @@ contract Muncipality{
     }
     function getBirthCertificate(string memory uid) public view returns(string memory){
             for(uint i=0;i<UserLength;i++){
-                if (keccak256(abi.encodePacked(allUser[i].uid)) == keccak256(abi.encodePacked(uid))){
+          if(keccak256(abi.encodePacked((allUser[i].uid)))==keccak256(abi.encodePacked((uid)))){
                     return allUser[i].BirthHash;
                 }
             }
@@ -97,7 +96,7 @@ contract Muncipality{
     }
           function getDeathCertificate(string memory uid) public view returns(string memory){
             for(uint i=0;i<UserLength;i++){
-                 if (keccak256(abi.encodePacked(allUser[i].uid)) == keccak256(abi.encodePacked(uid))){
+            if(keccak256(abi.encodePacked((allUser[i].uid)))==keccak256(abi.encodePacked((uid)))){
                     return allUser[i].DeathHash;
                 }
             }
