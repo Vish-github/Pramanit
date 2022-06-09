@@ -1,5 +1,5 @@
-import { Formik, Form } from "formik";
-import { Grid } from "@mui/material";
+import {Formik, Form} from "formik";
+import {Grid} from "@mui/material";
 import moment from "moment";
 
 import Button from "./FormUI/ButtonWrapper";
@@ -11,41 +11,19 @@ import DateTime from "../../../UI/DateTime";
 import Select from "../../../UI/SelectField";
 import Modal from "../../../layout/Modal";
 
-import { useEffect, useState } from "react";
+import {useState, useEffect} from "react";
 
 import muncipalityData from "../../../src/data/MuncipalityData.json";
-
-import Axios from "axios";
 
 import ViewFiles from "../ViewFiles";
 import ApplicationrejectionForm from "./ApplicationrejectionForm";
 
-import { ethers } from "ethers";
+import {ethers} from "ethers";
+import axios from "axios";
 
 import Municipality from "../../../Project_SmartContract/build/contracts/Muncipality.json";
 
-const ViewCertificateForm = ({ query }) => {
-  const [INITIAL_FORM_STATE, setINITIAL_FORM_STATE] = useState({
-    childFirstName: "",
-    childLastName: "",
-    fatherName: "",
-    motherName: "",
-    dateOfBirth: "2022-04-15",
-    placeOfBirth: "",
-    address: "",
-    fatherNationality: "",
-    motherNationality: "",
-    gender: "male",
-    grandFatherName: "",
-    grandMotherName: "",
-    muncipalityLocation: "",
-    fatherIdentityProof: null,
-    motherIdentityProof: null,
-    addressProof: null,
-    birthProof: null,
-    dateApplied: "",
-    applierEmail: "",
-  });
+const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
   const [verified, setVerified] = useState({
     fatherIdentityProof: false,
     motherIdentityProof: false,
@@ -53,76 +31,31 @@ const ViewCertificateForm = ({ query }) => {
     birthProof: false,
   });
 
-  useEffect(async () => {
-    const url = `/api/Indivisual_certificate/applicant_id?id=${query}`;
-
-    const fetchData = async () => {
-      try {
-        const response = await Axios.get(url);
-        const data = response.data.allData.data;
-        const email = response.data.allData.email;
-
-        const details = {
-          childFirstName: data.childFirstName,
-          childLastName: data.childLastName,
-          fatherName: data.fatherName,
-          motherName: data.motherName,
-          dateOfBirth: moment(data.dateOfBirth).format("YYYY-MM-DD"),
-          placeOfBirth: data.placeOfBirth,
-          address: data.address,
-          fatherNationality: data.fatherNationality,
-          motherNationality: data.motherNationality,
-          gender: data.gender,
-          grandFatherName: data.grandFatherName,
-          grandMotherName: data.grandMotherName,
-          muncipalityLocation: data.muncipalityLocation,
-          fatherIdentityProof: data.fatherIdentityProof.replace(".pdf", ".jpg"),
-          motherIdentityProof: data.motherIdentityProof.replace(".pdf", ".jpg"),
-          addressProof: data.addressProof.replace(".pdf", ".jpg"),
-          birthProof: data.birthProof.replace(".pdf", ".jpg"),
-          dateApplied: moment(data.createdAt).format("YYYY-MM-DD"),
-          applierEmail: email,
-        };
-
-        setINITIAL_FORM_STATE(details);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-
-  //   await contract
-  //   .AddMuncipality(
-  //     "0xaf335Ee64209bCeb4E2230bdF2A36695612f0452",
-  //     69,
-  //   )
-  //   .then((res) => {
-  //     console.log("hello", res);
-  //   })
-  //   .catch((err) => {
-  //     console.log("error", err);
-  //   });
-  //  await contract
-  //   .AddUserBirthHash(
-  //     69,
-  //     "dsiusbdfbfbcawFsdg",
-  //     "Qmd63gzHfXCsJepsdTLd4cqigFa7SuCAeH6smsVoHovdbE"
-  //   )
-  //   .then((res) => {
-  //     console.log("hello", res);
-  //   })
-  //   .catch((err) => {
-  //     console.log("error", err);
-  //   });
-
-
-    fetchData();
-  }, []);
-
   const [isDisabled, setisDisabled] = useState(true);
 
   const [open, setOpen] = useState(false);
 
-  const onSubmit = (values, { resetForm }) => {
+  useEffect(() => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    let signer = provider.getSigner(0);
+    const address = "0x043f15c48edfBE55c70d3e8A69621363cB77Dde0";
+    const contract = new ethers.Contract(address, Municipality.abi, signer);
+    // contract
+    //   .AddMuncipality("0xc98d049254984b89920a86ca198Ab6edC32CE645", 123)
+    //   .then((res) => {
+    //     console.log("res", res);
+    //   });
+    contract
+      .getBirthCertificate(INITIAL_FORM_STATE.id)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  }, []);
+
+  const onSubmit = (values, {resetForm}) => {
     if (
       !(
         verified.addressProof &&
@@ -133,26 +66,56 @@ const ViewCertificateForm = ({ query }) => {
     ) {
       alert("Please verify all documents");
     } else {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      let signer = provider.getSigner(0);
-      const address = "0x0cDBaC95c02174C39F332c8825445ffCD42CD98d";
-      const contract = new ethers.Contract(address, Municipality.abi, signer);
-      contract
-      .getBirthCertificate("dsiusbdfbfbcawFsdg")
-      .then((res) => {
-        console.log("res", res);
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
-     
+      console.log("values", values);
+      axios
+        .post("/api/ipfs_data", values)
+        .then((hash) => {
+          console.log("res", hash.data);
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          let signer = provider.getSigner(0);
+          const address = "0x9369bb2835495dD586Ec9a9569b9A6e84FB6D868";
+          const contract = new ethers.Contract(
+            address,
+            Municipality.abi,
+            signer
+          );
+          contract
+            .AddUserBirthHash(123, INITIAL_FORM_STATE.id, hash.data)
+            .then((res) => {
+              console.log("hello", res);
+              axios.post("/api/birth_certificate_granted", {
+                id: INITIAL_FORM_STATE.id,
+                birthhash: hash.data,
+                birthtransaction: res.hash,
+                email: INITIAL_FORM_STATE.applierEmail,
+              });
+            })
+            .then((res) => {
+              console.log("res", res);
+            })
+            .catch((err) => {
+              console.log("error", err);
+            });
+
+          // contract
+          //   .getBirthCertificate(INITIAL_FORM_STATE.id)
+          //   .then((res) => {
+          //     console.log("res", res);
+          //   })
+          //   .catch((err) => {
+          //     console.log("error", err);
+          //   });
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
     }
   };
 
   return (
     <>
       <Formik
-        initialValues={{ ...INITIAL_FORM_STATE }}
+        initialValues={{...INITIAL_FORM_STATE}}
         onSubmit={onSubmit}
         enableReinitialize
       >
@@ -250,9 +213,9 @@ const ViewCertificateForm = ({ query }) => {
                   name="gender"
                   disabled={isDisabled}
                   data={[
-                    { value: "male", label: "Male" },
-                    { value: "female", label: "Female" },
-                    { value: "others", label: "Others" },
+                    {value: "male", label: "Male"},
+                    {value: "female", label: "Female"},
+                    {value: "others", label: "Others"},
                   ]}
                 />
               </InputGroup>
@@ -355,7 +318,7 @@ const ViewCertificateForm = ({ query }) => {
                   alignItems: "center",
                 }}
               >
-                <Button color="success" style={{ marginRight: "50px" }}>
+                <Button color="success" style={{marginRight: "50px"}}>
                   Issue
                 </Button>
                 <ButtonMaterial

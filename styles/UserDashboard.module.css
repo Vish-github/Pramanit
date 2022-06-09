@@ -21,6 +21,13 @@
   justify-content: space-around;
 }
 
+.certificateAppliedText {
+  text-align: center;
+  color: #000080;
+  font-weight: 600;
+  font-size: large;
+}
+
 @media (max-width: 600px) {
   .userdashboard_options {
     flex-direction: column;
