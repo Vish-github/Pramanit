@@ -90,6 +90,31 @@ const ViewCertificateForm = ({ query }) => {
       }
     };
 
+  //   await contract
+  //   .AddMuncipality(
+  //     "0xaf335Ee64209bCeb4E2230bdF2A36695612f0452",
+  //     69,
+  //   )
+  //   .then((res) => {
+  //     console.log("hello", res);
+  //   })
+  //   .catch((err) => {
+  //     console.log("error", err);
+  //   });
+  //  await contract
+  //   .AddUserBirthHash(
+  //     69,
+  //     "dsiusbdfbfbcawFsdg",
+  //     "Qmd63gzHfXCsJepsdTLd4cqigFa7SuCAeH6smsVoHovdbE"
+  //   )
+  //   .then((res) => {
+  //     console.log("hello", res);
+  //   })
+  //   .catch((err) => {
+  //     console.log("error", err);
+  //   });
+
+
     fetchData();
   }, []);
 
@@ -110,29 +135,17 @@ const ViewCertificateForm = ({ query }) => {
     } else {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       let signer = provider.getSigner(0);
-      const address = "0x89d5945ec274c7561fB4651152dabF155aD03a63";
+      const address = "0x0cDBaC95c02174C39F332c8825445ffCD42CD98d";
       const contract = new ethers.Contract(address, Municipality.abi, signer);
-      // await contract
-      //   .AddUserBirthHash(
-      //     121,
-      //     18,
-      //     "Qmd63gzHfXCsJepsdTLd4cqigFa7SuCAeH6smsVoHovdbE"
-      //   )
-      //   .then((res) => {
-      //     console.log("hello", res);
-      //   })
-      //   .catch((err) => {
-      //     console.log("error", err);
-      //   });
-
-      //  contract
-      //    .getBirthCertificate(16)
-      //    .then((res) => {
-      //      console.log("res", res);
-      //    })
-      //    .catch((err) => {
-      //      console.log("error", err);
-      //    });
+      contract
+      .getBirthCertificate("dsiusbdfbfbcawFsdg")
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+     
     }
   };
 
