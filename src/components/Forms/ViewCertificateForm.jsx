@@ -1,6 +1,5 @@
 import {Formik, Form} from "formik";
 import {Grid} from "@mui/material";
-import moment from "moment";
 
 import Button from "./FormUI/ButtonWrapper";
 import ButtonMaterial from "@mui/material/Button";
@@ -40,11 +39,6 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
     let signer = provider.getSigner(0);
     const address = "0x043f15c48edfBE55c70d3e8A69621363cB77Dde0";
     const contract = new ethers.Contract(address, Municipality.abi, signer);
-    // contract
-    //   .AddMuncipality("0xc98d049254984b89920a86ca198Ab6edC32CE645", 123)
-    //   .then((res) => {
-    //     console.log("res", res);
-    //   });
     contract
       .getBirthCertificate(INITIAL_FORM_STATE.id)
       .then((res) => {
@@ -53,6 +47,19 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
       .catch((err) => {
         console.log("error", err);
       });
+    // contract
+    //   .AddMuncipality("0xc98d049254984b89920a86ca198Ab6edC32CE645", 123)
+    //   .then((res) => {
+    //     console.log("res", res);
+    //   });
+    // contract
+    //   .getBirthCertificate(INITIAL_FORM_STATE.id)
+    //   .then((res) => {
+    //     console.log("res", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log("error", err);
+    //   });
   }, []);
 
   const onSubmit = (values, {resetForm}) => {
@@ -73,7 +80,7 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
           console.log("res", hash.data);
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           let signer = provider.getSigner(0);
-          const address = "0x9369bb2835495dD586Ec9a9569b9A6e84FB6D868";
+          const address = "0x6872cd09c215ED6a98a60729A5a05211da8EB334";
           const contract = new ethers.Contract(
             address,
             Municipality.abi,
