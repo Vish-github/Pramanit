@@ -35,24 +35,36 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
 
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
+  useEffect(async() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     let signer = provider.getSigner(0);
-    const address = "0x043f15c48edfBE55c70d3e8A69621363cB77Dde0";
-    const contract = new ethers.Contract(address, Municipality.abi, signer);
-    // contract
-    //   .AddMuncipality("0xc98d049254984b89920a86ca198Ab6edC32CE645", 123)
-    //   .then((res) => {
-    //     console.log("res", res);
-    //   });
-    contract
-      .getBirthCertificate(INITIAL_FORM_STATE.id)
+    const address = "0x0908EF85B05bC9C5523121aa43447915DCB892BE";
+    const contract =await new ethers.Contract(address, Municipality.abi, signer);
+    console.log(contract)
+      await contract
+      .AddMuncipality("0xc98d049254984b89920a86ca198Ab6edC32CE645",1)
       .then((res) => {
         console.log("res", res);
       })
       .catch((err) => {
         console.log("error", err);
       });
+    //  await contract
+    //   .AddUserBirthHash(1,INITIAL_FORM_STATE.id,"efwsdvvsfdbfbdb")
+    //   .then((res) => {
+    //     console.log("res", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log("error", err);
+    //   });
+    // await contract
+    //   .getBirthCertificate(INITIAL_FORM_STATE.id)
+    //   .then((res) => {
+    //     console.log("res", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log("error", err);
+    //   });
   }, []);
 
   const onSubmit = (values, {resetForm}) => {
@@ -73,7 +85,7 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
           console.log("res", hash.data);
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           let signer = provider.getSigner(0);
-          const address = "0x9369bb2835495dD586Ec9a9569b9A6e84FB6D868";
+          const address = "0xc98d049254984b89920a86ca198Ab6edC32CE645";
           const contract = new ethers.Contract(
             address,
             Municipality.abi,
