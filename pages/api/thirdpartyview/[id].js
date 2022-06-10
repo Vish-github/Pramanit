@@ -14,6 +14,7 @@ const handler = async (req, res) => {
           res.send({
             ipfshash: user.birthIpfsHash,
             transactionid: user.birthTransactionId,
+            userid: details.userid,
             username: user.username,
           });
         });

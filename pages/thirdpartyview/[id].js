@@ -67,7 +67,7 @@ function Thirdpartyview() {
     const address = "0x043f15c48edfBE55c70d3e8A69621363cB77Dde0";
     const contract = new ethers.Contract(address, Municipality.abi, signer);
     contract
-      .getBirthCertificate(data.transactionid)
+      .getBirthCertificate(data.userid)
       .then((res) => {
         console.log("res", res);
       })
