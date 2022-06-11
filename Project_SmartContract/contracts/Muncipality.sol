@@ -34,7 +34,7 @@ contract Muncipality{
         }
         return false;
     }
-    function AddMuncipality(address muncipalityadrress,uint uid) public onlyOwner returns (bool){
+    function AddMuncipality(address muncipalityadrress,uint uid) public onlyOwner returns(bool){
         if(!CheckPresence(uid)){
         MuncipalityData memory NewMuncipality=MuncipalityData({
             muncipalityadrress:muncipalityadrress,
@@ -43,7 +43,7 @@ contract Muncipality{
         });
 
         allMun.push(NewMuncipality);
-           MuncipalityLength+=1;
+        MuncipalityLength+=1;
         isPresent[uid]=true;
         return true;
 

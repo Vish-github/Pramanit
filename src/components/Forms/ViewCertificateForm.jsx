@@ -1,6 +1,5 @@
 import {Formik, Form} from "formik";
 import {Grid} from "@mui/material";
-import moment from "moment";
 
 import Button from "./FormUI/ButtonWrapper";
 import ButtonMaterial from "@mui/material/Button";
@@ -38,26 +37,9 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
   useEffect(async() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     let signer = provider.getSigner(0);
-    const address = "0x0908EF85B05bC9C5523121aa43447915DCB892BE";
-    const contract =await new ethers.Contract(address, Municipality.abi, signer);
-    console.log(contract)
-      await contract
-      .AddMuncipality("0xc98d049254984b89920a86ca198Ab6edC32CE645",1)
-      .then((res) => {
-        console.log("res", res);
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
-    //  await contract
-    //   .AddUserBirthHash(1,INITIAL_FORM_STATE.id,"efwsdvvsfdbfbdb")
-    //   .then((res) => {
-    //     console.log("res", res);
-    //   })
-    //   .catch((err) => {
-    //     console.log("error", err);
-    //   });
-    // await contract
+    const address = "0x0Af07f04A7bBCe5C76c50F45ab7E679a7f761755";
+    const contract = new ethers.Contract(address, Municipality.abi, signer);
+    // contract
     //   .getBirthCertificate(INITIAL_FORM_STATE.id)
     //   .then((res) => {
     //     console.log("res", res);
@@ -65,6 +47,28 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
     //   .catch((err) => {
     //     console.log("error", err);
     //   });
+    //   contract.AddMuncipality("0xc98d049254984b89920a86ca198Ab6edC32CE645",123)
+    //   .then((res) => {
+    //     console.log("res", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log("error", err);
+    //   });
+    // contract.AddUserBirthHash(123,"6dadgdfcbrSE58","Daddy_No_Go")
+    //   .then((res) => {
+    //     console.log("res", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log("error", err);
+    //   });
+    contract
+      .getBirthCertificate("6dadgdfcbrSE58")
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
   }, []);
 
   const onSubmit = (values, {resetForm}) => {
@@ -85,7 +89,7 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
           console.log("res", hash.data);
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           let signer = provider.getSigner(0);
-          const address = "0xc98d049254984b89920a86ca198Ab6edC32CE645";
+          const address = "0x6872cd09c215ED6a98a60729A5a05211da8EB334";
           const contract = new ethers.Contract(
             address,
             Municipality.abi,

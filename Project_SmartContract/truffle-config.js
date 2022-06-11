@@ -8,7 +8,7 @@ module.exports = {
       provider: () =>
         new WalletHandler({
           privateKeys: [
-            "4dfb43079aa228e706b5a8d3321560df35793e4eed1abe3568c3a2a1a92c5039",
+            "f7c4e680ae9ebc56fb5a315a053385712451a3713c870bf63a5e8da3d057005d",
           ],
           providerOrUrl:
             "wss://rinkeby.infura.io/ws/v3/66465ef51f5f4d5b9b41977d73f141c6",

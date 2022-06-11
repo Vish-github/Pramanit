@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import Image from "next/image";
 
+import {connect} from "react-redux";
+
 import {
   Button,
   Grid,
@@ -18,8 +20,9 @@ import dummycertificate from "../assets/PRAMANIT/user_certificate_demo.png";
 import shareicon from "../assets/svgs/share.svg";
 
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import axios from "axios";
 
-function User_birth_certificate() {
+function User_birth_certificate({accesstoken}) {
   const [open, setOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState(null);
   const [tooltipText, setTooltipText] = useState("Copy Link");
@@ -30,6 +33,20 @@ function User_birth_certificate() {
     if (linkUrl.includes("timestamp=")) {
       const reg = /\?timestamp=[0-9]+/gm;
       setLinkUrl(linkUrl.replace(reg, `?timestamp=${timestamp}`));
+      let dt = new Date();
+      dt.setHours(dt.getHours() + 2);
+      axios
+        .post("/api/createTimeBasedCertificate", {
+          userid: accesstoken._id,
+          validTill: dt,
+        })
+        .then((res) => {
+          console.log(res);
+          setLinkUrl(`http://localhost:3000/thirdpartyview/${res.data}`);
+        })
+        .catch((err) => {
+          console.log("Error in creating link", err);
+        });
     } else {
       setLinkUrl(`${linkUrl}?timestamp=${timestamp}`);
     }
@@ -84,15 +101,6 @@ function User_birth_certificate() {
             src={dummycertificate}
             className={styles.dummycertificateImage}
           />
-          {/* <div className={styles.rightsection}> */}
-          {/* <div className={styles.blockdetails}>
-            <h2>Block details</h2>
-            <p>Transaction ID:sdjjsdhjdsgdf</p>
-            <p>Assignee:</p>
-            <p>Other:</p>
-            <p>Other:</p>
-          </div> */}
-          {/* </div> */}
         </div>
         <div className={styles.sharebtn} onClick={() => setOpen(true)}>
           <Image src={shareicon} width={30} height={30} />
@@ -132,4 +140,15 @@ function User_birth_certificate() {
   );
 }
 
-export default User_birth_certificate;
+const mapStateToProps = (state) => ({
+  accesstoken: state?.token?.token,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(User_birth_certificate);
