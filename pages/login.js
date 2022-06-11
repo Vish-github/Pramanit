@@ -9,6 +9,7 @@ import google from "../assets/PRAMANIT/google.png";
 
 import userlogin from "../assets/PRAMANIT/loginuser.png";
 import {useRouter} from "next/router";
+import { useSession } from "next-auth/react"
 import UserLoginForm from "../src/components/Forms/LoginForm";
 
 import {signIn} from "next-auth/react";
@@ -16,7 +17,7 @@ import {signIn} from "next-auth/react";
 import React, {useEffect} from "react";
 function UserLogin() {
   const router = useRouter();
-  // const session = useSession();
+  const session=useSession()
 
   const setToken = () => {
     console.log("in HERE", session);
@@ -47,6 +48,7 @@ function UserLogin() {
           className={styles.googlecontainer}
           onClick={() =>
             signIn("google", {callbackUrl: "http://localhost:3000/userdashboard"})
+
           //   signIn("google", {callbackUrl: "http://localhost:3000/userdashboard"}).then(res=>{
           //     console.log("Here in google response")
           //     console.log("Gooogle res",res)
@@ -54,7 +56,12 @@ function UserLogin() {
           //     console.log("Error here in google auth",err)
           //   })
           }
+
         >
+                    {session.data!=undefined?
+                    setToken():
+                    console.log(session.data)
+                    }
           <Image src={google} width={20} height={20} />
           <p>Sign in with Google</p>
         </div>

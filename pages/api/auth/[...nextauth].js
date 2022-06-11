@@ -92,7 +92,7 @@ export default NextAuth({
         console.log("User Already exists",user);
           }
       })
-      
+      return Promise.resolve(session)
     },
   },
 
