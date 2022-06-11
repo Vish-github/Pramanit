@@ -11,12 +11,12 @@ import userlogin from "../assets/PRAMANIT/loginuser.png";
 import {useRouter} from "next/router";
 import UserLoginForm from "../src/components/Forms/LoginForm";
 
-import {signIn} from "next-auth/react";
+import {signIn,useSession} from "next-auth/react";
 
 import React, {useEffect} from "react";
 function UserLogin() {
   const router = useRouter();
-  // const session = useSession();
+  const session = useSession();
 
   const setToken = () => {
     console.log("in HERE", session);
