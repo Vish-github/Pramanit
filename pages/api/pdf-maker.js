@@ -127,7 +127,7 @@ const handler=async(req,res)=>{
     //       (chunk)=>stream.write(chunk),
     //       ()=>stream.end()
     //   )
-  res.send('Done')
+  res.send(data)
       // console.log(file)
      
 
