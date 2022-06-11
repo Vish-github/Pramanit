@@ -16,10 +16,10 @@ import Header from "../layout/Header";
 import Modal from "../layout/Modal";
 
 import styles from "../styles/User_Birth_Certificate.module.css";
-import dummycertificate from "../assets/PRAMANIT/user_certificate_demo.png";
 import shareicon from "../assets/svgs/share.svg";
 
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+
 import axios from "axios";
 
 function User_birth_certificate({accesstoken}) {
@@ -50,6 +50,27 @@ function User_birth_certificate({accesstoken}) {
     } else {
       setLinkUrl(`${linkUrl}?timestamp=${timestamp}`);
     }
+  };
+
+  const viewCertificate = () => {
+    axios(`/api/pdf_getter/${accesstoken?.birthIpfsHash}`, {
+      method: "GET",
+      responseType: "blob",
+      //Force to receive data in a Blob Format
+    })
+      .then((response) => {
+        //Create a Blob from the PDF Stream
+        const file = new Blob([response.data], {
+          type: "application/pdf",
+        });
+        //Build a URL from the file
+        const fileURL = URL.createObjectURL(file);
+        //Open the URL on new Window
+        window.open(fileURL);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -96,11 +117,15 @@ function User_birth_certificate({accesstoken}) {
             </div>
           </div>
         </Header>
-        <div className={styles.certificate_section}>
-          <Image
-            src={dummycertificate}
-            className={styles.dummycertificateImage}
-          />
+        <div
+          className={styles.sharebtn}
+          onClick={viewCertificate}
+          style={{
+            backgroundColor: "#000",
+          }}
+        >
+          {/* <Image src={shareicon} width={30} height={30} /> */}
+          <p>View Certificate</p>
         </div>
         <div className={styles.sharebtn} onClick={() => setOpen(true)}>
           <Image src={shareicon} width={30} height={30} />

@@ -82,17 +82,19 @@ export default NextAuth({
             .save()
             .then((result) => {
               console.log("user created successfully");
-              return session.user;
+              session.user=result
+              return session.user
             })
             .catch((err) => {
               console.log("user not created successfully");
               return err;
             });
           }else if (user) {
-        console.log("User Already exists",user);
+            session.user=user
+            return session.user
           }
       })
-      
+      return session
     },
   },
 
