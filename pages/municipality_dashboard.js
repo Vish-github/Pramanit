@@ -12,11 +12,13 @@ import { useEffect, useState } from "react";
 
 import moment from "moment";
 import Link from "next/link";
+import { Box, CircularProgress } from "@mui/material";
 
 function Municipality_dashboard() {
   const [completed, setCompleted] = useState([]);
   const [pending, setPending] = useState([]);
   const [cancelled, setCancelled] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
@@ -25,17 +27,118 @@ function Municipality_dashboard() {
 
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(url);
         const data = response.data.allData;
         setCompleted(data.accepted);
         setPending(data.pending);
         setCancelled(data.rejected);
+        setIsLoading(false);
       } catch (error) {
         console.log("error", error);
+        setIsLoading(false);
       }
     };
     fetchData();
   }, []);
+
+  const Loader = (
+    <Box
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "60vh",
+      }}
+    >
+      <CircularProgress size={100} />
+    </Box>
+  );
+
+  const Applications = (
+    <>
+      <ViewMoreHeader title="Pending Applications:" type="Pending" />
+      <div className={styles.applications_container}>
+        {pending.slice(0, 5).map((application) => {
+          const fullName = `${application.childFirstName} ${application.childLastName}`;
+          const id = application.applicant_id;
+          const date = moment(application.createdAt).format(
+            "MMMM Do YYYY, h:mm:ss a"
+          );
+          const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
+
+          return (
+            <Link href={`/viewapplication/${id}`} key={id}>
+              <a>
+                <ApplicationOuter
+                  color="rgba(155, 197, 244, 0.849)"
+                  name={fullName}
+                  days={days}
+                  id={id}
+                  // onclick={"/viewapplication"}
+                />
+              </a>
+            </Link>
+          );
+        })}
+      </div>
+      <ViewMoreHeader title="Completed Applications:" type="Completed" />
+      <div className={styles.applications_container}>
+        {completed.slice(0, 5).map((application) => {
+          const fullName = `${application.childFirstName} ${application.childLastName}`;
+          const id = application.applicant_id;
+          const date = moment(application.createdAt).format(
+            "MMMM Do YYYY, h:mm:ss a"
+          );
+          const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
+
+          console.log(days);
+
+          return (
+            <Link href={`/viewapplication/${id}`} key={id}>
+              <a>
+                <ApplicationOuter
+                  color="rgba(156, 244, 155, 0.849)"
+                  name={fullName}
+                  days={days}
+                  key={id}
+                  id={id}
+                  data={application}
+                />
+              </a>
+            </Link>
+          );
+        })}
+      </div>
+      <ViewMoreHeader title="Rejected Applications:" type="Rejected" />
+      <div className={styles.applications_container}>
+        {cancelled.slice(0, 5).map((application) => {
+          const fullName = `${application.childFirstName} ${application.childLastName}`;
+          const id = application.applicant_id;
+          const date = moment(application.createdAt).format(
+            "MMMM Do YYYY, h:mm:ss a"
+          );
+          const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
+
+          console.log(days);
+
+          return (
+            <Link href={`/viewapplication/${id}`} key={id}>
+              <a>
+                <ApplicationOuter
+                  color="rgba(244, 155, 155, 0.829)"
+                  name={fullName}
+                  days={days}
+                  key={id}
+                  id={id}
+                />
+              </a>
+            </Link>
+          );
+        })}
+      </div>
+    </>
+  );
 
   return (
     <div className={styles.municipality_dashboard_container}>
@@ -66,86 +169,8 @@ function Municipality_dashboard() {
             title="Cancelled"
           />
         </div>
-        <ViewMoreHeader title="Pending Applications:" type="Pending" />
-        <div className={styles.applications_container}>
-          {pending.slice(0, 5).map((application) => {
-            const fullName = `${application.childFirstName} ${application.childLastName}`;
-            const id = application.applicant_id;
-            const date = moment(application.createdAt).format(
-              "MMMM Do YYYY, h:mm:ss a"
-            );
-            const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
 
-            return (
-              <Link href={`/viewapplication/${id}`} key={id}>
-                <a>
-                  <ApplicationOuter
-                    color="rgba(155, 197, 244, 0.849)"
-                    name={fullName}
-                    days={days}
-                    id={id}
-                    // onclick={"/viewapplication"}
-                  />
-                </a>
-              </Link>
-            );
-          })}
-        </div>
-        <ViewMoreHeader title="Completed Applications:" type="Completed" />
-        <div className={styles.applications_container}>
-          {completed.slice(0, 5).map((application) => {
-            const fullName = `${application.childFirstName} ${application.childLastName}`;
-            const id = application.applicant_id;
-            const date = moment(application.createdAt).format(
-              "MMMM Do YYYY, h:mm:ss a"
-            );
-            const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
-
-            console.log(days);
-
-            return (
-              <Link href={`/viewapplication/${id}`} key={id}>
-                <a>
-                  <ApplicationOuter
-                    color="rgba(156, 244, 155, 0.849)"
-                    name={fullName}
-                    days={days}
-                    key={id}
-                    id={id}
-                    data={application}
-                  />
-                </a>
-              </Link>
-            );
-          })}
-        </div>
-        <ViewMoreHeader title="Rejected Applications:" type="Rejected" />
-        <div className={styles.applications_container}>
-          {cancelled.slice(0, 5).map((application) => {
-            const fullName = `${application.childFirstName} ${application.childLastName}`;
-            const id = application.applicant_id;
-            const date = moment(application.createdAt).format(
-              "MMMM Do YYYY, h:mm:ss a"
-            );
-            const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
-
-            console.log(days);
-
-            return (
-              <Link href={`/viewapplication/${id}`} key={id}>
-                <a>
-                  <ApplicationOuter
-                    color="rgba(244, 155, 155, 0.829)"
-                    name={fullName}
-                    days={days}
-                    key={id}
-                    id={id}
-                  />
-                </a>
-              </Link>
-            );
-          })}
-        </div>
+        {!isLoading ? Applications : Loader}
       </div>
     </div>
   );
