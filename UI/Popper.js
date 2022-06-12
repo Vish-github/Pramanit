@@ -46,7 +46,6 @@ function SimplePopover({removeUserDetails}) {
     }
     localStorage.removeItem("pramanit");
     removeUserDetails();
-    router.push("/login");
   };
   return (
     <>
@@ -71,7 +70,7 @@ function SimplePopover({removeUserDetails}) {
           horizontal: "center",
         }}
       >
-        <Typography className={classes.typography} onClick={logout}>
+        <Typography className={classes.typography} onClick={()=>{logout()}}>
           Logout
         </Typography>
       </Popover>
