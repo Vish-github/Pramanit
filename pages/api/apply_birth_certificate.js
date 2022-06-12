@@ -18,12 +18,20 @@ const handler = async (req, res) => {
               console.log("Error", err);
               res.status(400).send(err);
             } else {
-              User.findByIdAndUpdate(
-                {_id: req.body.applicant_id},
-                {birthCertificateStatus: 1}
-              );
-              console.log("Application created");
-              res.status(200).send("Application created");
+              User.findByIdAndUpdate(req.body.applicant_id, {
+                birthCertificateStatus: 1,
+              })
+                .then((user) => {
+                  let updatedUser = user;
+                  updatedUser.password = "";
+                  updatedUser.birthCertificateStatus = 1;
+                  console.log("Application created", updatedUser);
+                  res.status(200).send(updatedUser);
+                })
+                .catch((err) => {
+                  console.log("Error in updating status", err);
+                  res.status(500).send("Error in updating status");
+                });
             }
           });
         }
