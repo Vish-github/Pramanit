@@ -27,6 +27,7 @@ function User_birth_certificate({accesstoken}) {
   const [linkUrl, setLinkUrl] = useState(null);
   const [tooltipText, setTooltipText] = useState("Copy Link");
   const [validity, setValidity] = useState(1);
+  const [pdfUrl, setPdfUrl] = useState(null);
 
   const generateUrl = (hours) => {
     const timestamp = hours * 60 * 60;
@@ -52,33 +53,15 @@ function User_birth_certificate({accesstoken}) {
     }
   };
 
-  const viewCertificate = () => {
-    axios(`/api/pdf_getter/${accesstoken?.birthIpfsHash}`, {
-      method: "GET",
-      responseType: "blob",
-      //Force to receive data in a Blob Format
-    })
-      .then((response) => {
-        //Create a Blob from the PDF Stream
-        const file = new Blob([response.data], {
-          type: "application/pdf",
-        });
-        //Build a URL from the file
-        const fileURL = URL.createObjectURL(file);
-        //Open the URL on new Window
-        window.open(fileURL);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   useEffect(() => {
+    const url = `/api/pdf_getter/${accesstoken?.birthIpfsHash}`;
+    console.log("url", `/api/pdf_getter/${accesstoken?.birthIpfsHash}`);
+    setPdfUrl(url);
     // fetch code
     setLinkUrl(
       "http://localhost:3000/viewapplication/627de1c493e342bcb2619bf3?timestamp=3600"
     );
-  }, []);
+  }, [accesstoken]);
 
   const displayLink = (
     <TextField
@@ -117,20 +100,37 @@ function User_birth_certificate({accesstoken}) {
             </div>
           </div>
         </Header>
-        <div
-          className={styles.sharebtn}
-          onClick={viewCertificate}
-          style={{
-            backgroundColor: "#000",
-          }}
-        >
-          {/* <Image src={shareicon} width={30} height={30} /> */}
-          <p>View Certificate</p>
-        </div>
-        <div className={styles.sharebtn} onClick={() => setOpen(true)}>
-          <Image src={shareicon} width={30} height={30} />
-          <p>Share Certificate</p>
-        </div>
+
+        <Grid container spacing={2} style={{height: "80vh", padding: "2rem"}}>
+          <Grid item xs={6}>
+            <object
+              data={pdfUrl}
+              type="application/pdf"
+              width="100%"
+              height="100%"
+            >
+              <p>
+                Alternative text - include a link{" "}
+                <a href={pdfUrl}>to the PDF!</a>
+              </p>
+            </object>
+          </Grid>
+          <Grid item xs={6} display="flex" justifyContent="center">
+            <div className={styles.rightsection}>
+              {/* <div className={styles.blockdetails}>
+                <h2>Block details</h2>
+                <p>Transaction ID:sdjjsdhjdsgdf</p>
+                <p>Assignee:</p>
+                <p>Other:</p>
+                <p>Other:</p>
+              </div> */}
+              <div className={styles.sharebtn} onClick={() => setOpen(true)}>
+                <Image src={shareicon} width={30} height={30} />
+                <p>Share Certificate</p>
+              </div>
+            </div>
+          </Grid>
+        </Grid>
       </div>
       <Modal open={open} setOpen={setOpen}>
         <Grid
