@@ -11,7 +11,7 @@ import {useRouter} from "next/router";
 import {connect} from "react-redux";
 import {removeToken} from "../redux/actions/token.action";
 
-import {signOut} from "next-auth/react";
+import {signOut,useSession} from "next-auth/react";
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -23,6 +23,7 @@ function SimplePopover({removeUserDetails}) {
   const classes = useStyles();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { data: session } = useSession();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,11 +37,16 @@ function SimplePopover({removeUserDetails}) {
   const id = open ? "simple-popover" : undefined;
 
   const logout = () => {
+    console.log("inside logout");
+    if(session)
+    {
+      console.log(" b4 loggin of session ", session);
+      signOut("google");
+      console.log("loggin of session ",session);
+    }
     localStorage.removeItem("pramanit");
     removeUserDetails();
-    router.push("/login");
   };
-
   return (
     <>
       <Image
@@ -64,19 +70,9 @@ function SimplePopover({removeUserDetails}) {
           horizontal: "center",
         }}
       >
-        <Typography className={classes.typography} onClick={logout}>
+        <Typography className={classes.typography} onClick={()=>{logout()}}>
           Logout
         </Typography>
-        {/* <Typography
-          className={classes.typography}
-          onClick={() =>
-            signOut("google", {
-              callbackUrl: "http://localhost:3000/login",
-            })
-          }
-        >
-          google Logout
-        </Typography> */}
       </Popover>
     </>
   );

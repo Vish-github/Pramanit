@@ -20,6 +20,7 @@ import FORM_VALIDATION from "../../FormValidationSchemas/ApplyCertificateSchema"
 import muncipalityData from "../../../src/data/MuncipalityData.json";
 
 import {openSnackbar} from "../../../redux/actions/snackbar.action";
+import {addToken} from "../../../redux/actions/token.action";
 
 const currDate = () => {
   let today = new Date();
@@ -34,7 +35,11 @@ const currDate = () => {
   return today;
 };
 
-const ApplyCertificateForm = ({accesstoken, openSnackbarmessage}) => {
+const ApplyCertificateForm = ({
+  accesstoken,
+  openSnackbarmessage,
+  updateToken,
+}) => {
   const router = useRouter();
 
   const [INITIAL_FORM_STATE, setINITIAL_FORM_STATE] = useState({
@@ -100,10 +105,15 @@ const ApplyCertificateForm = ({accesstoken, openSnackbarmessage}) => {
                     axios
                       .post("/api/apply_birth_certificate", newApplication)
                       .then((res) => {
-                        console.log("response", res);
+                        console.log("response", res.data);
                         resetForm({values: ""});
                         setLoading(false);
                         openSnackbarmessage("Applied!");
+                        updateToken(res.data);
+                        localStorage.setItem(
+                          "pramanit",
+                          JSON.stringify(res.data)
+                        );
                         router.push("/userdashboard");
                       })
                       .catch((err) => {
@@ -277,6 +287,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     openSnackbarmessage: (param) => dispatch(openSnackbar(param)),
+    updateToken: (param) => dispatch(addToken(param)),
     reset: () => dispatch(reset()),
   };
 };

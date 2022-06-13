@@ -1,9 +1,10 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 import axios from "axios";
-import {ethers} from "ethers";
+import { ethers } from "ethers";
+import { Grid } from "@mui/material";
 
 import Header from "../../layout/Header";
 
@@ -13,7 +14,7 @@ import Municipality from "../../Project_SmartContract/build/contracts/Muncipalit
 
 function Thirdpartyview() {
   const router = useRouter();
-  const [pageId, setPageId] = useState(null);
+  const [pdfUrl, setPdfUrl] = useState(null);
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -21,12 +22,13 @@ function Thirdpartyview() {
       console.log("Not ready");
       return;
     }
-    const {id} = router.query;
-    setPageId(id);
+    const { id } = router.query;
     axios
       .get(`/api/thirdpartyview/${id}`)
       .then((res) => {
         setData(res.data);
+        const url = `/api/pdf_getter/${res.data.ipfshash}`;
+        setPdfUrl(url);
       })
       .catch((error) => {
         if (error.response.status) {
@@ -38,28 +40,6 @@ function Thirdpartyview() {
         }
       });
   }, [router.isReady]);
-
-  const displayPdf = () => {
-    console.log("ipfs", data.ipfshash);
-    axios(`/api/pdf_getter/${data.ipfshash}`, {
-      method: "GET",
-      responseType: "blob",
-      //Force to receive data in a Blob Format
-    })
-      .then((response) => {
-        //Create a Blob from the PDF Stream
-        const file = new Blob([response.data], {
-          type: "application/pdf",
-        });
-        //Build a URL from the file
-        const fileURL = URL.createObjectURL(file);
-        //Open the URL on new Window
-        window.open(fileURL);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   const verifypdf = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -87,33 +67,42 @@ function Thirdpartyview() {
         </div>
       </Header>
       <div>
-        {/* <div className={styles.certificate_section}> */}
-        {/* <Image
-            src={dummycertificate}
-            className={styles.dummycertificateImage}
-          /> */}
-        {/* {pdf && <IPFSPdf url={pdf} />} */}
-        <div className={styles.rightsection}>
-          {/* <div className={styles.blockdetails}>
-              <h2>Block details</h2>
-              <p>Transaction ID:sdjjsdhjdsgdf</p>
-              <p>Assignee:</p>
-              <p>Other:</p>
-              <p>Other:</p>
-            </div> */}
-          <div
-            className={styles.verifybtn}
-            onClick={displayPdf}
-            style={{backgroundColor: "#000"}}
+        <div className={styles.certificate_section}>
+          <Grid
+            container
+            spacing={2}
+            style={{ height: "80vh", padding: "2rem" }}
           >
-            <p>View Certificate</p>
-          </div>
-          <div className={styles.verifybtn} onClick={verifypdf}>
-            <p>Verify Certificate</p>
-          </div>
+            <Grid item xs={6}>
+              <object
+                data={pdfUrl}
+                type="application/pdf"
+                width="100%"
+                height="100%"
+              >
+                <p>
+                  Alternative text - include a link{" "}
+                  <a href={pdfUrl}>to the PDF!</a>
+                </p>
+              </object>
+            </Grid>
+            <Grid item xs={6} display="flex" justifyContent="center">
+              <div className={styles.rightsection}>
+                <div className={styles.blockdetails}>
+                  <h2>Block details</h2>
+                  <p>Transaction ID:sdjjsdhjdsgdf</p>
+                  <p>Assignee:</p>
+                  <p>Other:</p>
+                  <p>Other:</p>
+                </div>
+                <div className={styles.verifybtn} onClick={verifypdf}>
+                  <p>Verify Certificate</p>
+                </div>
+              </div>
+            </Grid>
+          </Grid>
         </div>
       </div>
-      {/* </div> */}
     </div>
   );
 }
