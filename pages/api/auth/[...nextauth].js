@@ -41,10 +41,10 @@ export default NextAuth({
       }
       return token;
     },
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       // Send properties to the client, like an access_token from a provider.
       console.log("session is ",session)
-      console.log("user is ",session.user)
+      // console.log("user is ",user)
       console.log("token is ",token.accessToken)
       console.log("--------------------------------")
       session.accessToken = token.accessToken;
@@ -61,11 +61,12 @@ export default NextAuth({
       let accessToken = token.accessToken;
       let resetToken=' '
 
-      User.findOne({email:email},(err,user)=>{
+     let user=await  User.findOne({email:email})//,(err,user)=>{
+
         console.log("email is ",email)
-        if(err){
-          console.log(err);
-        }
+        // if(err){
+        //   console.log(err);
+        // }
         if(!user){
           const newUser = new User({
             username,
@@ -81,19 +82,23 @@ export default NextAuth({
           newUser
             .save()
             .then((result) => {
-              console.log("user created successfully");
-              session.user=result
-              return session.user
+              console.log("user created successfully",result);
+              session.user=user
+              // return session.user
             })
             .catch((err) => {
-              console.log("user not created successfully");
-              return err;
+              console.log("user not created successfully",err);
+              // return err;
             });
-          }else if (user) {
-            session.user=user
-            return session.user
           }
-      })
+          else if (user) {
+             console.log("user exists already",user);
+            session.user=user
+            console.log("else if session.user",session);
+            // return session.user
+          }
+      // })
+      console.log("fn end user is ",session);
       return session
     },
   },
