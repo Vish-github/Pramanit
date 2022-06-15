@@ -8,6 +8,7 @@ import moment from "moment";
 import Link from "next/link";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter";
 import { Box, CircularProgress, Grid } from "@mui/material";
+import Loader from "../UI/Loader2";
 
 function Userdashboard() {
   const router = useRouter();
@@ -82,19 +83,6 @@ function Userdashboard() {
     </Grid>
   );
 
-  const Loader = (
-    <Box
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "70vh",
-      }}
-    >
-      <CircularProgress size={100} />
-    </Box>
-  );
-
   return (
     <div
       style={{
@@ -112,7 +100,7 @@ function Userdashboard() {
           </div>
         </div>
       </Header>
-      {!isLoading ? Applications : Loader}
+      {isLoading ? <Loader height="70vh" /> : Applications}
     </div>
   );
 }

@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import Link from "next/link";
 import { Box, CircularProgress } from "@mui/material";
+import Loader from "../UI/Loader2.jsx";
 
 function Municipality_dashboard() {
   const [completed, setCompleted] = useState([]);
@@ -41,19 +42,6 @@ function Municipality_dashboard() {
     };
     fetchData();
   }, []);
-
-  const Loader = (
-    <Box
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "60vh",
-      }}
-    >
-      <CircularProgress size={100} />
-    </Box>
-  );
 
   const Applications = (
     <>
@@ -170,7 +158,7 @@ function Municipality_dashboard() {
           />
         </div>
 
-        {!isLoading ? Applications : Loader}
+        {isLoading ? <Loader height="60vh" /> : Applications}
       </div>
     </div>
   );
