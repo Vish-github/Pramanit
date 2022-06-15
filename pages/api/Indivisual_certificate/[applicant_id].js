@@ -8,7 +8,7 @@ const handler=async(req,res)=>{
     const {id}=req.query
     const data=await BirthApplication.findOne({applicant_id:id})
    const emailGetter=await User.findOne({_id:id})
-   const email=emailGetter.email
+   const email="aa@gmail.com"
     console.log(data)
     if(data!=undefined || data!=null){
            let allData={email,data}

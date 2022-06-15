@@ -40,11 +40,17 @@ const ViewCertificateForm = ({ INITIAL_FORM_STATE }) => {
   useEffect(() => {
     setIsLoading(true);
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    let signer = provider.getSigner(0);
-    const address = "0x043f15c48edfBE55c70d3e8A69621363cB77Dde0";
-    const contract = new ethers.Contract(address, Municipality.abi, signer);
+          let signer = provider.getSigner(0);
+          const address = "0xfABbD44e3fc0b68D1F5a12664a5693672ecBed58";
+          const contract = new ethers.Contract(
+            address,
+            Municipality.abi,
+            signer
+          );
+          INITIAL_FORM_STATE.id="62a7071f70d55797e47fdcd6"
+          let id=JSON.stringify(INITIAL_FORM_STATE.id)
     contract
-      .getBirthCertificate(INITIAL_FORM_STATE.id)
+      .getBirthCertificate(id)
       .then((res) => {
         console.log("res", res);
         setIsLoading(false);
@@ -53,19 +59,6 @@ const ViewCertificateForm = ({ INITIAL_FORM_STATE }) => {
         console.log("error", err);
         setIsLoading(false);
       });
-    // contract
-    //   .AddMuncipality("0xc98d049254984b89920a86ca198Ab6edC32CE645", 123)
-    //   .then((res) => {
-    //     console.log("res", res);
-    //   });
-    // contract
-    //   .getBirthCertificate(INITIAL_FORM_STATE.id)
-    //   .then((res) => {
-    //     console.log("res", res);
-    //   })
-    //   .catch((err) => {
-    //     console.log("error", err);
-    //   });
   }, []);
 
   const onSubmit = (values, { resetForm }) => {
@@ -86,14 +79,17 @@ const ViewCertificateForm = ({ INITIAL_FORM_STATE }) => {
           console.log("res", hash.data);
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           let signer = provider.getSigner(0);
-          const address = "0x6872cd09c215ED6a98a60729A5a05211da8EB334";
+          const address = "0xfABbD44e3fc0b68D1F5a12664a5693672ecBed58";
           const contract = new ethers.Contract(
             address,
             Municipality.abi,
             signer
           );
+          let id=JSON.stringify(INITIAL_FORM_STATE.id)
+          let hash1=JSON.stringify(hash.data)
+          console.log(id,hash1)
           contract
-            .AddUserBirthHash(123, INITIAL_FORM_STATE.id, hash.data)
+            .AddUserBirthHash(123,JSON.stringify(INITIAL_FORM_STATE.id),JSON.stringify(hash.data))
             .then((res) => {
               console.log("hello", res);
               axios.post("/api/birth_certificate_granted", {
@@ -105,19 +101,20 @@ const ViewCertificateForm = ({ INITIAL_FORM_STATE }) => {
             })
             .then((res) => {
               console.log("res", res);
+              // contract
+              // .getBirthCertificate(id)
+              // .then((res) => {
+              //   console.log("res", res);
+              // })
+              // .catch((err) => {
+              //   console.log("error", err);
+              // });
             })
             .catch((err) => {
               console.log("error", err);
             });
 
-          // contract
-          //   .getBirthCertificate(INITIAL_FORM_STATE.id)
-          //   .then((res) => {
-          //     console.log("res", res);
-          //   })
-          //   .catch((err) => {
-          //     console.log("error", err);
-          //   });
+        
         })
         .catch((err) => {
           console.log("Error", err);

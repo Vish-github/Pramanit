@@ -12,7 +12,8 @@ function Layout({children, accesstoken, addUserDetails}) {
     if (
       router.pathname == "/apply_certificate" ||
       router.pathname == "/userdashboard" ||
-      router.pathname == "/user_certificate_view"
+      router.pathname == "/user_certificate_view" ||
+      router.pathname == "/user_birth_certificate"
     )
       if (!accesstoken) {
         if (!localStorage.getItem("pramanit")) {
