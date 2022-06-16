@@ -10,11 +10,14 @@ const handler = async (req, res) => {
   };
   await User.findOneAndUpdate({email: req.body.email}, data)
     .then((certificate) => {
-      BirthApplication.findOneAndUpdate({_id: req.body.id}, {issued: 1}).then(
-        (response) => {
+      BirthApplication.findOneAndUpdate({_id: req.body.id}, {issued: 1})
+        .then((response) => {
+          console.log("Successfully updated data");
           res.send("Successfully updated data");
-        }
-      );
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
     })
     .catch((err) => {
       console.log("Cannot Update some error occured", err);

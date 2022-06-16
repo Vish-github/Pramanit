@@ -1,5 +1,5 @@
-import { Formik, Form } from "formik";
-import { Grid } from "@mui/material";
+import {Formik, Form} from "formik";
+import {Grid} from "@mui/material";
 
 import Button from "./FormUI/ButtonWrapper";
 import ButtonMaterial from "@mui/material/Button";
@@ -10,20 +10,20 @@ import DateTime from "../../../UI/DateTime";
 import Select from "../../../UI/SelectField";
 import Modal from "../../../layout/Modal";
 
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 
 import muncipalityData from "../../../src/data/MuncipalityData.json";
 
 import ViewFiles from "../ViewFiles";
 import ApplicationrejectionForm from "./ApplicationrejectionForm";
 
-import { ethers } from "ethers";
+import {ethers} from "ethers";
 import axios from "axios";
 
 import Municipality from "../../../Project_SmartContract/build/contracts/Muncipality.json";
 import Loader from "../../../UI/Loader2";
 
-const ViewCertificateForm = ({ INITIAL_FORM_STATE }) => {
+const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
   const [verified, setVerified] = useState({
     fatherIdentityProof: false,
     motherIdentityProof: false,
@@ -40,15 +40,11 @@ const ViewCertificateForm = ({ INITIAL_FORM_STATE }) => {
   useEffect(() => {
     setIsLoading(true);
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-          let signer = provider.getSigner(0);
-          const address = "0xfABbD44e3fc0b68D1F5a12664a5693672ecBed58";
-          const contract = new ethers.Contract(
-            address,
-            Municipality.abi,
-            signer
-          );
-          INITIAL_FORM_STATE.id="62a7071f70d55797e47fdcd6"
-          let id=JSON.stringify(INITIAL_FORM_STATE.id)
+    let signer = provider.getSigner(0);
+    const address = "0xfABbD44e3fc0b68D1F5a12664a5693672ecBed58";
+    const contract = new ethers.Contract(address, Municipality.abi, signer);
+    let id = JSON.stringify(INITIAL_FORM_STATE.id);
+    console.log("id", INITIAL_FORM_STATE.id);
     contract
       .getBirthCertificate(id)
       .then((res) => {
@@ -61,7 +57,7 @@ const ViewCertificateForm = ({ INITIAL_FORM_STATE }) => {
       });
   }, []);
 
-  const onSubmit = (values, { resetForm }) => {
+  const onSubmit = (values, {resetForm}) => {
     if (
       !(
         verified.addressProof &&
@@ -85,11 +81,15 @@ const ViewCertificateForm = ({ INITIAL_FORM_STATE }) => {
             Municipality.abi,
             signer
           );
-          let id=JSON.stringify(INITIAL_FORM_STATE.id)
-          let hash1=JSON.stringify(hash.data)
-          console.log(id,hash1)
+          let id = JSON.stringify(INITIAL_FORM_STATE.id);
+          let hash1 = JSON.stringify(hash.data);
+          console.log(id, hash1);
           contract
-            .AddUserBirthHash(123,JSON.stringify(INITIAL_FORM_STATE.id),JSON.stringify(hash.data))
+            .AddUserBirthHash(
+              123,
+              JSON.stringify(INITIAL_FORM_STATE.id),
+              JSON.stringify(hash.data)
+            )
             .then((res) => {
               console.log("hello", res);
               axios.post("/api/birth_certificate_granted", {
@@ -113,8 +113,6 @@ const ViewCertificateForm = ({ INITIAL_FORM_STATE }) => {
             .catch((err) => {
               console.log("error", err);
             });
-
-        
         })
         .catch((err) => {
           console.log("Error", err);
@@ -128,7 +126,7 @@ const ViewCertificateForm = ({ INITIAL_FORM_STATE }) => {
         <Loader />
       ) : (
         <Formik
-          initialValues={{ ...INITIAL_FORM_STATE }}
+          initialValues={{...INITIAL_FORM_STATE}}
           onSubmit={onSubmit}
           enableReinitialize
         >
@@ -226,9 +224,9 @@ const ViewCertificateForm = ({ INITIAL_FORM_STATE }) => {
                     name="gender"
                     disabled={isDisabled}
                     data={[
-                      { value: "male", label: "Male" },
-                      { value: "female", label: "Female" },
-                      { value: "others", label: "Others" },
+                      {value: "male", label: "Male"},
+                      {value: "female", label: "Female"},
+                      {value: "others", label: "Others"},
                     ]}
                   />
                 </InputGroup>
@@ -331,7 +329,7 @@ const ViewCertificateForm = ({ INITIAL_FORM_STATE }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Button color="success" style={{ marginRight: "50px" }}>
+                  <Button color="success" style={{marginRight: "50px"}}>
                     Issue
                   </Button>
                   <ButtonMaterial

@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
+import Image from "next/image";
 
 import axios from "axios";
-import { ethers } from "ethers";
-import { Grid } from "@mui/material";
+import {ethers} from "ethers";
+import {Grid} from "@mui/material";
 
 import Header from "../../layout/Header";
 
 import styles from "../../styles/User_Birth_Certificate.module.css";
+import verifyicon from "../../assets/svgs/verify.svg";
 
 import Municipality from "../../Project_SmartContract/build/contracts/Muncipality.json";
 
@@ -16,13 +18,14 @@ function Thirdpartyview() {
   const router = useRouter();
   const [pdfUrl, setPdfUrl] = useState(null);
   const [data, setData] = useState(null);
+  const [blockdetails, setBlockdetails] = useState(null);
 
   useEffect(() => {
     if (!router.isReady) {
       console.log("Not ready");
       return;
     }
-    const { id } = router.query;
+    const {id} = router.query;
     axios
       .get(`/api/thirdpartyview/${id}`)
       .then((res) => {
@@ -44,12 +47,22 @@ function Thirdpartyview() {
   const verifypdf = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     let signer = provider.getSigner(0);
-    const address = "0x043f15c48edfBE55c70d3e8A69621363cB77Dde0";
+    const address = "0xfABbD44e3fc0b68D1F5a12664a5693672ecBed58";
     const contract = new ethers.Contract(address, Municipality.abi, signer);
+    let id = JSON.stringify(data.userid);
+    console.log(id);
     contract
-      .getBirthCertificate(data.userid)
+      .getBirthCertificate(id)
       .then((res) => {
         console.log("res", res);
+        console.log("ipfs", JSON.stringify(data.ipfshash));
+        if (res == JSON.stringify(data.ipfshash)) {
+          console.log("Verified");
+          provider.getTransaction(data?.transactionid).then((res) => {
+            console.log("response", res);
+            setBlockdetails(res);
+          });
+        }
       })
       .catch((err) => {
         console.log("error", err);
@@ -68,11 +81,7 @@ function Thirdpartyview() {
       </Header>
       <div>
         <div className={styles.certificate_section}>
-          <Grid
-            container
-            spacing={2}
-            style={{ height: "80vh", padding: "2rem" }}
-          >
+          <Grid container spacing={2} style={{height: "80vh", padding: "2rem"}}>
             <Grid item xs={6}>
               <object
                 data={pdfUrl}
@@ -88,15 +97,28 @@ function Thirdpartyview() {
             </Grid>
             <Grid item xs={6} display="flex" justifyContent="center">
               <div className={styles.rightsection}>
-                <div className={styles.blockdetails}>
-                  <h2>Block details</h2>
-                  <p>Transaction ID:sdjjsdhjdsgdf</p>
-                  <p>Assignee:</p>
-                  <p>Other:</p>
-                  <p>Other:</p>
-                </div>
-                <div className={styles.verifybtn} onClick={verifypdf}>
-                  <p>Verify Certificate</p>
+                {blockdetails && (
+                  <div className={styles.blockdetails}>
+                    <h2>Block details</h2>
+                    <p>Transaction ID:{blockdetails.hash}</p>
+                    <p>Block Hash:{blockdetails.blockHash}</p>
+                    <p>Block No:{blockdetails.blockNumber}</p>
+                    <p>Transaction Index:{blockdetails.transactionIndex}</p>
+                  </div>
+                )}
+                <div
+                  className={styles.verifybtn}
+                  onClick={verifypdf}
+                  style={{
+                    backgroundColor: blockdetails ? "#38AF0E" : "#000080",
+                  }}
+                >
+                  {blockdetails && (
+                    <Image src={verifyicon} width={30} height={30} />
+                  )}
+                  <p style={{marginLeft: 10}}>
+                    {blockdetails ? <>Verified</> : <>Verify Certificate</>}
+                  </p>
                 </div>
               </div>
             </Grid>
