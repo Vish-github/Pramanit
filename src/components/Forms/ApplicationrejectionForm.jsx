@@ -3,15 +3,27 @@ import {useState} from "react";
 import {Grid} from "@mui/material";
 
 import Button from "../../../UI/Button";
+import axios from "axios";
 
-const ApplicationrejectionForm = () => {
+const ApplicationrejectionForm = ({email, id}) => {
   const [reason, setReason] = useState("");
 
   const onSubmit = () => {
     if (reason.length == 0) {
       alert("Pls enter reason");
     } else {
-      alert(reason);
+      axios
+        .post("/api/mailer", {
+          email: "riddhisiddarkar@gmail.com",
+          reason,
+          id,
+        })
+        .then((res) => {
+          console.log("Res", res);
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
     }
   };
 

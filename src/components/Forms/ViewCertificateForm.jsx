@@ -1,5 +1,8 @@
+import {useState, useEffect} from "react";
+
 import {Formik, Form} from "formik";
 import {Grid} from "@mui/material";
+import {useRouter} from "next/router";
 
 import Button from "./FormUI/ButtonWrapper";
 import ButtonMaterial from "@mui/material/Button";
@@ -9,8 +12,6 @@ import RadioButtonsGroup from "../../../UI/RadioButtonsGroup";
 import DateTime from "../../../UI/DateTime";
 import Select from "../../../UI/SelectField";
 import Modal from "../../../layout/Modal";
-
-import {useState, useEffect} from "react";
 
 import muncipalityData from "../../../src/data/MuncipalityData.json";
 
@@ -37,24 +38,15 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const router = useRouter();
+
   useEffect(() => {
-    setIsLoading(true);
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    let signer = provider.getSigner(0);
-    const address = "0xfABbD44e3fc0b68D1F5a12664a5693672ecBed58";
-    const contract = new ethers.Contract(address, Municipality.abi, signer);
-    let id = JSON.stringify(INITIAL_FORM_STATE.id);
-    console.log("id", INITIAL_FORM_STATE.id);
-    contract
-      .getBirthCertificate(id)
-      .then((res) => {
-        console.log("res", res);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log("error", err);
-        setIsLoading(false);
-      });
+    // setIsLoading(true);
+    // const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // let signer = provider.getSigner(0);
+    // const address = "0xfABbD44e3fc0b68D1F5a12664a5693672ecBed58";
+    // const contract = new ethers.Contract(address, Municipality.abi, signer);
+    // let id = JSON.stringify(INITIAL_FORM_STATE.id);
   }, []);
 
   const onSubmit = (values, {resetForm}) => {
@@ -101,14 +93,7 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
             })
             .then((res) => {
               console.log("res", res);
-              // contract
-              // .getBirthCertificate(id)
-              // .then((res) => {
-              //   console.log("res", res);
-              // })
-              // .catch((err) => {
-              //   console.log("error", err);
-              // });
+              router.push("/municipality_dashboard");
             })
             .catch((err) => {
               console.log("error", err);
@@ -349,7 +334,10 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
         </Formik>
       )}
       <Modal open={open} setOpen={setOpen}>
-        <ApplicationrejectionForm />
+        <ApplicationrejectionForm
+          email={INITIAL_FORM_STATE.email}
+          id={INITIAL_FORM_STATE.id}
+        />
       </Modal>
     </>
   );
