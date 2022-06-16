@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 import {
   Button,
@@ -20,14 +20,17 @@ import shareicon from "../assets/svgs/share.svg";
 
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
+import Loader from "../UI/Loader2";
+
 import axios from "axios";
 
-function User_birth_certificate({accesstoken}) {
+function User_birth_certificate({ accesstoken }) {
   const [open, setOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState(null);
   const [tooltipText, setTooltipText] = useState("Copy Link");
   const [validity, setValidity] = useState(1);
   const [pdfUrl, setPdfUrl] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const generateUrl = (hours) => {
     const timestamp = hours * 60 * 60;
@@ -61,6 +64,8 @@ function User_birth_certificate({accesstoken}) {
     setLinkUrl(
       "http://localhost:3000/viewapplication/627de1c493e342bcb2619bf3?timestamp=3600"
     );
+    // setIsLoading(true);
+    console.log("loading...");
   }, [accesstoken]);
 
   const displayLink = (
@@ -101,19 +106,27 @@ function User_birth_certificate({accesstoken}) {
           </div>
         </Header>
 
-        <Grid container spacing={2} style={{height: "80vh", padding: "2rem"}}>
+        <Grid container spacing={2} style={{ height: "80vh", padding: "2rem" }}>
           <Grid item xs={6}>
-            <object
-              data={pdfUrl}
-              type="application/pdf"
-              width="100%"
-              height="100%"
-            >
-              <p>
-                Alternative text - include a link{" "}
-                <a href={pdfUrl}>to the PDF!</a>
-              </p>
-            </object>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <object
+                data={pdfUrl}
+                type="application/pdf"
+                width="100%"
+                height="100%"
+                onLoad={() => {
+                  setIsLoading(false);
+                  console.log("loaded");
+                }}
+              >
+                <p>
+                  Alternative text - include a link{" "}
+                  <a href={pdfUrl}>to the PDF!</a>
+                </p>
+              </object>
+            )}
           </Grid>
           <Grid item xs={6} display="flex" justifyContent="center">
             <div className={styles.rightsection}>
@@ -151,7 +164,7 @@ function User_birth_certificate({accesstoken}) {
             }}
           />
           <Button
-            style={{marginTop: "30px"}}
+            style={{ marginTop: "30px" }}
             variant="contained"
             onClick={generateUrl.bind(null, validity)}
           >

@@ -109,39 +109,12 @@ const pdfbuilder=async(data,res)=>{
 }
 const handler=async(req,res)=>{
     const cid=req.query.cid
-    // const childInfo={ id: "627c69e54bfb9d5f540f3f8a",
-    // childFirstName: 'Hello ',
-    // childLastName: 'World',
-    // fatherName: 'John Doe',
-    // motherName: 'Jane Doe',
-    // dateOfBirth: "2022-05-12T00:00:00.000Z",
-    // placeOfBirth: 'Bambolim',
-    // address: 'Santa Cruz',
-    // fatherNationality: 'Indian',
-    // motherNationality: 'Indian',
-    // gender: 'male',
-    // grandFatherName: 'Johnnie Doe',
-    // grandMotherName: 'Jannie Doe',
-    // muncipalityLocation: 'PNJ',
-    // fatherIdentityProof: 'http://res.cloudinary.com/dyuxnrh9a/image/upload/v1652320738/rluzxbkolilwydmjwa3q.pdf',
-    // motherIdentityProof: 'http://res.cloudinary.com/dyuxnrh9a/image/upload/v1652320740/f7wnkosfyip3qtl07dkm.pdf',
-    // addressProof: 'http://res.cloudinary.com/dyuxnrh9a/image/upload/v1652320737/pecfpgw9r9o2jqrtv1vf.pdf',       
-    // birthProof: 'http://res.cloudinary.com/dyuxnrh9a/image/upload/v1652320741/hu6dto8anqnrffmnxp41.pdf',
-    // applicant_id: '627b869557522419fd1fc8d0'}
-    // const myPdf=await pdfbuilder(childInfo,res)
-    // const cid= "bafybeie2vqkp3etc2k45gl37optkkyhdiglbaiobpgmi25gioqklvtqfie"
     const file=await getFile(cid)
     const data=await axios.get(`https://dweb.link/ipfs/${file.cid}/?filename${file._name}`)
     console.log(data.data)
     var decryptedObject = ncryptObject.decrypt(data.data);
     const myPdf=await pdfbuilder(decryptedObject,res)
     console.log(decryptedObject)
-    // res.writeHead(200, {
-    //       'Content-Type': 'application/pdf',
-    //       'Content-disposition': 'attachment;filename=output.pdf',
-    //   });
-    // res.send(decryptedObject)
-
 }
 
 export default connectDB(handler);
