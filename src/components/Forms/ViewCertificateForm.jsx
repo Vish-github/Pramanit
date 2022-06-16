@@ -34,17 +34,13 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
 
   const [open, setOpen] = useState(false);
 
-  useEffect(async() => {
+  useEffect(async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-          let signer = provider.getSigner(0);
-          const address = "0xfABbD44e3fc0b68D1F5a12664a5693672ecBed58";
-          const contract = new ethers.Contract(
-            address,
-            Municipality.abi,
-            signer
-          );
-          INITIAL_FORM_STATE.id="62a7071f70d55797e47fdcd6"
-          let id=JSON.stringify(INITIAL_FORM_STATE.id)
+    let signer = provider.getSigner(0);
+    const address = "0xfABbD44e3fc0b68D1F5a12664a5693672ecBed58";
+    const contract = new ethers.Contract(address, Municipality.abi, signer);
+    let id = JSON.stringify(INITIAL_FORM_STATE.id);
+    console.log("id", INITIAL_FORM_STATE.id);
     contract
       .getBirthCertificate(id)
       .then((res) => {
@@ -79,11 +75,15 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
             Municipality.abi,
             signer
           );
-          let id=JSON.stringify(INITIAL_FORM_STATE.id)
-          let hash1=JSON.stringify(hash.data)
-          console.log(id,hash1)
+          let id = JSON.stringify(INITIAL_FORM_STATE.id);
+          let hash1 = JSON.stringify(hash.data);
+          console.log(id, hash1);
           contract
-            .AddUserBirthHash(123,JSON.stringify(INITIAL_FORM_STATE.id),JSON.stringify(hash.data))
+            .AddUserBirthHash(
+              123,
+              JSON.stringify(INITIAL_FORM_STATE.id),
+              JSON.stringify(hash.data)
+            )
             .then((res) => {
               console.log("hello", res);
               axios.post("/api/birth_certificate_granted", {
@@ -107,8 +107,6 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
             .catch((err) => {
               console.log("error", err);
             });
-
-        
         })
         .catch((err) => {
           console.log("Error", err);

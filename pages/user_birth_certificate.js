@@ -31,36 +31,26 @@ function User_birth_certificate({accesstoken}) {
 
   const generateUrl = (hours) => {
     const timestamp = hours * 60 * 60;
-    if (linkUrl.includes("timestamp=")) {
-      const reg = /\?timestamp=[0-9]+/gm;
-      setLinkUrl(linkUrl.replace(reg, `?timestamp=${timestamp}`));
-      let dt = new Date();
-      dt.setHours(dt.getHours() + 2);
-      axios
-        .post("/api/createTimeBasedCertificate", {
-          userid: accesstoken._id,
-          validTill: dt,
-        })
-        .then((res) => {
-          console.log(res);
-          setLinkUrl(`http://localhost:3000/thirdpartyview/${res.data}`);
-        })
-        .catch((err) => {
-          console.log("Error in creating link", err);
-        });
-    } else {
-      setLinkUrl(`${linkUrl}?timestamp=${timestamp}`);
-    }
+    let dt = new Date();
+    dt.setHours(dt.getHours() + 2);
+    axios
+      .post("/api/createTimeBasedCertificate", {
+        userid: accesstoken._id,
+        validTill: dt,
+      })
+      .then((res) => {
+        console.log(res);
+        setLinkUrl(`http://localhost:3000/thirdpartyview/${res.data}`);
+      })
+      .catch((err) => {
+        console.log("Error in creating link", err);
+      });
   };
 
   useEffect(() => {
     const url = `/api/pdf_getter/${accesstoken?.birthIpfsHash}`;
     console.log("url", `/api/pdf_getter/${accesstoken?.birthIpfsHash}`);
     setPdfUrl(url);
-    // fetch code
-    setLinkUrl(
-      "http://localhost:3000/viewapplication/627de1c493e342bcb2619bf3?timestamp=3600"
-    );
   }, [accesstoken]);
 
   const displayLink = (

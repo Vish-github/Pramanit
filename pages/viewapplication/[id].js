@@ -74,7 +74,7 @@ function ViewCertificate() {
             birthProof: data.birthProof.replace(".pdf", ".jpg"),
             dateApplied: moment(data.createdAt).format("YYYY-MM-DD"),
             applierEmail: email,
-            id: data._id,
+            id: router.query.id,
           };
 
           setINITIAL_FORM_STATE(details);
