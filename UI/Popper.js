@@ -46,6 +46,8 @@ function SimplePopover({removeUserDetails}) {
     }
     localStorage.removeItem("pramanit");
     removeUserDetails();
+    if(!session)
+    router.push("/login");
   };
   return (
     <>
