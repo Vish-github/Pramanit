@@ -75,6 +75,7 @@ function ViewCertificate() {
             dateApplied: moment(data.createdAt).format("YYYY-MM-DD"),
             applierEmail: email,
             id: router.query.id,
+            certiid: data._id,
           };
 
           setINITIAL_FORM_STATE(details);

@@ -336,7 +336,8 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
       <Modal open={open} setOpen={setOpen}>
         <ApplicationrejectionForm
           email={INITIAL_FORM_STATE.email}
-          id={INITIAL_FORM_STATE.id}
+          id={INITIAL_FORM_STATE.certiid}
+          onClose={() => setOpen(false)}
         />
       </Modal>
     </>

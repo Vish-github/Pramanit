@@ -1,12 +1,15 @@
 import {useState} from "react";
 
+import {useRouter} from "next/router";
+
 import {Grid} from "@mui/material";
 
 import Button from "../../../UI/Button";
 import axios from "axios";
 
-const ApplicationrejectionForm = ({email, id}) => {
+const ApplicationrejectionForm = ({email, id, onClose}) => {
   const [reason, setReason] = useState("");
+  const router = useRouter();
 
   const onSubmit = () => {
     if (reason.length == 0) {
@@ -14,12 +17,14 @@ const ApplicationrejectionForm = ({email, id}) => {
     } else {
       axios
         .post("/api/mailer", {
-          email: "riddhisiddarkar@gmail.com",
+          email: email,
           reason,
           id,
         })
         .then((res) => {
           console.log("Res", res);
+          onClose();
+          router.push("/municipality_dashboard");
         })
         .catch((err) => {
           console.log("Error", err);
