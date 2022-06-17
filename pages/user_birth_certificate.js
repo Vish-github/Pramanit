@@ -31,11 +31,12 @@ function User_birth_certificate({accesstoken}) {
   const [validity, setValidity] = useState(1);
   const [pdfUrl, setPdfUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [linkloader, setLinkloader] = useState(false);
 
   const generateUrl = (hours) => {
-    const timestamp = hours * 60 * 60;
     let dt = new Date();
     dt.setHours(dt.getHours() + hours);
+    setLinkloader(true);
     axios
       .post("/api/createTimeBasedCertificate", {
         userid: accesstoken._id,
@@ -44,6 +45,7 @@ function User_birth_certificate({accesstoken}) {
       .then((res) => {
         console.log(res);
         setLinkUrl(`http://localhost:3000/thirdpartyview/${res.data}`);
+        setLinkloader(false);
       })
       .catch((err) => {
         console.log("Error in creating link", err);
@@ -52,12 +54,7 @@ function User_birth_certificate({accesstoken}) {
 
   useEffect(() => {
     const url = `/api/pdf_getter/${accesstoken?.birthIpfsHash}`;
-    console.log("url", `/api/pdf_getter/${accesstoken?.birthIpfsHash}`);
     setPdfUrl(url);
-    // fetch code
-    setLinkUrl(
-      "http://localhost:3000/viewapplication/627de1c493e342bcb2619bf3?timestamp=3600"
-    );
   }, [accesstoken]);
 
   const displayLink = (
@@ -118,13 +115,6 @@ function User_birth_certificate({accesstoken}) {
           </Grid>
           <Grid item xs={6} display="flex" justifyContent="center">
             <div className={styles.rightsection}>
-              {/* <div className={styles.blockdetails}>
-                <h2>Block details</h2>
-                <p>Transaction ID:sdjjsdhjdsgdf</p>
-                <p>Assignee:</p>
-                <p>Other:</p>
-                <p>Other:</p>
-              </div> */}
               <div className={styles.sharebtn} onClick={() => setOpen(true)}>
                 <Image src={shareicon} width={30} height={30} />
                 <p>Share Certificate</p>
@@ -151,13 +141,16 @@ function User_birth_certificate({accesstoken}) {
               setValidity(e.target.value);
             }}
           />
-          <Button
-            style={{marginTop: "30px"}}
-            variant="contained"
-            onClick={generateUrl.bind(null, validity)}
-          >
-            Generate Link
-          </Button>
+          <Grid>
+            {linkloader && <Loader height="3vh" />}
+            <Button
+              style={{marginTop: "30px"}}
+              variant="contained"
+              onClick={generateUrl.bind(null, validity)}
+            >
+              Generate Link
+            </Button>
+          </Grid>
         </Grid>
 
         {linkUrl && displayLink}
