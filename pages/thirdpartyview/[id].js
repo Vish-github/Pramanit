@@ -74,7 +74,8 @@ function Thirdpartyview() {
         <div className={styles.header_container}>
           <div className={styles.user_name_container}>
             <h2 className={styles.user_name}>
-              {data?.username}'s birth certificate
+              {data?.username}
+              {"'"}s birth certificate
             </h2>
           </div>
         </div>
