@@ -35,7 +35,7 @@ function User_birth_certificate({accesstoken}) {
   const generateUrl = (hours) => {
     const timestamp = hours * 60 * 60;
     let dt = new Date();
-    dt.setHours(dt.getHours() + 2);
+    dt.setHours(dt.getHours() + hours);
     axios
       .post("/api/createTimeBasedCertificate", {
         userid: accesstoken._id,
