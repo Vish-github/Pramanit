@@ -84,8 +84,9 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
             )
             .then((res) => {
               console.log("hello", res);
+              console.log("id", INITIAL_FORM_STATE?.id);
               axios.post("/api/birth_certificate_granted", {
-                id: INITIAL_FORM_STATE?.id,
+                id: INITIAL_FORM_STATE?.certiid,
                 birthhash: hash.data,
                 birthtransaction: res.hash,
                 email: INITIAL_FORM_STATE?.applierEmail,
