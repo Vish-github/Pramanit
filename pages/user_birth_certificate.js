@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Image from "next/image";
 
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 
 import {
   Button,
@@ -24,7 +24,7 @@ import Loader from "../UI/Loader2";
 
 import axios from "axios";
 
-function User_birth_certificate({ accesstoken }) {
+function User_birth_certificate({accesstoken}) {
   const [open, setOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState(null);
   const [tooltipText, setTooltipText] = useState("Copy Link");
@@ -58,8 +58,6 @@ function User_birth_certificate({ accesstoken }) {
     setLinkUrl(
       "http://localhost:3000/viewapplication/627de1c493e342bcb2619bf3?timestamp=3600"
     );
-    // setIsLoading(true);
-    console.log("loading...");
   }, [accesstoken]);
 
   const displayLink = (
@@ -100,7 +98,7 @@ function User_birth_certificate({ accesstoken }) {
           </div>
         </Header>
 
-        <Grid container spacing={2} style={{ height: "80vh", padding: "2rem" }}>
+        <Grid container spacing={2} style={{height: "80vh", padding: "2rem"}}>
           <Grid item xs={6}>
             {isLoading ? (
               <Loader />
@@ -110,10 +108,6 @@ function User_birth_certificate({ accesstoken }) {
                 type="application/pdf"
                 width="100%"
                 height="100%"
-                onLoad={() => {
-                  setIsLoading(false);
-                  console.log("loaded");
-                }}
               >
                 <p>
                   Alternative text - include a link{" "}
@@ -158,7 +152,7 @@ function User_birth_certificate({ accesstoken }) {
             }}
           />
           <Button
-            style={{ marginTop: "30px" }}
+            style={{marginTop: "30px"}}
             variant="contained"
             onClick={generateUrl.bind(null, validity)}
           >

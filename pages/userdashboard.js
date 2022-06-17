@@ -12,14 +12,18 @@ import UserDashboardComponent from "../layout/UserDashboardComponent";
 
 import Popper from "../UI/Popper";
 
-function userdashboard() {
+import {connect} from "react-redux";
+
+function userdashboard({accesstoken}) {
   return (
     <div>
       <Header>
         <div className={styles.header_container}>
           <div className={styles.user_name_container}>
-            <Avatar sx={{bgcolor: "#fff", color: "#930D0D"}}>H</Avatar>
-            <h2 className={styles.user_name}>Hello World</h2>
+            <Avatar sx={{bgcolor: "#fff", color: "#930D0D"}}>
+              {accesstoken?.username[0]}
+            </Avatar>
+            <h2 className={styles.user_name}>{accesstoken?.username}</h2>
           </div>
           <Popper />
         </div>
@@ -42,4 +46,12 @@ function userdashboard() {
   );
 }
 
-export default userdashboard;
+const mapStateToProps = (state) => ({
+  accesstoken: state.token?.token,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(userdashboard);
