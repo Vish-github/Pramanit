@@ -25,7 +25,6 @@ const UserRegistrationForm = () => {
     axios
       .post(`/api/register`, values)
       .then((res) => {
-        alert("Success");
         console.log("Response", res);
         router.push("/login");
       })
