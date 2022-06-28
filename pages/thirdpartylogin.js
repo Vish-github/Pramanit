@@ -17,7 +17,7 @@ function ThirdPartyLogin({addThirdpartyDetails}) {
       .post(`/api/thirdpartylogin`, values)
       .then((res) => {
         addThirdpartyDetails(res.data.user);
-        localStorage.setItem("pramanit", JSON.stringify(res.data.user));
+        // localStorage.setItem("pramanit", JSON.stringify(res.data.user));
         router.push("/thirdpartydashboard");
       })
       .catch((err) => {

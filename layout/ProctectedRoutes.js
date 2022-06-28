@@ -5,15 +5,18 @@ import {connect} from "react-redux";
 import {addToken} from "../redux/actions/token.action";
 import {addMunicipalityToken} from "../redux/actions/municipality.action";
 import {addSuperadminToken} from "../redux/actions/superadmin.action";
+import {addThirdpartyToken} from "../redux/actions/thirdpartyCompany.action";
 
 function Layout({
   children,
   accesstoken,
   municipalitytoken,
   superadmintoken,
+  thirdpartytoken,
   addUserDetails,
   addMunicipalityDetails,
   addSuperadminDetails,
+  addThirdpartyDetails,
 }) {
   const router = useRouter();
   useEffect(() => {
@@ -48,6 +51,16 @@ function Layout({
           );
         }
       }
+    } else if (router.pathname == "/thirdpartydashboard") {
+      if (!thirdpartytoken) {
+        if (!localStorage.getItem("pramanit-thirdparty")) {
+          router.push("/thirdpartylogin");
+        } else {
+          addThirdpartyDetails(
+            JSON.parse(localStorage.getItem("pramanit-thirdparty"))
+          );
+        }
+      }
     } else if (router.pathname == "/super_admin_panel") {
       if (!superadmintoken) {
         if (!localStorage.getItem("pramanit-superadmin")) {
@@ -67,6 +80,7 @@ const mapStateToProps = (state) => ({
   accesstoken: state.token?.token,
   municipalitytoken: state.municipality?.municipality,
   superadmintoken: state.superadmin?.superadmin,
+  thirdpartytoken: state.thirdparty?.thirdparty,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -74,6 +88,7 @@ const mapDispatchToProps = (dispatch) => {
     addUserDetails: (param) => dispatch(addToken(param)),
     addMunicipalityDetails: (param) => dispatch(addMunicipalityToken(param)),
     addSuperadminDetails: (param) => dispatch(addSuperadminToken(param)),
+    addThirdpartyDetails: (param) => dispatch(addThirdpartyToken(param)),
   };
 };
 

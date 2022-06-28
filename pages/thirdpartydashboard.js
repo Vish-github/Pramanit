@@ -1,3 +1,5 @@
+import {useRouter} from "next/router";
+
 import Header from "../layout/Header";
 
 import styles from "../styles/UserDashboard.module.css";
@@ -10,8 +12,11 @@ import {connect} from "react-redux";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter";
 
 import axios from "axios";
+import {removeThirdpartyToken} from "../redux/actions/thirdpartyCompany.action";
 
-function userdashboard({accesstoken}) {
+function userdashboard({accesstoken, removeThirdPartyDetails}) {
+  const router = useRouter();
+
   const openpdf = (value) => {
     axios(`/api/pdf_getter/${value}`, {
       method: "GET",
@@ -25,6 +30,11 @@ function userdashboard({accesstoken}) {
     });
   };
 
+  const logout = () => {
+    removeThirdPartyDetails();
+    router.push("/thirdpartylogin");
+  };
+
   return (
     <div>
       <Header>
@@ -35,7 +45,7 @@ function userdashboard({accesstoken}) {
             </Avatar>
             <h2 className={styles.user_name}>{accesstoken?.name}</h2>
           </div>
-          <Popper />
+          <Popper logout={logout} />
         </div>
       </Header>
       <div className={styles.userdashboard_options}>
@@ -61,7 +71,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    removeThirdPartyDetails: () => dispatch(removeThirdpartyToken()),
+    reset: () => dispatch(reset()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(userdashboard);
