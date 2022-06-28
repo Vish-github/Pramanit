@@ -286,6 +286,7 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
                           }),
                       },
                     ]}
+                    showverify={INITIAL_FORM_STATE.issued == 0 ? true : false}
                   />
                 </Grid>
 
@@ -304,31 +305,32 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
                     disabled={isDisabled}
                   />
                 </InputGroup>
-
-                <Grid
-                  item
-                  sm={6}
-                  xs={12}
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <Button color="success" style={{marginRight: "50px"}}>
-                    Issue
-                  </Button>
-                  <ButtonMaterial
-                    color="error"
-                    onClick={() => setOpen(true)}
-                    variant="contained"
+                {INITIAL_FORM_STATE.issued == 0 && (
+                  <Grid
+                    item
+                    sm={6}
+                    xs={12}
                     style={{
-                      width: "100%",
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
                     }}
                   >
-                    Reject
-                  </ButtonMaterial>
-                </Grid>
+                    <Button color="success" style={{marginRight: "50px"}}>
+                      Issue
+                    </Button>
+                    <ButtonMaterial
+                      color="error"
+                      onClick={() => setOpen(true)}
+                      variant="contained"
+                      style={{
+                        width: "100%",
+                      }}
+                    >
+                      Reject
+                    </ButtonMaterial>
+                  </Grid>
+                )}
               </Grid>
             </Form>
           )}

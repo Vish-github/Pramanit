@@ -36,6 +36,7 @@ function ViewCertificate() {
     dateApplied: "",
     applierEmail: "",
     id: "",
+    issued: 0,
   });
 
   useEffect(() => {
@@ -76,6 +77,7 @@ function ViewCertificate() {
             applierEmail: email,
             id: router.query.id,
             certiid: data._id,
+            issued: data.issued,
           };
 
           setINITIAL_FORM_STATE(details);

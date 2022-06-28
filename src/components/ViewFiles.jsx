@@ -6,17 +6,14 @@ import ViewPdf from "./ViewPdf";
 
 import ButtonUi from "../../UI/Button";
 
-const ViewFiles = ({files}) => {
+const ViewFiles = ({files, showverify}) => {
   const [open, setOpen] = useState(false);
   const [currPdf, setCurrPdf] = useState(null);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const viewPdf = (link) => {
-    // alert(link);
     setCurrPdf(link);
-    // console.log(link);
-    // handleOpen();
     window.open(link, "PRINT", "height=600,width=1000");
   };
 
@@ -56,21 +53,25 @@ const ViewFiles = ({files}) => {
             <Typography color="primary" marginY={2}>
               {file.title}
             </Typography>
-            {file.viewed ? (
-              <Button
-                variant="contained"
-                color="success"
-                style={{
-                  color: "#f4f4f4",
-                  fontWeight: "bold",
-                  borderRadius: "10px",
-                  padding: "0.5rem 3rem",
-                }}
-              >
-                Verified
-              </Button>
-            ) : (
-              <ButtonUi title="Verify" onClick={file.onClick} />
+            {showverify && (
+              <>
+                {file.viewed ? (
+                  <Button
+                    variant="contained"
+                    color="success"
+                    style={{
+                      color: "#f4f4f4",
+                      fontWeight: "bold",
+                      borderRadius: "10px",
+                      padding: "0.5rem 3rem",
+                    }}
+                  >
+                    Verified
+                  </Button>
+                ) : (
+                  <ButtonUi title="Verify" onClick={file.onClick} />
+                )}
+              </>
             )}
           </Grid>
         ))}
