@@ -21,7 +21,7 @@ const INITIAL_FORM_STATE = {
   password: "",
 };
 
-const MunicipalityLoginForm = ({addUserDetails, removeUserDetails}) => {
+const MunicipalityLoginForm = ({addMunicipalityDetails}) => {
   const router = useRouter();
 
   const onSubmit = (values, {resetForm}) => {
@@ -29,7 +29,7 @@ const MunicipalityLoginForm = ({addUserDetails, removeUserDetails}) => {
       .post("/api/municipality_login", values)
       .then((res) => {
         console.log("Response", res.data);
-        alert("Login Success");
+        addMunicipalityDetails(res.data);
       })
       .catch((err) => {
         console.log("Error:", err);
@@ -63,8 +63,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addUserDetails: (param) => dispatch(addMunicipalityToken(param)),
-    removeUserDetails: () => dispatch(removeMunicipalityToken()),
+    addMunicipalityDetails: (param) => dispatch(addMunicipalityToken(param)),
     reset: () => dispatch(reset()),
   };
 };

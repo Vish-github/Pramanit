@@ -12,6 +12,7 @@
   font-weight: 500;
   margin-top: 10px;
   font-size: 20px;
+  text-transform: uppercase;
 }
 
 .municipality_logout {
@@ -22,6 +23,7 @@
   padding-left: 40px;
   position: absolute;
   bottom: 20px;
+  cursor: pointer;
 }
 
 .municipality_logout p {

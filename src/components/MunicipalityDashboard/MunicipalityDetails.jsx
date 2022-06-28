@@ -4,7 +4,7 @@ import {useRouter} from "next/router";
 import styles from "../../../styles/MunicipalityDetails.module.css";
 import editicon from "../../../assets/svgs/edit.svg";
 
-function MunicipalityDetails() {
+function MunicipalityDetails({details}) {
   const router = useRouter();
   return (
     <>
@@ -24,11 +24,11 @@ function MunicipalityDetails() {
         />
       </div>
       <div className={styles.municipality_address}>
-        <p>Dr Pissurlekar Road</p>
-        <p>Panaji Santa Inez Road</p>
-        <p>Near Royal Cruise, Panaji</p>
+        <p>{details?.addressLine1}</p>
+        <p>{details?.addressLine2}</p>
+        <p>{details?.addressLine3}</p>
       </div>
-      <p className={styles.municipality_email}>panajimunicipality@gmail.com</p>
+      <p className={styles.municipality_email}>{details?.email}</p>
     </>
   );
 }

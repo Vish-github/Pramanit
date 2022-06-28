@@ -32,6 +32,7 @@ const handler = async (req, res) => {
                 res.status(200).send({
                   municipality,
                   token,
+                  type: "MUNICIPALITY",
                 });
               } else {
                 res.status(401).send("invalid Password");
