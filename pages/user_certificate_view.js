@@ -1,3 +1,5 @@
+import {useRouter} from "next/router";
+
 import Header from "../layout/Header";
 
 import styles from "../styles/UserDashboard.module.css";
@@ -11,8 +13,22 @@ import UserDashboardComponent from "../layout/UserDashboardComponent";
 import Popper from "../UI/Popper";
 
 import {connect} from "react-redux";
+import {removeToken} from "../redux/actions/token.action";
 
-function User_certificate_view({token}) {
+import {signOut, useSession} from "next-auth/react";
+
+function User_certificate_view({token, removeUserDetails}) {
+  const router = useRouter();
+  const {data: session} = useSession();
+
+  const logout = () => {
+    if (session) {
+      signOut("google");
+    }
+    removeUserDetails();
+    if (!session) router.push("/login");
+  };
+
   return (
     <div>
       <Header>
@@ -25,7 +41,7 @@ function User_certificate_view({token}) {
               {token?.username ? token.username : "User"}
             </h2>
           </div>
-          <Popper />
+          <Popper logout={logout} />
         </div>
       </Header>
       {token?.birthCertificateStatus == 1 && (
@@ -57,7 +73,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {removeUserDetails: () => dispatch(removeToken())};
 };
 
 export default connect(

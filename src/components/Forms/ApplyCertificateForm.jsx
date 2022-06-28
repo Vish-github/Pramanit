@@ -111,7 +111,7 @@ const ApplyCertificateForm = ({
                         openSnackbarmessage("Applied!");
                         updateToken(res.data);
                         localStorage.setItem(
-                          "pramanit",
+                          "pramanit-user",
                           JSON.stringify(res.data)
                         );
                         router.push("/userdashboard");

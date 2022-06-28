@@ -33,7 +33,7 @@ function Layout({
           // if(!accessToken)
           router.push("/login");
         } else {
-          addUserDetails(JSON.parse(localStorage.getItem("pramanit")));
+          addUserDetails(JSON.parse(localStorage.getItem("pramanit-user")));
         }
       }
     } else if (

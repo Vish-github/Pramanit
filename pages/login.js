@@ -27,7 +27,7 @@ function UserLogin({addUserDetails}) {
   const setToken = () => {
     console.log("in HERE", session);
     addUserDetails(session.data.user);
-    localStorage.setItem("pramanit", JSON.stringify(session.data.user));
+    // localStorage.setItem("pramanit-user", JSON.stringify(session.data.user));
     // resetForm({values: ""});
     // window.location('/userdashboard')
     router.push("/userdashboard");
@@ -38,7 +38,7 @@ function UserLogin({addUserDetails}) {
       .post(`/api/login`, values)
       .then((res) => {
         addUserDetails(res.data.user);
-        localStorage.setItem("pramanit", JSON.stringify(res.data.user));
+        // localStorage.setItem("pramanit-user", JSON.stringify(res.data.user));
         router.push("/userdashboard");
       })
       .catch((err) => {

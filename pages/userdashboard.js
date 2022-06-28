@@ -1,4 +1,4 @@
-import Image from "next/image";
+import {useRouter} from "next/router";
 
 import Header from "../layout/Header";
 
@@ -13,8 +13,21 @@ import UserDashboardComponent from "../layout/UserDashboardComponent";
 import Popper from "../UI/Popper";
 
 import {connect} from "react-redux";
+import {signOut, useSession} from "next-auth/react";
+import {removeToken} from "../redux/actions/token.action";
 
-function userdashboard({accesstoken}) {
+function userdashboard({accesstoken, removeUserDetails}) {
+  const router = useRouter();
+  const {data: session} = useSession();
+
+  const logout = () => {
+    if (session) {
+      signOut("google");
+    }
+    removeUserDetails();
+    if (!session) router.push("/login");
+  };
+
   return (
     <div>
       <Header>
@@ -25,7 +38,7 @@ function userdashboard({accesstoken}) {
             </Avatar>
             <h2 className={styles.user_name}>{accesstoken?.username}</h2>
           </div>
-          <Popper />
+          <Popper logout={logout} />
         </div>
       </Header>
       <div className={styles.userdashboard_options}>
@@ -51,7 +64,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {removeUserDetails: () => dispatch(removeToken())};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(userdashboard);

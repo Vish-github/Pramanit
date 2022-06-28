@@ -26,7 +26,7 @@ const handler = async (req, res) => {
               });
               // let token = jwt.sign(payload, "process.env.JWTPRIVATEKEY");
               console.log("login successfully");
-              res.status(200).send({user, token});
+              res.status(200).send({user, token, type: "USER"});
             } else {
               res.status(401).send("invalid Password");
             }
