@@ -1,6 +1,6 @@
 import FormBackground from "../layout/FormBackground";
 
-import thirdpartylogin from "../assets/PRAMANIT/loginthirdparty.png";
+import loginsuperadmin from "../assets/PRAMANIT/loginsuperadmin.png";
 
 import {useRouter} from "next/router";
 import UserLoginForm from "../src/components/Forms/LoginForm";
@@ -17,7 +17,7 @@ function SuperAdminLogin({addSuperadminDetails}) {
       .post(`/api/superadminlogin`, values)
       .then((res) => {
         addSuperadminDetails(res.data.user);
-        localStorage.setItem("pramanit", JSON.stringify(res.data.user));
+        // localStorage.setItem("pramanit", JSON.stringify(res.data.user));
         router.push("/super_admin_panel");
       })
       .catch((err) => {
@@ -26,7 +26,7 @@ function SuperAdminLogin({addSuperadminDetails}) {
   };
 
   return (
-    <FormBackground pagetitle="Third Party Login" image={thirdpartylogin}>
+    <FormBackground pagetitle="Super Admin Login" image={loginsuperadmin}>
       <div>
         {" "}
         <div>

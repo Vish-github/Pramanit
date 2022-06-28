@@ -8,6 +8,7 @@ import {
 
 export function addSuperadminToken(payload) {
   return function (dispatch) {
+    localStorage.setItem("pramanit-superadmin", JSON.stringify(payload));
     dispatch({type: SUPERADMIN_TOKEN_RECIEVED, payload});
     dispatch({type: TOKEN_EXPIRED});
     dispatch({type: MUNICIPALITY_TOKEN_EXPIRED});
@@ -18,5 +19,6 @@ export function addSuperadminToken(payload) {
 export function removeSuperadminToken() {
   return function (dispatch) {
     dispatch({type: SUPERADMIN_TOKEN_EXPIRED});
+    localStorage.removeItem("pramanit-superadmin");
   };
 }

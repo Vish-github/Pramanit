@@ -11,7 +11,7 @@ import {useRouter} from "next/router";
 import {connect} from "react-redux";
 import {removeToken} from "../redux/actions/token.action";
 
-import {signOut,useSession} from "next-auth/react";
+import {signOut, useSession} from "next-auth/react";
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -19,11 +19,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SimplePopover({removeUserDetails}) {
+function SimplePopover({logout}) {
   const classes = useStyles();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { data: session } = useSession();
+  const {data: session} = useSession();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,19 +36,20 @@ function SimplePopover({removeUserDetails}) {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  const logout = () => {
-    console.log("inside logout");
-    if(session)
-    {
-      console.log(" b4 loggin of session ", session);
-      signOut("google");
-      console.log("loggin of session ",session);
-    }
-    localStorage.removeItem("pramanit");
-    removeUserDetails();
-    if(!session)
-    router.push("/login");
-  };
+  // const logout = () => {
+  //   console.log("inside logout");
+  //   if(session)
+  //   {
+  //     console.log(" b4 loggin of session ", session);
+  //     signOut("google");
+  //     console.log("loggin of session ",session);
+  //   }
+  //   localStorage.removeItem("pramanit");
+  //   removeUserDetails();
+  //   if(!session)
+  //   router.push("/login");
+  // };
+
   return (
     <>
       <Image
@@ -72,7 +73,12 @@ function SimplePopover({removeUserDetails}) {
           horizontal: "center",
         }}
       >
-        <Typography className={classes.typography} onClick={()=>{logout()}}>
+        <Typography
+          className={classes.typography}
+          onClick={() => {
+            logout();
+          }}
+        >
           Logout
         </Typography>
       </Popover>
@@ -80,14 +86,16 @@ function SimplePopover({removeUserDetails}) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  accesstoken: state.token?.token,
-});
+// const mapStateToProps = (state) => ({
+//   accesstoken: state.token?.token,
+// });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    removeUserDetails: () => dispatch(removeToken()),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     removeUserDetails: () => dispatch(removeToken()),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SimplePopover);
+// export default connect(mapStateToProps, mapDispatchToProps)(SimplePopover);
+
+export default SimplePopover;

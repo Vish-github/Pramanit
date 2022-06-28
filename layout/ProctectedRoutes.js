@@ -4,13 +4,16 @@ import {connect} from "react-redux";
 
 import {addToken} from "../redux/actions/token.action";
 import {addMunicipalityToken} from "../redux/actions/municipality.action";
+import {addSuperadminToken} from "../redux/actions/superadmin.action";
 
 function Layout({
   children,
   accesstoken,
   municipalitytoken,
+  superadmintoken,
   addUserDetails,
   addMunicipalityDetails,
+  addSuperadminDetails,
 }) {
   const router = useRouter();
   useEffect(() => {
@@ -45,6 +48,16 @@ function Layout({
           );
         }
       }
+    } else if (router.pathname == "/super_admin_panel") {
+      if (!superadmintoken) {
+        if (!localStorage.getItem("pramanit-superadmin")) {
+          router.push("/superadminlogin");
+        } else {
+          addSuperadminDetails(
+            JSON.parse(localStorage.getItem("pramanit-superadmin"))
+          );
+        }
+      }
     }
   }, [router.pathname]);
   return <div>{children}</div>;
@@ -53,12 +66,14 @@ function Layout({
 const mapStateToProps = (state) => ({
   accesstoken: state.token?.token,
   municipalitytoken: state.municipality?.municipality,
+  superadmintoken: state.superadmin?.superadmin,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addUserDetails: (param) => dispatch(addToken(param)),
     addMunicipalityDetails: (param) => dispatch(addMunicipalityToken(param)),
+    addSuperadminDetails: (param) => dispatch(addSuperadminToken(param)),
   };
 };
 

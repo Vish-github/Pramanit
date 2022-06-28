@@ -1,6 +1,8 @@
 import {useState} from "react";
 
 import Image from "next/image";
+import {useRouter} from "next/router";
+import {connect} from "react-redux";
 
 import Header from "../layout/Header";
 import Modal from "../layout/Modal";
@@ -14,16 +16,28 @@ import ApplicationOuter from "../src/components/MunicipalityDashboard/Applicatio
 import AddMunicipalityForm from "../src/components/Forms/AddMunicipalityForm";
 import ViewMunicipalityCredentials from "../src/components/Forms/ViewMunicipalityCredentials";
 import AddThirdPartyForm from "../src/components/Forms/AddThirdPartyForm";
+import Popper from "../UI/Popper";
+import {removeSuperadminToken} from "../redux/actions/superadmin.action";
 
-function SuperAdminPanel() {
+function SuperAdminPanel({removeSuperAdminDetails}) {
   const [open, setOpen] = useState(false);
   const [addthirdparty, setAddthirdparty] = useState(false);
   const [addmunicipality, setAddmunicipality] = useState(false);
 
+  const router = useRouter();
+
+  const logout = () => {
+    removeSuperAdminDetails();
+    router.push("/superadminlogin");
+  };
+
   return (
     <div>
       <Header>
-        <p className={styles.page_title}>Super Admin</p>
+        <div className={styles.header_container}>
+          <p className={styles.page_title}>Super Admin</p>
+          <Popper logout={logout} />
+        </div>
       </Header>
       <div className={styles.add_municipality_container}>
         <div className={styles.superadminselectioncomponent}>
@@ -89,4 +103,13 @@ function SuperAdminPanel() {
   );
 }
 
-export default SuperAdminPanel;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removeSuperAdminDetails: () => dispatch(removeSuperadminToken()),
+    reset: () => dispatch(reset()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SuperAdminPanel);
