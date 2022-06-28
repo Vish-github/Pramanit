@@ -11,10 +11,7 @@ import InputField from "../../../UI/InputField";
 import axios from "axios";
 
 import {connect} from "react-redux";
-import {
-  addMunicipalityToken,
-  removeMunicipalityToken,
-} from "../../../redux/actions/municipality.action";
+import {addMunicipalityToken} from "../../../redux/actions/municipality.action";
 
 const INITIAL_FORM_STATE = {
   email: "",
@@ -30,12 +27,12 @@ const MunicipalityLoginForm = ({addMunicipalityDetails}) => {
       .then((res) => {
         console.log("Response", res.data);
         addMunicipalityDetails(res.data);
+        router.push("/municipality_dashboard");
       })
       .catch((err) => {
         console.log("Error:", err);
       });
     resetForm({values: ""});
-    router.push("/municipality_dashboard");
   };
 
   return (
