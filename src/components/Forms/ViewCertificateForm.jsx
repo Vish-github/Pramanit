@@ -40,15 +40,6 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    // setIsLoading(true);
-    // const provider = new ethers.providers.Web3Provider(window.ethereum);
-    // let signer = provider.getSigner(0);
-    // const address = "0xfABbD44e3fc0b68D1F5a12664a5693672ecBed58";
-    // const contract = new ethers.Contract(address, Municipality.abi, signer);
-    // let id = JSON.stringify(INITIAL_FORM_STATE?.id);
-  }, []);
-
   const onSubmit = (values, {resetForm}) => {
     if (
       !(
@@ -286,7 +277,7 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
                           }),
                       },
                     ]}
-                    showverify={INITIAL_FORM_STATE.issued == 0 ? true : false}
+                    showverify={INITIAL_FORM_STATE?.issued == 0 ? true : false}
                   />
                 </Grid>
 
@@ -305,7 +296,7 @@ const ViewCertificateForm = ({INITIAL_FORM_STATE}) => {
                     disabled={isDisabled}
                   />
                 </InputGroup>
-                {INITIAL_FORM_STATE.issued == 0 && (
+                {INITIAL_FORM_STATE?.issued == 0 && (
                   <Grid
                     item
                     sm={6}

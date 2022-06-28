@@ -16,7 +16,7 @@ import {connect} from "react-redux";
 import {signOut, useSession} from "next-auth/react";
 import {removeToken} from "../redux/actions/token.action";
 
-function userdashboard({accesstoken, removeUserDetails}) {
+function Userdashboard({accesstoken, removeUserDetails}) {
   const router = useRouter();
   const {data: session} = useSession();
 
@@ -67,4 +67,4 @@ const mapDispatchToProps = (dispatch) => {
   return {removeUserDetails: () => dispatch(removeToken())};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(userdashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Userdashboard);

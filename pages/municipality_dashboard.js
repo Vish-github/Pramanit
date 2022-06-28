@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
 
 import LeftPaneMunicipalityDashboard from "../src/components/MunicipalityDashboard/LeftPaneMunicipalityDashboard.jsx";
 import axios from "axios";
@@ -8,11 +7,10 @@ import search from "../assets/svgs/search.svg";
 import MunicipalityStat from "../src/components/MunicipalityDashboard/MunicipalityStat.jsx";
 import ViewMoreHeader from "../layout/ViewMoreHeader.jsx";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter.jsx";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 import moment from "moment";
 import Link from "next/link";
-import { Box, CircularProgress } from "@mui/material";
 import Loader from "../UI/Loader2.jsx";
 
 function Municipality_dashboard() {
@@ -20,8 +18,6 @@ function Municipality_dashboard() {
   const [pending, setPending] = useState([]);
   const [cancelled, setCancelled] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  const router = useRouter();
 
   useEffect(() => {
     const url = "/api/get_birth_certificate";

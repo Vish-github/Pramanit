@@ -1,5 +1,3 @@
-import React, {useEffect} from "react";
-
 import Link from "next/link";
 import Image from "next/image";
 
@@ -25,11 +23,7 @@ function UserLogin({addUserDetails}) {
   const session = useSession();
 
   const setToken = () => {
-    console.log("in HERE", session);
     addUserDetails(session.data.user);
-    // localStorage.setItem("pramanit-user", JSON.stringify(session.data.user));
-    // resetForm({values: ""});
-    // window.location('/userdashboard')
     router.push("/userdashboard");
   };
 
@@ -38,7 +32,6 @@ function UserLogin({addUserDetails}) {
       .post(`/api/login`, values)
       .then((res) => {
         addUserDetails(res.data.user);
-        // localStorage.setItem("pramanit-user", JSON.stringify(res.data.user));
         router.push("/userdashboard");
       })
       .catch((err) => {
@@ -67,18 +60,10 @@ function UserLogin({addUserDetails}) {
         </p>
         <div
           className={styles.googlecontainer}
-          onClick={
-            () =>
-              signIn("google", {
-                callbackUrl: "http://localhost:3000/userdashboard",
-              })
-
-            //   signIn("google", {callbackUrl: "http://localhost:3000/userdashboard"}).then(res=>{
-            //     console.log("Here in google response")
-            //     console.log("Gooogle res",res)
-            //   }).catch(err=>{
-            //     console.log("Error here in google auth",err)
-            //   })
+          onClick={() =>
+            signIn("google", {
+              callbackUrl: "http://localhost:3000/userdashboard",
+            })
           }
         >
           {session.data != undefined ? setToken() : console.log(session.data)}

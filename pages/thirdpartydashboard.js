@@ -14,7 +14,7 @@ import ApplicationOuter from "../src/components/MunicipalityDashboard/Applicatio
 import axios from "axios";
 import {removeThirdpartyToken} from "../redux/actions/thirdpartyCompany.action";
 
-function userdashboard({accesstoken, removeThirdPartyDetails}) {
+function ThirdPartyDashboard({accesstoken, removeThirdPartyDetails}) {
   const router = useRouter();
 
   const openpdf = (value) => {
@@ -77,4 +77,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(userdashboard);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ThirdPartyDashboard);

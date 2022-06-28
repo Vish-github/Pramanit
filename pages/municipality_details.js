@@ -8,7 +8,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import MunicipalityDetailsForm from "../src/components/Forms/MunicipalityDetailsForm";
 
-function ApplyCertificate() {
+function MunicipalityDetails() {
   const router = useRouter();
 
   return (
@@ -30,4 +30,4 @@ function ApplyCertificate() {
   );
 }
 
-export default ApplyCertificate;
+export default MunicipalityDetails;

@@ -17,7 +17,6 @@ function SuperAdminLogin({addSuperadminDetails}) {
       .post(`/api/superadminlogin`, values)
       .then((res) => {
         addSuperadminDetails(res.data.user);
-        // localStorage.setItem("pramanit", JSON.stringify(res.data.user));
         router.push("/super_admin_panel");
       })
       .catch((err) => {
