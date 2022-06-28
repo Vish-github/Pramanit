@@ -1,3 +1,5 @@
+import React, {useEffect} from "react";
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -9,18 +11,18 @@ import google from "../assets/PRAMANIT/google.png";
 
 import userlogin from "../assets/PRAMANIT/loginuser.png";
 import {useRouter} from "next/router";
-import { useSession } from "next-auth/react"
+import {useSession} from "next-auth/react";
 import UserLoginForm from "../src/components/Forms/LoginForm";
 
 import {connect} from "react-redux";
 import {addToken, removeToken} from "../redux/actions/token.action";
 import {signIn} from "next-auth/react";
 
-import React, {useEffect} from "react";
+import axios from "axios";
 
 function UserLogin({addUserDetails}) {
   const router = useRouter();
-  const session=useSession()
+  const session = useSession();
 
   const setToken = () => {
     console.log("in HERE", session);
@@ -30,12 +32,26 @@ function UserLogin({addUserDetails}) {
     // window.location('/userdashboard')
     router.push("/userdashboard");
   };
+
+  const login = (values) => {
+    axios
+      .post(`/api/login`, values)
+      .then((res) => {
+        addUserDetails(res.data.user);
+        localStorage.setItem("pramanit", JSON.stringify(res.data.user));
+        router.push("/userdashboard");
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
+  };
+
   return (
     <FormBackground pagetitle="User Login" image={userlogin}>
       <div>
         {" "}
         <div>
-          <UserLoginForm />
+          <UserLoginForm onsubmit={login} />
         </div>
         <div></div>
         <div className={styles.bottomText}>
@@ -51,22 +67,21 @@ function UserLogin({addUserDetails}) {
         </p>
         <div
           className={styles.googlecontainer}
-          onClick={() =>
-            signIn("google", {callbackUrl: "http://localhost:3000/userdashboard"})
+          onClick={
+            () =>
+              signIn("google", {
+                callbackUrl: "http://localhost:3000/userdashboard",
+              })
 
-          //   signIn("google", {callbackUrl: "http://localhost:3000/userdashboard"}).then(res=>{
-          //     console.log("Here in google response")
-          //     console.log("Gooogle res",res)
-          //   }).catch(err=>{
-          //     console.log("Error here in google auth",err)
-          //   })
+            //   signIn("google", {callbackUrl: "http://localhost:3000/userdashboard"}).then(res=>{
+            //     console.log("Here in google response")
+            //     console.log("Gooogle res",res)
+            //   }).catch(err=>{
+            //     console.log("Error here in google auth",err)
+            //   })
           }
-
         >
-                    {session.data!=undefined?
-                    setToken():
-                    console.log(session.data)
-                    }
+          {session.data != undefined ? setToken() : console.log(session.data)}
           <Image src={google} width={20} height={20} />
           <p>Sign in with Google</p>
         </div>
@@ -74,7 +89,6 @@ function UserLogin({addUserDetails}) {
     </FormBackground>
   );
 }
-
 
 const mapStateToProps = (state) => ({
   token: state.token?.token,
@@ -88,4 +102,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default  connect(mapStateToProps, mapDispatchToProps)(UserLogin);
+export default connect(mapStateToProps, mapDispatchToProps)(UserLogin);

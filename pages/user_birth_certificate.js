@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import Image from "next/image";
 
+import axios from "axios";
 import {connect} from "react-redux";
 
 import {
@@ -14,6 +15,7 @@ import {
 
 import Header from "../layout/Header";
 import Modal from "../layout/Modal";
+import Select from "../UI/Select";
 
 import styles from "../styles/User_Birth_Certificate.module.css";
 import shareicon from "../assets/svgs/share.svg";
@@ -22,9 +24,9 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 import Loader from "../UI/Loader2";
 
-import axios from "axios";
+import {openSnackbar} from "../redux/actions/snackbar.action";
 
-function User_birth_certificate({accesstoken}) {
+function User_birth_certificate({accesstoken, openSnackbarmessage}) {
   const [open, setOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState(null);
   const [tooltipText, setTooltipText] = useState("Copy Link");
@@ -32,6 +34,9 @@ function User_birth_certificate({accesstoken}) {
   const [pdfUrl, setPdfUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [linkloader, setLinkloader] = useState(false);
+  const [thirdpartyaddloader, setThirdpartyaddloader] = useState(false);
+  const [thirdparty, setThirdparty] = useState(null);
+  const [options, setOptions] = useState([]);
 
   const generateUrl = (hours) => {
     let dt = new Date();
@@ -52,9 +57,40 @@ function User_birth_certificate({accesstoken}) {
       });
   };
 
+  const addthirdparty = () => {
+    axios
+      .post("/api/addThirdPartyAccessBirthCertificate", {
+        id: thirdparty,
+        data: {
+          userid: accesstoken._id,
+          ipfshash: accesstoken.birthIpfsHash,
+          transactionid: accesstoken.birthTransactionId,
+          username: accesstoken.username,
+        },
+      })
+      .then((res) => {
+        console.log("Response", res);
+        openSnackbarmessage("Third party Added!");
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
+    setOpen(false);
+  };
+
   useEffect(() => {
     const url = `/api/pdf_getter/${accesstoken?.birthIpfsHash}`;
     setPdfUrl(url);
+
+    axios
+      .get("/api/getAllThirdParty")
+      .then((res) => {
+        setOptions(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
   }, [accesstoken]);
 
   const displayLink = (
@@ -152,7 +188,27 @@ function User_birth_certificate({accesstoken}) {
             </Button>
           </Grid>
         </Grid>
-
+        <p className={styles.orline}>
+          <span>OR</span>
+        </p>
+        <h6 className={styles.addAccessHeader}>Add Access</h6>
+        <Select
+          title="Third Party"
+          name="thirdparty"
+          option={thirdparty}
+          setOption={setThirdparty}
+          options={options}
+        />
+        <Grid>
+          {thirdpartyaddloader && <Loader height="3vh" />}
+          <Button
+            style={{marginTop: "30px"}}
+            variant="contained"
+            onClick={addthirdparty.bind()}
+          >
+            Add third party
+          </Button>
+        </Grid>
         {linkUrl && displayLink}
       </Modal>
     </>
@@ -164,7 +220,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    openSnackbarmessage: (param) => dispatch(openSnackbar(param)),
+  };
 };
 
 export default connect(
