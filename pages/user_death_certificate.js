@@ -46,6 +46,7 @@ function User_death_certificate({accesstoken, openSnackbarmessage}) {
       .post("/api/createTimeBasedCertificate", {
         userid: accesstoken._id,
         validTill: dt,
+        type: "DEATH",
       })
       .then((res) => {
         console.log(res);
@@ -59,12 +60,12 @@ function User_death_certificate({accesstoken, openSnackbarmessage}) {
 
   const addthirdparty = () => {
     axios
-      .post("/api/addThirdPartyAccessBirthCertificate", {
+      .post("/api/addThirdPartyAccessDeathCertificate", {
         id: thirdparty,
         data: {
           userid: accesstoken._id,
-          ipfshash: accesstoken.birthIpfsHash,
-          transactionid: accesstoken.birthTransactionId,
+          ipfshash: accesstoken.deathIpfsHash,
+          transactionid: accesstoken.deathTransactionId,
           username: accesstoken.username,
         },
       })
@@ -79,7 +80,6 @@ function User_death_certificate({accesstoken, openSnackbarmessage}) {
   };
 
   useEffect(() => {
-    console.log("Here");
     const url = `/api/pdfgetter_death/${accesstoken?.deathIpfsHash}`;
     setPdfUrl(url);
 
@@ -127,7 +127,7 @@ function User_death_certificate({accesstoken, openSnackbarmessage}) {
         <Header>
           <div className={styles.header_container}>
             <div className={styles.user_name_container}>
-              <h2 className={styles.user_name}>Your birth certificate</h2>
+              <h2 className={styles.user_name}>Your Death Certificate</h2>
             </div>
           </div>
         </Header>
@@ -189,6 +189,8 @@ function User_death_certificate({accesstoken, openSnackbarmessage}) {
             </Button>
           </Grid>
         </Grid>
+        {linkUrl && displayLink}
+        <br />
         <p className={styles.orline}>
           <span>OR</span>
         </p>
@@ -210,7 +212,6 @@ function User_death_certificate({accesstoken, openSnackbarmessage}) {
             Add third party
           </Button>
         </Grid>
-        {linkUrl && displayLink}
       </Modal>
     </>
   );

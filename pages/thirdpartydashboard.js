@@ -48,8 +48,25 @@ function ThirdPartyDashboard({accesstoken, removeThirdPartyDetails}) {
           <Popper logout={logout} />
         </div>
       </Header>
-      <div className={styles.userdashboard_options}>
+      <h2 className={styles.user_name}>Birth Certificates</h2>
+      <div className={styles.userdashboard_options_new}>
         {accesstoken?.birthcertificates?.map((birthcertificate, i) => (
+          <div key={i} onClick={() => openpdf(birthcertificate?.ipfshash)}>
+            <a>
+              <ApplicationOuter
+                color="rgba(155, 197, 244, 0.849)"
+                name={birthcertificate.username}
+                id={i}
+                daysDisplay={false}
+              />
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <h2 className={styles.user_name}>Death Certificates</h2>
+      <div className={styles.userdashboard_options_new}>
+        {accesstoken?.deathcertificates?.map((birthcertificate, i) => (
           <div key={i} onClick={() => openpdf(birthcertificate?.ipfshash)}>
             <a>
               <ApplicationOuter

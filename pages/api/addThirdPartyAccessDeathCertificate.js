@@ -2,9 +2,10 @@ import connectDB from "../../middleware/mongodb";
 import ThirdPartyCompany from "../../models/ThirdPartyCompany.schema";
 
 const handler = async (req, res) => {
+  console.log("data", req.body);
   ThirdPartyCompany.updateOne(
-    {_id: req.id},
-    {$push: {deathcertificates: req.certiid}}
+    {_id: req.body.id},
+    {$push: {deathcertificates: req.body.data}}
   )
     .then((response) => {
       console.log("Response", response);

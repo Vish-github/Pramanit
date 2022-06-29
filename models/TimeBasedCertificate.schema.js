@@ -7,6 +7,9 @@ const timeBasedCertificate = new mongoose.Schema({
   validTill: {
     type: Date,
   },
+  type: {
+    type: String,
+  },
 });
 
 global.TimeBasedCertificate =

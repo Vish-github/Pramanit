@@ -30,7 +30,12 @@ function Thirdpartyview() {
       .get(`/api/thirdpartyview/${id}`)
       .then((res) => {
         setData(res.data);
-        const url = `/api/pdf_getter/${res.data.ipfshash}`;
+        let url;
+        if (res.data.type == "DEATH") {
+          url = `/api/pdfgetter_death/${res.data.ipfshash}`;
+        } else {
+          url = `/api/pdf_getter/${res.data.ipfshash}`;
+        }
         setPdfUrl(url);
       })
       .catch((error) => {
@@ -51,22 +56,41 @@ function Thirdpartyview() {
     const contract = new ethers.Contract(address, Municipality.abi, signer);
     let id = JSON.stringify(data.userid);
     console.log(id);
-    contract
-      .getBirthCertificate(id)
-      .then((res) => {
-        console.log("res", res);
-        console.log("ipfs", JSON.stringify(data.ipfshash));
-        if (res == JSON.stringify(data.ipfshash)) {
-          console.log("Verified");
-          provider.getTransaction(data?.transactionid).then((res) => {
-            console.log("response", res);
-            setBlockdetails(res);
-          });
-        }
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
+    if (data.type == "DEATH") {
+      contract
+        .getDeathCertificate(id)
+        .then((res) => {
+          console.log("res", res);
+          console.log("ipfs", JSON.stringify(data.ipfshash));
+          if (res == JSON.stringify(data.ipfshash)) {
+            console.log("Verified");
+            provider.getTransaction(data?.transactionid).then((res) => {
+              console.log("response", res);
+              setBlockdetails(res);
+            });
+          }
+        })
+        .catch((err) => {
+          console.log("error", err);
+        });
+    } else {
+      contract
+        .getBirthCertificate(id)
+        .then((res) => {
+          console.log("res", res);
+          console.log("ipfs", JSON.stringify(data.ipfshash));
+          if (res == JSON.stringify(data.ipfshash)) {
+            console.log("Verified");
+            provider.getTransaction(data?.transactionid).then((res) => {
+              console.log("response", res);
+              setBlockdetails(res);
+            });
+          }
+        })
+        .catch((err) => {
+          console.log("error", err);
+        });
+    }
   };
   return (
     <div>
@@ -75,7 +99,7 @@ function Thirdpartyview() {
           <div className={styles.user_name_container}>
             <h2 className={styles.user_name}>
               {data?.username}
-              {"'"}s birth certificate
+              {"'"}s {data?.type == "DEATH" ? "death" : "birth"} certificate
             </h2>
           </div>
         </div>

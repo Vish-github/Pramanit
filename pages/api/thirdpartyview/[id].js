@@ -10,12 +10,23 @@ const handler = async (req, res) => {
     .then((details) => {
       if (details.validTill > Date.now()) {
         User.findById(details.userid).then((user) => {
-          res.send({
-            ipfshash: user.birthIpfsHash,
-            transactionid: user.birthTransactionId,
-            userid: details.userid,
-            username: user.username,
-          });
+          if (details.type == "DEATH") {
+            res.send({
+              ipfshash: user.deathIpfsHash,
+              transactionid: user.deathTransactionId,
+              userid: details.userid,
+              username: user.username,
+              type: "DEATH",
+            });
+          } else {
+            res.send({
+              ipfshash: user.birthIpfsHash,
+              transactionid: user.birthTransactionId,
+              userid: details.userid,
+              username: user.username,
+              type: "BIRTH",
+            });
+          }
         });
       } else {
         console.log("Time out");

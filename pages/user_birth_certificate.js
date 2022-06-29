@@ -46,6 +46,7 @@ function User_birth_certificate({accesstoken, openSnackbarmessage}) {
       .post("/api/createTimeBasedCertificate", {
         userid: accesstoken._id,
         validTill: dt,
+        type: "BIRTH",
       })
       .then((res) => {
         console.log(res);

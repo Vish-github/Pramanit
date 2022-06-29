@@ -21,6 +21,11 @@
   flex-direction: row;
   justify-content: space-around;
 }
+.userdashboard_options_new {
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
+}
 
 .certificateAppliedText {
   text-align: center;
