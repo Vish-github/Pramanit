@@ -54,7 +54,7 @@ function User_certificate_view({token, removeUserDetails}) {
         <UserDashboardComponent
           image={applycertificate}
           title="Apply for certificate"
-          href="/apply_certificate"
+          href="/apply_birth_certificate"
           active={token?.birthCertificateStatus == 0}
         />
         <UserDashboardComponent

@@ -21,7 +21,7 @@ function Layout({
   const router = useRouter();
   useEffect(() => {
     if (
-      router.pathname == "/apply_certificate" ||
+      router.pathname == "/apply_birth_certificate" ||
       router.pathname == "/userdashboard" ||
       router.pathname == "/user_certificate_view" ||
       router.pathname == "/user_birth_certificate"
