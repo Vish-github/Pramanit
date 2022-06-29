@@ -5,9 +5,9 @@ import styles from "../../../styles/TypeOfCertificate.module.css";
 import bookmark_filled from "../../../assets/svgs/bookmark_filled.svg";
 import bookmark_outlined from "../../../assets/svgs/bookmark_outlined.svg";
 
-function TypeOfCertificate({active, title}) {
+function TypeOfCertificate({active, title, onClick}) {
   return (
-    <div className={styles.typeofcertificate_container}>
+    <div className={styles.typeofcertificate_container} onClick={onClick}>
       {active ? (
         <Image src={bookmark_filled} alt="Bookmark filled" />
       ) : (

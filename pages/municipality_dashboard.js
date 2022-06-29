@@ -18,9 +18,18 @@ function Municipality_dashboard() {
   const [pending, setPending] = useState([]);
   const [cancelled, setCancelled] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [birthcertificates, setBirthcertificates] = useState(true);
+  const [callingurl, setCallingurl] = useState("/viewbirthapplication");
 
   useEffect(() => {
-    const url = "/api/get_birth_certificate";
+    const url = birthcertificates
+      ? "/api/get_birth_certificate"
+      : "/api/get_death_certificate";
+
+    const curl = birthcertificates
+      ? "/viewbirthapplication"
+      : "/viewdeathapplication";
+    setCallingurl(curl);
 
     const fetchData = async () => {
       try {
@@ -37,14 +46,19 @@ function Municipality_dashboard() {
       }
     };
     fetchData();
-  }, []);
+  }, [birthcertificates]);
 
   const Applications = (
     <>
       <ViewMoreHeader title="Pending Applications:" type="Pending" />
       <div className={styles.applications_container}>
         {pending.slice(0, 5).map((application) => {
-          const fullName = `${application.childFirstName} ${application.childLastName}`;
+          let fullName;
+          if (birthcertificates) {
+            fullName = `${application.childFirstName} ${application.childLastName}`;
+          } else {
+            fullName = `${application.firstName} ${application.lastName}`;
+          }
           const id = application.applicant_id;
           const date = moment(application.createdAt).format(
             "MMMM Do YYYY, h:mm:ss a"
@@ -52,14 +66,14 @@ function Municipality_dashboard() {
           const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
 
           return (
-            <Link href={`/viewapplication/${id}`} key={id}>
+            <Link href={`/${callingurl}/${id}`} key={id}>
               <a>
                 <ApplicationOuter
                   color="rgba(155, 197, 244, 0.849)"
                   name={fullName}
                   days={days}
                   id={id}
-                  // onclick={"/viewapplication"}
+                  // onclick={"/${callingurl}"}
                 />
               </a>
             </Link>
@@ -69,7 +83,12 @@ function Municipality_dashboard() {
       <ViewMoreHeader title="Completed Applications:" type="Completed" />
       <div className={styles.applications_container}>
         {completed.slice(0, 5).map((application) => {
-          const fullName = `${application.childFirstName} ${application.childLastName}`;
+          let fullName;
+          if (birthcertificates) {
+            fullName = `${application.childFirstName} ${application.childLastName}`;
+          } else {
+            fullName = `${application.firstName} ${application.lastName}`;
+          }
           const id = application.applicant_id;
           const date = moment(application.createdAt).format(
             "MMMM Do YYYY, h:mm:ss a"
@@ -79,7 +98,7 @@ function Municipality_dashboard() {
           console.log(days);
 
           return (
-            <Link href={`/viewapplication/${id}`} key={id}>
+            <Link href={`/${callingurl}/${id}`} key={id}>
               <a>
                 <ApplicationOuter
                   color="rgba(156, 244, 155, 0.849)"
@@ -97,7 +116,12 @@ function Municipality_dashboard() {
       <ViewMoreHeader title="Rejected Applications:" type="Rejected" />
       <div className={styles.applications_container}>
         {cancelled.slice(0, 5).map((application) => {
-          const fullName = `${application.childFirstName} ${application.childLastName}`;
+          let fullName;
+          if (birthcertificates) {
+            fullName = `${application.childFirstName} ${application.childLastName}`;
+          } else {
+            fullName = `${application.firstName} ${application.lastName}`;
+          }
           const id = application.applicant_id;
           const date = moment(application.createdAt).format(
             "MMMM Do YYYY, h:mm:ss a"
@@ -107,7 +131,7 @@ function Municipality_dashboard() {
           console.log(days);
 
           return (
-            <Link href={`/viewapplication/${id}`} key={id}>
+            <Link href={`/${callingurl}/${id}`} key={id}>
               <a>
                 <ApplicationOuter
                   color="rgba(244, 155, 155, 0.829)"
@@ -126,7 +150,10 @@ function Municipality_dashboard() {
 
   return (
     <div className={styles.municipality_dashboard_container}>
-      <LeftPaneMunicipalityDashboard />
+      <LeftPaneMunicipalityDashboard
+        birthcertificates={birthcertificates}
+        changecertificates={(value) => setBirthcertificates(value)}
+      />
       <div className={styles.municipality_display}>
         <div className={styles.municipality_search}>
           <Image src={search} alt="Search" width={20} height={20} />

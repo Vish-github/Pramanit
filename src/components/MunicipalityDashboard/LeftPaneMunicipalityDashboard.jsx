@@ -14,6 +14,8 @@ import {removeMunicipalityToken} from "../../../redux/actions/municipality.actio
 function LeftPaneMunicipalityDashboard({
   removeMunicipalityDetails,
   municipalitytoken,
+  birthcertificates,
+  changecertificates,
 }) {
   const router = useRouter();
   return (
@@ -24,8 +26,16 @@ function LeftPaneMunicipalityDashboard({
         {municipalitytoken?.municipality.name} MUNCIPALITY
       </h2>
 
-      <TypeOfCertificate active={false} title="Birth Certificates" />
-      <TypeOfCertificate active={true} title="Death Certificates" />
+      <TypeOfCertificate
+        active={birthcertificates}
+        title="Birth Certificates"
+        onClick={() => changecertificates(true)}
+      />
+      <TypeOfCertificate
+        active={!birthcertificates}
+        title="Death Certificates"
+        onClick={() => changecertificates(false)}
+      />
       <MunicipalityDetails details={municipalitytoken?.municipality} />
       <div
         className={styles.municipality_logout}
