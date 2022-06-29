@@ -4,8 +4,8 @@ import Header from "../layout/Header";
 
 import styles from "../styles/UserDashboard.module.css";
 
-import birth from "../assets/PRAMANIT/birth.png";
-import death from "../assets/PRAMANIT/death.png";
+import applydeathcertifcate from "../assets/PRAMANIT/applydeathcertifcate.png";
+import viewdeathcertificate from "../assets/PRAMANIT/viewdeathcertificate.png";
 
 import Avatar from "@mui/material/Avatar";
 import UserDashboardComponent from "../layout/UserDashboardComponent";
@@ -13,10 +13,11 @@ import UserDashboardComponent from "../layout/UserDashboardComponent";
 import Popper from "../UI/Popper";
 
 import {connect} from "react-redux";
-import {signOut, useSession} from "next-auth/react";
 import {removeToken} from "../redux/actions/token.action";
 
-function Userdashboard({accesstoken, removeUserDetails}) {
+import {signOut, useSession} from "next-auth/react";
+
+function User_death_certificate_view({token, removeUserDetails}) {
   const router = useRouter();
   const {data: session} = useSession();
 
@@ -34,25 +35,33 @@ function Userdashboard({accesstoken, removeUserDetails}) {
         <div className={styles.header_container}>
           <div className={styles.user_name_container}>
             <Avatar sx={{bgcolor: "#fff", color: "#930D0D"}}>
-              {accesstoken?.username[0]}
+              {token?.username ? token.username[0] : "u"}
             </Avatar>
-            <h2 className={styles.user_name}>{accesstoken?.username}</h2>
+            <h2 className={styles.user_name}>
+              {token?.username ? token.username : "User"}
+            </h2>
           </div>
           <Popper logout={logout} />
         </div>
       </Header>
+      {token?.deathCertificateStatus == 1 && (
+        <p className={styles.certificateAppliedText}>
+          Death Certificate is applied! Please wait for the response from
+          municipality
+        </p>
+      )}
       <div className={styles.userdashboard_options}>
         <UserDashboardComponent
-          image={birth}
-          title="Birth Certificate"
-          href="/user_birth_certificate_view"
-          active={true}
+          image={applydeathcertifcate}
+          title="Apply for certificate"
+          href="/apply_death_certificate"
+          active={token?.deathCertificateStatus == 0}
         />
         <UserDashboardComponent
-          image={death}
-          title="Death Certificate"
-          href="/user_death_certificate_view"
-          active={true}
+          image={viewdeathcertificate}
+          title="View Certificate"
+          href="/user_birth_certificate"
+          active={token?.deathCertificateStatus == 2}
         />
       </div>
     </div>
@@ -60,11 +69,14 @@ function Userdashboard({accesstoken, removeUserDetails}) {
 }
 
 const mapStateToProps = (state) => ({
-  accesstoken: state.token?.token,
+  token: state.token?.token,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {removeUserDetails: () => dispatch(removeToken())};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Userdashboard);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(User_death_certificate_view);
