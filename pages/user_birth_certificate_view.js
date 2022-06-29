@@ -17,7 +17,7 @@ import {removeToken} from "../redux/actions/token.action";
 
 import {signOut, useSession} from "next-auth/react";
 
-function User_certificate_view({token, removeUserDetails}) {
+function User_birth_certificate_view({token, removeUserDetails}) {
   const router = useRouter();
   const {data: session} = useSession();
 
@@ -79,4 +79,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(User_certificate_view);
+)(User_birth_certificate_view);

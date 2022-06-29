@@ -45,7 +45,7 @@ function Userdashboard({accesstoken, removeUserDetails}) {
         <UserDashboardComponent
           image={birth}
           title="Birth Certificate"
-          href="/user_certificate_view"
+          href="/user_birth_certificate_view"
           active={true}
         />
         <UserDashboardComponent
