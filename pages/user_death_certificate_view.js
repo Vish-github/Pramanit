@@ -60,7 +60,7 @@ function User_death_certificate_view({token, removeUserDetails}) {
         <UserDashboardComponent
           image={viewdeathcertificate}
           title="View Certificate"
-          href="/user_birth_certificate"
+          href="/user_death_certificate"
           active={token?.deathCertificateStatus == 2}
         />
       </div>
