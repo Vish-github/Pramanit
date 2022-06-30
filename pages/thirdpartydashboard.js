@@ -18,7 +18,7 @@ function ThirdPartyDashboard({accesstoken, removeThirdPartyDetails}) {
   const router = useRouter();
 
   const openpdf = (value) => {
-    axios(`/api/pdf_getter/${value}`, {
+    axios(value, {
       method: "GET",
       responseType: "blob",
     }).then((response) => {
@@ -51,7 +51,12 @@ function ThirdPartyDashboard({accesstoken, removeThirdPartyDetails}) {
       <h2 className={styles.user_name}>Birth Certificates</h2>
       <div className={styles.userdashboard_options_new}>
         {accesstoken?.birthcertificates?.map((birthcertificate, i) => (
-          <div key={i} onClick={() => openpdf(birthcertificate?.ipfshash)}>
+          <div
+            key={i}
+            onClick={() =>
+              openpdf(`/api/pdf_getter/${birthcertificate?.ipfshash}`)
+            }
+          >
             <a>
               <ApplicationOuter
                 color="rgba(155, 197, 244, 0.849)"
@@ -66,12 +71,17 @@ function ThirdPartyDashboard({accesstoken, removeThirdPartyDetails}) {
 
       <h2 className={styles.user_name}>Death Certificates</h2>
       <div className={styles.userdashboard_options_new}>
-        {accesstoken?.deathcertificates?.map((birthcertificate, i) => (
-          <div key={i} onClick={() => openpdf(birthcertificate?.ipfshash)}>
+        {accesstoken?.deathcertificates?.map((deathcertificate, i) => (
+          <div
+            key={i}
+            onClick={() =>
+              openpdf(`/api/pdfgetter_death/${deathcertificate?.ipfshash}`)
+            }
+          >
             <a>
               <ApplicationOuter
                 color="rgba(155, 197, 244, 0.849)"
-                name={birthcertificate.username}
+                name={deathcertificate.username}
                 id={i}
                 daysDisplay={false}
               />

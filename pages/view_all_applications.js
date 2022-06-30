@@ -1,13 +1,13 @@
 import Header from "../layout/Header";
 
 import styles from "../styles/UserDashboard.module.css";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import {useRouter} from "next/router";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import moment from "moment";
 import Link from "next/link";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter";
-import { Box, CircularProgress, Grid } from "@mui/material";
+import {Box, CircularProgress, Grid} from "@mui/material";
 import Loader from "../UI/Loader2";
 
 function Userdashboard() {
@@ -54,7 +54,7 @@ function Userdashboard() {
     <Grid
       container
       className={styles.applications_container}
-      style={{ padding: "1rem", margin: "1rem" }}
+      style={{padding: "1rem", margin: "1rem"}}
     >
       {allApplications.map((application) => {
         const fullName = `${application.childFirstName} ${application.childLastName}`;
@@ -66,7 +66,7 @@ function Userdashboard() {
 
         return (
           <Grid item key={id} xs={12} sm={6} md={4} lg={2}>
-            <Link href={`/viewapplication/${id}`}>
+            <Link href={`/viewbirthapplication/${id}`}>
               <a>
                 <ApplicationOuter
                   color={color}
