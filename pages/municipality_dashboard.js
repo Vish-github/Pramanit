@@ -7,7 +7,7 @@ import search from "../assets/svgs/search.svg";
 import MunicipalityStat from "../src/components/MunicipalityDashboard/MunicipalityStat.jsx";
 import ViewMoreHeader from "../layout/ViewMoreHeader.jsx";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter.jsx";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 import moment from "moment";
 import Link from "next/link";
@@ -50,7 +50,11 @@ function Municipality_dashboard() {
 
   const Applications = (
     <>
-      <ViewMoreHeader title="Pending Applications:" type="Pending" />
+      <ViewMoreHeader
+        title="Pending Applications:"
+        type="Pending"
+        certificate={birthcertificates ? "birth" : "death"}
+      />
       <div className={styles.applications_container}>
         {pending.slice(0, 5).map((application) => {
           let fullName;
@@ -80,7 +84,11 @@ function Municipality_dashboard() {
           );
         })}
       </div>
-      <ViewMoreHeader title="Completed Applications:" type="Completed" />
+      <ViewMoreHeader
+        title="Completed Applications:"
+        type="Completed"
+        certificate={birthcertificates ? "birth" : "death"}
+      />
       <div className={styles.applications_container}>
         {completed.slice(0, 5).map((application) => {
           let fullName;
@@ -95,7 +103,6 @@ function Municipality_dashboard() {
           );
           const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
 
-          console.log(days);
 
           return (
             <Link href={`/${callingurl}/${id}`} key={id}>
@@ -113,7 +120,11 @@ function Municipality_dashboard() {
           );
         })}
       </div>
-      <ViewMoreHeader title="Rejected Applications:" type="Rejected" />
+      <ViewMoreHeader
+        title="Rejected Applications:"
+        type="Rejected"
+        certificate={birthcertificates ? "birth" : "death"}
+      />
       <div className={styles.applications_container}>
         {cancelled.slice(0, 5).map((application) => {
           let fullName;
@@ -127,8 +138,6 @@ function Municipality_dashboard() {
             "MMMM Do YYYY, h:mm:ss a"
           );
           const days = moment(date, "MMMM Do YYYY, h:mm:ss a").fromNow();
-
-          console.log(days);
 
           return (
             <Link href={`/${callingurl}/${id}`} key={id}>

@@ -1,13 +1,13 @@
 import Header from "../layout/Header";
 
 import styles from "../styles/UserDashboard.module.css";
-import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
 import Link from "next/link";
 import ApplicationOuter from "../src/components/MunicipalityDashboard/ApplicationOuter";
-import {Box, CircularProgress, Grid} from "@mui/material";
+import { Box, CircularProgress, Grid } from "@mui/material";
 import Loader from "../UI/Loader2";
 
 function Userdashboard() {
@@ -20,7 +20,8 @@ function Userdashboard() {
   useEffect(() => {
     if (!router.isReady) return;
 
-    const url = "/api/get_birth_certificate";
+    const certificate = router.query.certificate;
+    const url = `/api/get_${certificate.toLowerCase()}_certificate`;
 
     const fetchData = async () => {
       try {
@@ -36,7 +37,7 @@ function Userdashboard() {
           setColor("rgba(156, 244, 155, 0.849)");
         } else if (router.query.type.toLowerCase() === "rejected") {
           setAllApplications(data.rejected);
-          setColor("rgba(155, 197, 244, 0.849)");
+          setColor("rgba(244, 155, 155, 0.829)");
         } else {
           setAllApplications(null);
         }
@@ -54,10 +55,15 @@ function Userdashboard() {
     <Grid
       container
       className={styles.applications_container}
-      style={{padding: "1rem", margin: "1rem"}}
+      style={{ padding: "1rem", margin: "1rem" }}
     >
       {allApplications.map((application) => {
-        const fullName = `${application.childFirstName} ${application.childLastName}`;
+        let fullName;
+        if (router.query.certificate.toLowerCase() === "birth") {
+          fullName = `${application.childFirstName} ${application.childLastName}`;
+        } else {
+          fullName = `${application.firstName} ${application.lastName}`;
+        }
         const id = application.applicant_id;
         const date = moment(application.createdAt).format(
           "MMMM Do YYYY, h:mm:ss a"
