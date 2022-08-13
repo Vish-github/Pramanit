@@ -1,0 +1,53 @@
+% Preamble {{{
+\documentclass[12pt]{report} %N
+\usepackage[margin=1in]{geometry}
+\geometry{
+left=1.2in
+}
+\usepackage[
+backend=biber,
+style=numeric,
+sorting=none
+]{biblatex}
+\addbibresource{citations.bib}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{ragged2e}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+		citecolor=black,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdfpagemode=FullScreen,
+    }
+
+\lstset{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true
+}
+
+% Chapter title formatting
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\centering}{\centering\chaptertitlename\ \thechapter}{20pt}{\Huge} 
+\titlespacing*{\chapter} 
+  {0pt}{50pt}{40pt}
+
+% Recompile these documents. Do this if you're currently making changes to title and introcution chapters
+% \includeonly{
+	% chapters/title,
+	% chapters/introduction,
+% }
+% }}}
+
+\begin{document}
+
+\include{chapters/title}
+\end{document}
