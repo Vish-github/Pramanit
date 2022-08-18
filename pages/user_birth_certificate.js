@@ -187,6 +187,7 @@ function User_birth_certificate({accesstoken, openSnackbarmessage}) {
             >
               Generate Link
             </Button>
+            {linkUrl && displayLink}
           </Grid>
         </Grid>
         <p className={styles.orline}>
@@ -210,7 +211,6 @@ function User_birth_certificate({accesstoken, openSnackbarmessage}) {
             Add third party
           </Button>
         </Grid>
-        {linkUrl && displayLink}
       </Modal>
     </>
   );

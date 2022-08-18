@@ -1,0 +1,33 @@
+{
+  "data": [
+    {
+      "question": "What is on a birth certificate?",
+      "answer": "A birth certificate has the name, gender, parents' names, date and place of birth of a person and the hospital where the person was born. It is an important document that serves various purposes, but its primary one is to prove one's age. It is a requirement when applying for all mandatory documents because there are rules of age when applying for them, and the birth certificate proves that."
+    },
+
+    {
+      "question": "What is on a death certificate?",
+      "answer": "A death certificate is an official document issued by the government stating the time, place, and cause of death of an individual. Death certificates serve as proof of an official death for legal purposes and are used to close the Estate of the deceased. They are also used by the government to track vital statistics on the population."
+    },
+    {
+      "question": "How much time will it take for the certificate to be issued?",
+      "answer": "Depends on the municipality how many days does it takes to process your request. Ideally a week should be enough"
+    },
+    {
+      "question": "Do i need to physically visit the municipality anytime during this processs?",
+      "answer": "No the entire process is online."
+    },
+    {
+      "question": "Will they have to submit hard copy in the municipality office?",
+      "answer": "No. Scanned attested copies of requested documents should be sufficient."
+    },
+    {
+      "question": "What do you mean by a attested copy?",
+      "answer": "This means that another person must sign their name, print their name and provide their telephone number on each document copy you submit. This person, by signing, is attesting that the copy you submit is an exact copy of the original. Any government official can provide this attestation for you."
+    },
+    {
+      "question": "When should you apply for a birth certificate",
+      "answer": "The birth certificate has to be registered with the concerned local authorities within 21 days of the occurrence, by filling up the form prescribed by the Registrar. A birth certificate in India is then issued once the verification with the actual records of the hospital. If the birth has not been registered within the specified time of the occurrence, the certificate is issued after due police verification ordered by the revenue authorities."
+    }
+  ]
+}
